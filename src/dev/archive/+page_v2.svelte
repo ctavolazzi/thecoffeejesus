@@ -1,18 +1,14 @@
-<script lang="ts">
+<script>
   import { onMount } from 'svelte';
-  import * as Tabs from '$lib/components/ui/tabs';
-  import * as Card from '$lib/components/ui/card';
+  import * as Collapsible from "$lib/components/ui/collapsible";
   import { Button } from '$lib/components/ui/button';
   import { Input } from '$lib/components/ui/input';
   import { Label } from '$lib/components/ui/label';
-  import '../app.css';
-  import * as Collapsible from "$lib/components/ui/collapsible";
+  import * as Tabs from '$lib/components/ui/tabs';
   import * as Carousel from '$lib/components/ui/carousel';
-  import * as Accordion from '$lib/components/ui/accordion';
-  import { ChevronLeft, ChevronRight, Mail, Check, Book, BookOpen, BookAudio, BookHeadphonesIcon, Globe, FileText, Settings } from "lucide-svelte/icons";
-  import * as Pagination from "$lib/components/ui/pagination";
+  import * as Card from '$lib/components/ui/card';
   import '../app.css';
-  import { Separator } from '$lib/components/ui/separator';
+  import * as Accordion from '$lib/components/ui/accordion';
 
   let email = '';
 
@@ -49,34 +45,15 @@
   ];
 </script>
 
-
-<!-- <header class="hero">
+<header class="hero">
   <img src="https://images.pexels.com/photos/1750566/pexels-photo-1750566.jpeg" alt="Person Flipping Book Page">
   <h1>Discover the Saint Within: The Book of Saint You</h1>
   <p>Transform your life story into a sacred keepsake, crafted with devotion and care.</p>
   <form on:submit|preventDefault={handleSubmit} class="email-form">
-    <Label for="email"><Mail class="inline mr-2" /> Enter your email to get started</Label>
+    <Label for="email">Enter your email to get started</Label>
     <div class="email-input">
       <Input type="email" id="email" placeholder="Your email address" bind:value={email} required />
-      <Button type="submit"><CheckCircle class="inline mr-2" /> Start My Journey</Button>
-    </div>
-  </form>
-</header> -->
-<header class="hero">
-  <img src="https://images.pexels.com/photos/1750566/pexels-photo-1750566.jpeg" alt="Person Flipping Book Page">
-  <h1>Discover the Your Story: The Book of Saint You</h1>
-  <p>Transform your life story into a sacred keepsake, crafted with devotion and care.</p>
-  <form on:submit|preventDefault={handleSubmit} class="email-form">
-    <Label for="email" class="email-label">
-      <Mail class="email-icon" />
-      Enter your email to get started
-    </Label>
-    <div class="email-input-container">
-      <Input type="email" id="email" placeholder="Your email address" bind:value={email} required />
-      <Button type="submit">
-        <Check class="check-icon" />
-        Start My Journey
-      </Button>
+      <Button type="submit">Start My Journey</Button>
     </div>
   </form>
 </header>
@@ -86,57 +63,39 @@
     <h2>What's Included</h2>
     <div class="feature-grid">
       <Card.Root>
-        <Card.Content class="feature-content">
-          <BookOpen class="feature-icon" />
-          <div>
-            <h3 class="font-semibold">In-Depth Interviews</h3>
-            <p>Our expert writers will conduct confidential interviews to uncover the essence of your life story.</p>
-          </div>
+        <Card.Content>
+          <h3>In-Depth Interviews</h3>
+          <p>Our expert writers will conduct intimate interviews to uncover the essence of your life story.</p>
         </Card.Content>
       </Card.Root>
       <Card.Root>
-        <Card.Content class="feature-content">
-          <Book class="feature-icon" />
-          <div>
-            <h3 class="font-semibold">Engaging Storytelling</h3>
-            <p>We'll transform your memories into a compelling narrative that captures your unique voice and personality.</p>
-          </div>
+        <Card.Content>
+          <h3>Engaging Storytelling</h3>
+          <p>We'll transform your memories into a compelling narrative that captures your unique voice and personality.</p>
         </Card.Content>
       </Card.Root>
       <Card.Root>
-        <Card.Content class="feature-content">
-          <BookAudio class="feature-icon" />
-          <div>
-            <h3 class="font-semibold">Premium Quality</h3>
-            <p>Your memoir will be meticulously crafted and presented in a luxurious hardcover book that will stand the test of time.</p>
-          </div>
+        <Card.Content>
+          <h3>Premium Quality</h3>
+          <p>Your memoir will be meticulously crafted and presented in a luxurious hardcover book that will stand the test of time.</p>
         </Card.Content>
       </Card.Root>
       <Card.Root>
-        <Card.Content class="feature-content">
-          <Globe class="feature-icon" />
-          <div>
-            <h3 class="font-semibold">Memoir Website</h3>
-            <p>Share your story with the world through a personalized website, accessible from anywhere at any time.</p>
-          </div>
+        <Card.Content>
+          <h3>Memoir Website</h3>
+          <p>Share your story with the world through a personalized website, accessible from anywhere at any time.</p>
         </Card.Content>
       </Card.Root>
       <Card.Root>
-        <Card.Content class="feature-content">
-          <FileText class="feature-icon" />
-          <div>
-            <h3 class="font-semibold">Ebook Included</h3>
-            <p>In addition to the physical book, you'll receive a beautifully formatted ebook version for easy sharing or printing.</p>
-          </div>
+        <Card.Content>
+          <h3>Ebook Included</h3>
+          <p>In addition to the physical book, you'll receive a beautifully formatted ebook version for easy digital sharing.</p>
         </Card.Content>
       </Card.Root>
       <Card.Root>
-        <Card.Content class="feature-content">
-          <Settings class="feature-icon" />
-          <div>
-            <h3 class="font-semibold">Customization Options</h3>
-            <p>Upgrade your package to include a fully customized design and additional features.</p>
-          </div>
+        <Card.Content>
+          <h3>Customization Options</h3>
+          <p>Upgrade your package to include a fully customized design and additional features.</p>
         </Card.Content>
       </Card.Root>
     </div>
@@ -167,62 +126,61 @@
   </section>
 
   <section class="pricing">
-    <h2 class="text-3xl font-semibold text-center">Choose Your Journey</h2>
-    <Tabs.Root value="standard" class="w-full">
-      <Tabs.List class="grid grid-cols-3">
+    <h2>Choose Your Journey</h2>
+    <Carousel.Root class="w-full">
+      <Carousel.Content>
         {#each packages as pkg (pkg.value)}
-          <Tabs.Trigger value={pkg.value}>{pkg.label}</Tabs.Trigger>
+          <Carousel.Item>
+            <div class="p-4">
+              <Card.Root class="package-card">
+                <Card.Header>
+                  <h3 class="text-2xl font-semibold">{pkg.label}</h3>
+                  <p class="mt-1 text-sm text-muted-foreground">Starting at ${pkg.price}</p>
+                </Card.Header>
+                <Card.Content>
+                  {#if pkg.value === 'standard'}
+                    <ul class="space-y-2 text-sm">
+                      <li>5 hours of interviews</li>
+                      <li>100-page memoir</li>
+                      <li>Hardcover book</li>
+                      <li>Ebook version</li>
+                      <li>Custom memoir website</li>
+                    </ul>
+                  {:else if pkg.value === 'premium'}
+                    <ul class="space-y-2 text-sm">
+                      <li>10 hours of interviews</li>
+                      <li>150-page memoir</li>
+                      <li>Hardcover book</li>
+                      <li>Ebook version</li>
+                      <li>Custom memoir website</li>
+                      <li>Customized book design</li>
+                      <li>Audiobook version</li>
+                    </ul>
+                  {:else if pkg.value === 'elite'}
+                    <ul class="space-y-2 text-sm">
+                      <li>20 hours of interviews</li>
+                      <li>200-page memoir</li>
+                      <li>Hardcover book</li>
+                      <li>Ebook version</li>
+                      <li>Custom memoir website</li>
+                      <li>Fully customized design</li>
+                      <li>Leather-bound edition</li>
+                      <li>Audiobook version</li>
+                      <li>Video montage of memories</li>
+                    </ul>
+                  {/if}
+                </Card.Content>
+                <Card.Footer>
+                  <Button on:click={handleCheckout} class="buy-button w-full">Start My {pkg.label}</Button>
+                </Card.Footer>
+              </Card.Root>
+            </div>
+          </Carousel.Item>
         {/each}
-      </Tabs.List>
-      {#each packages as pkg (pkg.value)}
-        <Tabs.Content value={pkg.value}>
-          <div class="p-4">
-            <Card.Root class="package-card">
-              <Card.Header>
-                <h3 class="text-2xl font-semibold">{pkg.label}</h3>
-                <p class="mt-1 text-sm text-muted-foreground">Starting at ${pkg.price}</p>
-              </Card.Header>
-              <Card.Content>
-                {#if pkg.value === 'standard'}
-                  <ul class="space-y-2 text-sm">
-                    <li>5 hours of interviews</li>
-                    <li>100-page memoir</li>
-                    <li>Hardcover book</li>
-                    <li>Ebook version</li>
-                    <li>Custom memoir website</li>
-                  </ul>
-                {:else if pkg.value === 'premium'}
-                  <ul class="space-y-2 text-sm">
-                    <li>10 hours of interviews</li>
-                    <li>150-page memoir</li>
-                    <li>Hardcover book</li>
-                    <li>Ebook version</li>
-                    <li>Custom memoir website</li>
-                    <li>Customized book design</li>
-                    <li>Audiobook version</li>
-                  </ul>
-                {:else if pkg.value === 'elite'}
-                  <ul class="space-y-2 text-sm">
-                    <li>20 hours of interviews</li>
-                    <li>200-page memoir</li>
-                    <li>Hardcover book</li>
-                    <li>Ebook version</li>
-                    <li>Custom memoir website</li>
-                    <li>Fully customized design</li>
-                    <li>Leather-bound edition</li>
-                    <li>Audiobook version</li>
-                    <li>Video montage of memories</li>
-                  </ul>
-                {/if}
-              </Card.Content>
-              <Card.Footer>
-                <Button on:click={handleCheckout} class="buy-button w-full">Start My {pkg.label}</Button>
-              </Card.Footer>
-            </Card.Root>
-          </div>
-        </Tabs.Content>
-      {/each}
-    </Tabs.Root>
+      </Carousel.Content>
+      <Carousel.Previous />
+      <Carousel.Next />
+    </Carousel.Root>
   </section>
 
   <section class="faq">
@@ -252,20 +210,18 @@
   </section>
 
   <section class="guarantee">
-    <div class="space-y-1">
-      <h2 class="text-sm font-medium leading-none">Our 100% Satisfaction Guarantee</h2>
-      <p class="text-sm text-muted-foreground">We're dedicated to creating a memoir that you'll cherish forever. If you're not completely satisfied with your Book of Saint You, we'll work with you to make it right or provide a full refund.</p>
-    </div>
-    <Separator class="my-4" />
+    <Card.Root class="guarantee-card">
+      <Card.Content>
+        <h2>Our 100% Satisfaction Guarantee</h2>
+        <p>We're dedicated to creating a memoir that you'll cherish forever. If you're not completely satisfied with your Book of Saint You, we'll work with you to make it right or provide a full refund.</p>
+      </Card.Content>
+    </Card.Root>
   </section>
 
   <section class="cta">
     <h2>Ready to Start Your Journey?</h2>
     <p>Take the first step toward preserving your legacy. Choose your package and begin your memoir today.</p>
-    <br />
-    <span class="flex-1"></span>
-        <Button on:click={handleCheckout} class="cta-button">Start My Memoir</Button>
-     <span class="flex-1"></span>
+    <Button on:click={handleCheckout} class="cta-button">Start My Memoir</Button>
   </section>
 </main>
 
@@ -367,18 +323,5 @@
 
   .cta-button {
     margin-top: 1rem;
-  }
-
-  .pagination-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .carousel-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
   }
 </style>
