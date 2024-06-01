@@ -82,9 +82,8 @@
 </style>
 
 <section class="hero">
-  <h1>Thank you for being here ❣️</h1>
-  <img src="/hero_image.png" alt="Christopher Tavolazzi" class="hero-image" />
-  <p>Do you want to escape the grind and do more of what matters? I'm here to help you grow, monetize your creativity, and overcome your fears.</p>
+  <h1>Welcome to the World of Christopher Tavolazzi</h1>
+  <p>@thecoffeejesus</p>
   <form on:submit|preventDefault={handleSubmit} class="email-form">
     <label for="email" class="email-label">
       <Mail class="email-icon" />
@@ -100,12 +99,12 @@
 </section>
 
 <div class="container">
-  <h2 class="text-2xl font-bold">About Me</h2>
   <section class="section">
+    <h2>About Me</h2>
     <Root>
       <Header>
-        <Title>Who is Christopher Tavolazzi?</Title>
-        <Description>Learn more about @thecoffeejesus</Description>
+        <Title>About Me</Title>
+        <Description>Learn more about Christopher Tavolazzi</Description>
       </Header>
       <Content>
         <p>
@@ -114,19 +113,13 @@
         <p>
           My mission is to unlock potential through wellness, financial growth, and skill enhancement. I strive for personal freedom and full-time mobility, all while living with increasing integrity.
         </p>
-        <p>
-          Previously, I worked as a tech lead at Adobe and as a designer for AES Solar. I left my job to help my disabled mother with her mobility needs, which inspired me to take my social media presence seriously. Applying all the growth strategies I could find, I transformed my social media accounts, growing from 4,000 to 30,000 followers in just two months. I found my niche discussing science and tech while spreading a positive message.
-        </p>
-        <p>
-          Now, I help people grow their accounts, monetize their creativity, and overcome their fears and insecurities. My mission is to empower individuals to empower themselves, showing them that they too can achieve remarkable growth and success.
-        </p>
       </Content>
     </Root>
   </section>
 
   <section class="section">
+    <h2>Projects and Offerings</h2>
     <div class="space-y-4">
-      <h2 class="text-2xl font-bold">Projects and Offerings</h2>
       <Root>
         <Header>
           <Title>Gentle Bull Co (GBC)</Title>
@@ -176,6 +169,7 @@
   </section>
 
   <section class="section">
+    <h2>Contact Me</h2>
     <Root>
       <Header>
         <Title>Contact Me</Title>
@@ -183,7 +177,7 @@
       </Header>
       <Content>
         <p>If you want to get in touch, feel free to reach out via my social media channels or through email.</p>
-        <p>Email: <a href="mailto:christopher@gmail.com" class="text-primary">christopher@gmail.com</a></p>
+        <p>Email: <a href="mailto:christopher@example.com" class="text-primary">christopher@example.com</a></p>
         <p>Twitter: <a href="https://twitter.com/thecoffeejesus" class="text-primary">@thecoffeejesus</a></p>
       </Content>
     </Root>
