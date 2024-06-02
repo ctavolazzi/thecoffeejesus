@@ -5,7 +5,7 @@
   import { Button } from '$lib/components/ui/button';
   import { Input } from '$lib/components/ui/input';
   import { Label } from '$lib/components/ui/label';
-  import '../app.css';
+  import '../../app.css';
   import * as Collapsible from "$lib/components/ui/collapsible";
   import * as Carousel from '$lib/components/ui/carousel';
   import * as Accordion from '$lib/components/ui/accordion';
