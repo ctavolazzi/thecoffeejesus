@@ -7,7 +7,6 @@
   import * as Dialog from "$lib/components/ui/dialog/index.js";
   import { Input } from "$lib/components/ui/input/index.js";
   import { Label } from "$lib/components/ui/label/index.js";
-  import { goto } from '$app/navigation';
 
   let socialMediaHandle = '';
   let socialMediaPlatform = '';
@@ -17,14 +16,9 @@
     console.log('Social media handle submitted:', socialMediaHandle);
     console.log('Social media platform submitted:', socialMediaPlatform);
     console.log('Followers count submitted:', followersCount);
-
-    // Clear the form fields
     socialMediaHandle = '';
     socialMediaPlatform = '';
     followersCount = '';
-
-    // Redirect to the thank you page
-    goto('/thank-you');
   }
 
   onMount(() => {
@@ -96,7 +90,7 @@
       </p>
       <Dialog.Root>
         <Dialog.Trigger class={buttonVariants({ variant: "outline" })}>
-          Start Your Journey
+          Enter Your Details
         </Dialog.Trigger>
         <Dialog.Content class="sm:max-w-[425px]">
           <Dialog.Header>
@@ -120,7 +114,7 @@
             </div>
           </div>
           <Dialog.Footer>
-            <Button type="button" on:click={handleSubmit}>Start Your Journey</Button>
+            <Button type="button" on:click={handleSubmit}>Save changes</Button>
           </Dialog.Footer>
         </Dialog.Content>
       </Dialog.Root>
@@ -141,7 +135,7 @@
           I'm Christopher Tavolazzi, known online as @thecoffeejesus. I'm a creator, artist, musician, software developer, and more. My work spans across various fields, from art and music to software development and AI research.
         </p>
         <p>
-          My mission is to empower you to empower yourself. I want you to unlock your full potential through wellness, financial growth, and skill enhancement. I strive for personal freedom and full-time mobility, all while living with increasing integrity.
+          My mission is to unlock potential through wellness, financial growth, and skill enhancement. I strive for personal freedom and full-time mobility, all while living with increasing integrity.
         </p>
         <p>
           Previously, I worked as a tech lead at Adobe and as a designer for AES Solar. I left my job to help my disabled mother with her mobility needs, which inspired me to take my social media presence seriously. Applying all the growth strategies I could find, I transformed my social media accounts, growing from 4,000 to 30,000 followers in just two months. I found my niche discussing science and tech while spreading a positive message.
@@ -177,10 +171,10 @@
       <CardRoot>
         <CardHeader>
           <CardTitle>Tavolazzi Tavern</CardTitle>
-          <CardDescription>Discord Server</CardDescription>
+          <CardDescription>YouTube Channel</CardDescription>
         </CardHeader>
         <CardContent>
-          <p>My community Discord server where I discuss news and tech commentary.</p>
+          <p>My YouTube channel where I discuss news and tech commentary.</p>
         </CardContent>
       </CardRoot>
       <CardRoot>

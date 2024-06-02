@@ -6,13 +6,10 @@
 
 <nav class="navbar">
   <div class="navbar-container">
-    <a href="/" class="navbar-logo">YourLogo</a>
+    <a href="/" class="navbar-logo">@TheCoffeeJesus</a>
     <ul class="navbar-links">
-      <li><a href="/">Home</a></li>
-      <li><a href="/pricing">Pricing</a></li>
-      <li><a href="/faq">FAQ</a></li>
       <li><a href="/about">About</a></li>
-      <li><a href="/profile">Profile</a></li>
+      <li><a href="/faq">FAQ</a></li>
       <li><a href="/login">Login</a></li>
     </ul>
   </div>
