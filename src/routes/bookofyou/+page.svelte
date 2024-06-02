@@ -11,7 +11,6 @@
   import * as Accordion from '$lib/components/ui/accordion';
   import { ChevronLeft, ChevronRight, Mail, Check, Book, BookOpen, BookAudio, BookHeadphonesIcon, Globe, FileText, Settings } from "lucide-svelte/icons";
   import * as Pagination from "$lib/components/ui/pagination";
-  import '../app.css';
   import { Separator } from '$lib/components/ui/separator';
 
   let email = '';
