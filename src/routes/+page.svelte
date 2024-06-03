@@ -115,8 +115,8 @@
         Do you want to escape the grind and do more things that matter? I'm here to help you grow, live more authentically, and overcome your fears.
       </p>
       <Dialog.Root>
-        <Dialog.Trigger class={buttonVariants({ variant: "blackBorder" })}>
-          Start Your Journey
+        <Dialog.Trigger class={`${buttonVariants({ variant: "blackBorder" })} font-bold`}>
+          <span class="font-bold">Start Your Journey</span>
         </Dialog.Trigger>
         <Dialog.Content class="sm:max-w-[425px]">
           <Dialog.Header>
