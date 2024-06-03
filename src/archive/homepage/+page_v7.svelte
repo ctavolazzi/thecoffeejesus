@@ -7,28 +7,15 @@
   import { Input } from "$lib/components/ui/input/index.js";
   import { Label } from "$lib/components/ui/label/index.js";
   import { goto } from '$app/navigation';
-  import SocialPopover from '$lib/components/SocialPopover.svelte';
-  import { supabase } from '$lib/supabaseClient';
 
   let socialMediaHandle = '';
   let socialMediaPlatform = '';
   let followersCount = '';
-  let popoverOpen = false;
 
-  async function handleSubmit() {
+  function handleSubmit() {
     console.log('Social media handle submitted:', socialMediaHandle);
     console.log('Social media platform submitted:', socialMediaPlatform);
     console.log('Followers count submitted:', followersCount);
-
-    const { data, error } = await supabase
-      .from('profiles')
-      .insert([{ handle: socialMediaHandle, platform: socialMediaPlatform, followers: followersCount }]);
-
-    if (error) {
-      console.error('Error saving profile:', error);
-    } else {
-      console.log('Profile saved:', data);
-    }
 
     // Clear the form fields
     socialMediaHandle = '';
@@ -37,14 +24,6 @@
 
     // Redirect to the thank you page
     goto('/thank-you');
-  }
-
-  function openPopover() {
-    popoverOpen = true;
-  }
-
-  function closePopover() {
-    popoverOpen = false;
   }
 
   onMount(() => {
@@ -154,11 +133,11 @@
     <CardRoot>
       <CardHeader>
         <CardTitle>Who is Christopher Tavolazzi?</CardTitle>
-        <CardDescription>Learn more about <a href="#" on:click|preventDefault={openPopover} class="text-primary underline">@thecoffeejesus</a></CardDescription>
+        <CardDescription>Learn more about @thecoffeejesus</CardDescription>
       </CardHeader>
       <CardContent>
         <p>
-          I'm Christopher Tavolazzi, known online as <a href="#" on:click|preventDefault={openPopover} class="text-primary underline">@thecoffeejesus</a>. I'm a creator, artist, musician, software developer, and more. My work spans across various fields, from art and music to software development and AI research.
+          I'm Christopher Tavolazzi, known online as @thecoffeejesus. I'm a creator, artist, musician, software developer, and more. My work spans across various fields, from art and music to software development and AI research.
         </p>
         <p>
           My mission is to empower you to empower yourself. <span style="display: block; height: .25em;"></span>
@@ -285,5 +264,3 @@
     </CardRoot>
   </section>
 </div>
-
-<SocialPopover open={popoverOpen} closePopover={closePopover} />
