@@ -50,7 +50,7 @@
     align-items: center;
   }
   .navbar-logo {
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: bold;
   }
   .navbar-links {
