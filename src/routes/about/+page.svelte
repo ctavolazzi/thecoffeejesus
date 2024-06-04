@@ -118,18 +118,36 @@
             </ul>
         </div>
         <div class="mb-6">
-            <strong>Music:</strong>
-            <ul class="list-disc list-inside ml-4">
-                <li class="mb-2">
-                    <em>Are You Coming?</em> (with Bungo): A comedic bar rock anthem album.
-                </li>
-                <li class="mb-2">
-                    <em>Buttknuckle, Vol. II: Audio Suppository</em> (with Buttknuckle): A goofy space adventure album.
-                </li>
-                <li class="mb-2">
-                    <em>Cautionary Tale</em>: An Americana ode to classic country.
-                </li>
-            </ul>
+          <strong>Music:</strong>
+          <ul class="list-disc list-inside ml-4">
+            <li class="mb-2">
+              Are You Coming? (with Bungo): A comedic bar rock anthem album.
+              <a href="https://open.spotify.com/artist/0XlRBLCeOnSQzpRtNVVfCJ" target="_blank" class="text-blue-500 hover:underline">
+                <i class="fab fa-spotify"></i>
+              </a>
+              <a href="https://www.youtube.com/@bungohungo1957" target="_blank" class="text-red-500 hover:underline">
+                <i class="fab fa-youtube"></i>
+              </a>
+            </li>
+            <li class="mb-2">
+              Buttknuckle, Vol. II: Audio Suppository (with Buttknuckle): A goofy space adventure album.
+              <a href="https://open.spotify.com/artist/0PRQThrKeb33WfiHJtaCto" target="_blank" class="text-blue-500 hover:underline">
+                <i class="fab fa-spotify"></i>
+              </a>
+              <a href="https://www.youtube.com/watch?v=uQzykmJ2jQw&list=OLAK5uy_kP8_8ZvMrof96gOlZCUwkO6J9GN2vQxQQ" target="_blank" class="text-red-500 hover:underline">
+                <i class="fab fa-youtube"></i>
+              </a>
+            </li>
+            <li class="mb-2">
+              Cautionary Tale: An Americana ode to classic country.
+              <a href="https://open.spotify.com/artist/6iIEcSCokQo328DxgDuIDR" target="_blank" class="text-blue-500 hover:underline">
+                <i class="fab fa-spotify"></i>
+              </a>
+              <a href="https://www.youtube.com/watch?v=LMR0k8SB8Jw&list=PLiaaR6_8Uv13sCbIFuwOaIYV_uz7wW8n0" target="_blank" class="text-red-500 hover:underline">
+                <i class="fab fa-youtube"></i>
+              </a>
+            </li>
+          </ul>
         </div>
     </div>
   </div>
@@ -158,12 +176,19 @@
   <div class="mt-10 text-center">
     <h2 class="text-xl font-semibold mb-4">Connect with Christopher Tavolazzi</h2>
     <div class="flex justify-center space-x-4">
-      <a href="#" class="text-blue-500 hover:underline">Medium</a>
-      <a href="#" class="text-blue-500 hover:underline">Website</a>
-      <a href="#" class="text-blue-500 hover:underline">Twitter</a>
-      <a href="#" class="text-blue-500 hover:underline">Instagram</a>
+      <a href="https://www.instagram.com/thecoffeejesus/" class="text-blue-500 hover:underline">
+        <i class="fab fa-instagram"></i> Instagram
+      </a>
+      <a href="https://x.com/TheCoffeeJesus" class="text-blue-500 hover:underline">
+        <i class="fab fa-twitter"></i> Twitter
+      </a>
+      <a href="https://www.tiktok.com/@thecoffeejesus" class="text-blue-500 hover:underline">
+        <i class="fab fa-tiktok"></i> TikTok
+      </a>
     </div>
   </div>
+
+
 </div>
 
 <SocialPopover open={popoverOpen} closePopover={closePopover} />
