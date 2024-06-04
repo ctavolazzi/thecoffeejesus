@@ -9,8 +9,7 @@
   import { Label } from "$lib/components/ui/label/index.js";
   import { goto } from '$app/navigation';
   import SocialPopover from '$lib/components/SocialPopover.svelte';
-  import { supabase } from '$lib/supabaseClient';
-  // import { user, checkUser } from '$lib/stores/auth';
+  import { supabase } from '../auth/supabaseClient';
 
   let socialMediaHandle = '';
   let socialMediaPlatform = '';
@@ -18,17 +17,11 @@
   let notes = '';
   let popoverOpen = false;
 
-  function sanitizeInput(value) {
-    // Remove non-numeric characters (like commas)
-    return value.replace(/[^0-9]/g, '');
-  }
-
   async function handleSubmit() {
-    const sanitizedFollowersCount = sanitizeInput(followersCount);
-    const followersCountInt = parseInt(sanitizedFollowersCount, 10);
-
+    const followersCountInt = parseInt(followersCount);
     if (isNaN(followersCountInt)) {
       alert('Invalid followers count. Please enter a valid number.');
+      console.error('Invalid followers count. Please enter a valid number.');
       return;
     }
 
@@ -43,7 +36,14 @@
 
     if (error) {
       alert('Error saving lead. Please try again.');
+      console.error('Error saving lead:', error);
     } else {
+      console.log('Social media handle submitted:', socialMediaHandle);
+      console.log('Social media platform submitted:', socialMediaPlatform);
+      console.log('Followers count submitted:', followersCount);
+      console.log('Notes:', notes);
+      console.log('Lead saved successfully:', data);
+
       // Clear the form fields
       socialMediaHandle = '';
       socialMediaPlatform = '';
@@ -63,9 +63,7 @@
     popoverOpen = false;
   }
 
-  onMount(async () => {
-    await checkUser();
-
+  onMount(() => {
     try {
       const script = document.createElement('script');
       script.src = 'https://js.stripe.com/v3/buy-button.js';
@@ -81,10 +79,6 @@
 <style>
   .hero {
     text-align: center;
-    padding: 2rem 1rem;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2rem;
   }
 
   .hero h1 {
@@ -95,7 +89,6 @@
   .hero p {
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
-    color: #666;
   }
 
   .container {
@@ -115,10 +108,8 @@
   }
 
   .hero-image {
-    width: 100%;
-    max-width: 600px;
+    width: 600px;
     height: auto;
-    margin: auto;
   }
 
   .hero-image-container {
@@ -213,18 +204,6 @@
       <h2 class="text-2xl font-bold">Christopher's Projects</h2>
       <CardRoot>
         <CardHeader>
-          <CardTitle>Coffee Jesus Coffee</CardTitle>
-          <CardDescription>New Coffee Line</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p>
-            Coffee Jesus Coffee is my new socially conscious coffee line, supplied by Stoble Coffee Roasters in Chico, CA. <span style="display: block; height: .25em;"></span>
-            We are committed to making a difference, donating 10% of our profits to help families in Gaza and another 10% to support local communities here in the US.
-          </p>
-        </CardContent>
-      </CardRoot>
-      <CardRoot>
-        <CardHeader>
           <CardTitle>Gentle Bull Co (GBC)</CardTitle>
           <CardDescription>Community Art Organization</CardDescription>
         </CardHeader>
@@ -278,6 +257,18 @@
           </p>
         </CardContent>
       </CardRoot>
+      <CardRoot>
+        <CardHeader>
+          <CardTitle>Coffee Jesus Coffee</CardTitle>
+          <CardDescription>New Coffee Line</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p>
+            Coffee Jesus Coffee is my new socially conscious coffee line, supplied by Stoble Coffee Roasters in Chico, CA. <span style="display: block; height: .25em;"></span>
+            We are committed to making a difference, donating 10% of our profits to help families in Gaza and another 10% to support local communities here in the US.
+          </p>
+        </CardContent>
+      </CardRoot>
     </div>
   </section>
 
@@ -290,11 +281,9 @@
       </CardHeader>
       <CardContent>
         <p>
-          If you want to get in touch, feel free to reach out via my social media channels or through email.
-          <span style="display: block; height: .25em;"></span>
-          Email: <a href="mailto:info@thecoffeejesus.com" class="text-primary">info@thecoffeejesus.com</a>
-          <span style="display: block; height: .25em;"></span>
-          Instagram: <a href="https://instagram.com/thecoffeejesus" class="text-primary">@thecoffeejesus</a>
+          If you want to get in touch, feel free to reach out via my social media channels or through email. <span style="display: block; height: .25em;"></span>
+          Email: <a href="mailto:christopher@gmail.com" class="text-primary">christopher@gmail.com</a> <span style="display: block; height: .25em;"></span>
+          Twitter: <a href="https://twitter.com/thecoffeejesus" class="text-primary">@thecoffeejesus</a>
         </p>
       </CardContent>
     </CardRoot>

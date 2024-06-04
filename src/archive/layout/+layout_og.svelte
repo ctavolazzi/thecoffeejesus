@@ -10,7 +10,7 @@
     <ul class="navbar-links">
       <li><a href="/about">About</a></li>
       <li><a href="/faq">FAQ</a></li>
-      <!-- <li><a href="/auth">Login</a></li> -->
+      <li><a href="/auth">Login</a></li>
     </ul>
   </div>
 </nav>

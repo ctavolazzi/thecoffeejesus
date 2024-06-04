@@ -1,7 +1,28 @@
-
+<!-- /routes/+layout.svelte
 <script>
   import "../app.css";
+  import { onMount } from 'svelte';
+  import { user, checkUser } from '../auth/auth';
+  import { supabase } from '$lib/supabaseClient';
   import { Button } from '$lib/components/ui/button';
+
+  let userData;
+
+  onMount(async () => {
+    await checkUser();
+    user.subscribe(value => {
+      userData = value;
+    });
+  });
+
+  async function handleSignOut() {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.error('Error signing out:', error);
+    } else {
+      await checkUser();
+    }
+  }
 </script>
 
 <nav class="navbar">
@@ -10,7 +31,12 @@
     <ul class="navbar-links">
       <li><a href="/about">About</a></li>
       <li><a href="/faq">FAQ</a></li>
-      <!-- <li><a href="/auth">Login</a></li> -->
+      {#if userData}
+        <li><a href="/profile">Profile</a></li>
+        <li><button on:click={handleSignOut}>Sign Out</button></li>
+      {:else}
+        <li><a href="/auth">Login</a></li>
+      {/if}
     </ul>
   </div>
 </nav>
@@ -27,7 +53,6 @@
     <div class="footer-contact">
       <p>Contact us: <a href="mailto:info@thecoffeejesus.com">info@thecoffeejesus.com</a></p>
       <p>Follow us on social media:</p>
-      <!-- Social media icons go here -->
     </div>
   </div>
 </footer>

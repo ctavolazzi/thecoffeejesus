@@ -34,7 +34,10 @@
         <p class="text-gray-700">
           Thank you for providing your social media details. We're excited to help you grow and empower your creativity.
         </p>
-        <p class="text-gray-700 mt-4">
+        <p>
+          Someone will get back to you soon.
+        </p>
+        <!-- <p class="text-gray-700 mt-4">
           Sign up for a free account to get the opportunity to work with me directly. Enjoy personalized custom services that address your specific needs.
         </p>
         <p class="text-gray-700 mt-4 justify-left">
@@ -50,7 +53,7 @@
           <Button class="cta-button btn-primary" on:click={() => { /* redirect to sign-up page */ }}>
             Sign Up for a Free Account
           </Button>
-        </div>
+        </div> -->
       </CardContent>
     </CardRoot>
   </section>
