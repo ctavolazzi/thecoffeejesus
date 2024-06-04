@@ -4,7 +4,7 @@
   const faqs = [
     {
       question: "Who is Christopher?",
-      answer: "Christopher Tavolazzi is a creative director, writer, musician, and artist based in Northern California."
+      answer: "Christopher Tavolazzi is a creative director, software engineer, writer, musician, and artist based in Northern California."
     },
     {
       question: "What genres of music does he work in?",
@@ -12,11 +12,11 @@
     },
     {
       question: "What is Coffee Jesus Coffee?",
-      answer: "Coffee Jesus Coffee is a socially conscious coffee line donating 10% of profits to help families in Gaza and local communities in the US."
+      answer: "Coffee Jesus Coffee is a socially conscious coffee line donating 10% of profits to help families in Gaza and an additional 10% local communities in the US."
     },
     {
       question: "What are his contributions to literature?",
-      answer: "Christopher is a regular contributor to The Mandarin Magazine and has written two books: 'A Farewell to Money' and 'What the HELL is Crypto?'."
+      answer: "Christopher has been a regular contributor to many publications including The Mandarin Magazine, The Coffee Journal, and has written several books including: 'A Farewell to Money' and his upcoming non-fiction workbook 'Surviving the Singularity'."
     },
     {
       question: "What is Gentle Bull Co?",

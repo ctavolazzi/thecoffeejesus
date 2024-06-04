@@ -14,7 +14,7 @@
 <style>
   .gofundme-iframe {
     width: 100%;
-    height: 510px; /* Set an appropriate fixed height */
+    height: 520px; /* Set an appropriate fixed height */
     border: none;
     margin: 0; /* Ensure no margin */
     padding: 0; /* Ensure no padding */

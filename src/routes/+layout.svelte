@@ -11,7 +11,7 @@
     <ul class="navbar-links">
       <li><a href="/about">About</a></li>
       <li><a href="/faq">FAQ</a></li>
-      <li><a href="/coffeejesuscoffee" class="coffee-link">Coffee</a></li> <!-- Link to the Coffee page -->
+      <li><a href="/coffee" class="coffee-link">Coffee</a></li> <!-- Link to the Coffee page -->
     </ul>
   </div>
 </nav>

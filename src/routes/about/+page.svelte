@@ -71,7 +71,7 @@
   <div class="mt-10 text-center">
     <h2 class="text-2xl font-semibold mb-2">Welcome to my creative universe!</h2>
     <p class="text-gray-600 mb-6">
-      I’m Christopher Tavolazzi, a multidisciplinary artist based in Northern California. I have a deep passion for science, spirituality, self-development, education, and art.
+      Multidisciplinary artist based in Northern California. I have a deep passion for science, spirituality, self-development, education, and art.
     </p>
   </div>
 
@@ -81,18 +81,23 @@
       I'm Christopher Tavolazzi, known online as <a href="#" on:click|preventDefault={openPopover} class="text-primary underline">@thecoffeejesus</a>. I'm a creator, artist, musician, software developer, and more. My work spans various fields, from art and music to software development and AI research.
     </p>
     <p>
-      My mission is to empower you to empower yourself.
+      <strong>My mission is to empower you to empower yourself.</strong>
       <span style="display: block; height: .25em;"></span>
       I want you to unlock your full potential through wellness, financial growth, and skill enhancement.
       <span style="display: block; height: .25em;"></span>
       I strive for personal freedom and full-time mobility, all while living with increasing integrity.
     </p>
     <p>
-      Recently, I worked as a tech contractor for Adobe's Learn team, where I crafted educational content that empowers users.
+      I have a birth defect called <a href="https://www.hopkinsmedicine.org/health/conditions-and-diseases/chiari-malformation-type-i" target="_blank" class="text-primary underline"><strong>Chiari 1</strong></a>, which affects my ability to sense touch and move my extremities.
       <span style="display: block; height: .25em;"></span>
-      As a social media consultant, I specialize in helping small creators grow their following to 10,000 and qualify for the TikTok Creator Fund, while also exploring various monetization strategies for their online presence.
+      This has affected my ability to use my hands, which has decreased my ability to use my computer and play guitar, but Capitalism never sleeps and bills don't pay themselves.
+    </p>
+    <p>
+      Recently, I worked as a tech contractor for <a href="https://creativecloud.adobe.com/cc/learn?locale=en" target="_blank" class="text-primary underline">Adobe's Learn team</a>, where I crafted educational content that empowers users.
       <span style="display: block; height: .25em;"></span>
-      In addition to my consulting work, I have authored two books, composed numerous essays, written hundreds of songs, and developed compelling sales and marketing materials.
+      As a <strong>social media consultant</strong>, I specialize in helping small creators grow their following to 10,000 and monetize. The path I currently recommend is qualifying for the <a href="https://newsroom.tiktok.com/en-gb/tiktok-creator-fund-your-questions-answered" target="_blank" class="text-primary underline">TikTok Creator Fund</a>.
+      <span style="display: block; height: .25em;"></span>
+      In addition to my consulting work, I have <strong>authored two books</strong>, composed numerous essays, written <strong>hundreds of songs</strong>, and developed compelling sales and marketing materials.
     </p>
   </div>
 
@@ -108,7 +113,7 @@
               </li>
               <li class="mb-2">
                   <em>A Farewell to Money</em>: A comedic Magic: the Gathering strategy guide for intermediate players.
-                  <!-- <a href="#" class="text-blue-500 hover:underline">Download Here</a> -->
+                  <a href="/magicthegatheringbook" class="text-blue-500 hover:underline">Download Here</a>
               </li>
             </ul>
         </div>
