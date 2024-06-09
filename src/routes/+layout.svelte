@@ -11,6 +11,7 @@
   };
 
   let handleClickOutside;
+  let handleLinkClick;
 
   const setupClickOutsideListener = () => {
     handleClickOutside = (event: MouseEvent) => {
@@ -23,17 +24,32 @@
     document.addEventListener('click', handleClickOutside);
   };
 
+  const setupLinkClickListener = () => {
+    handleLinkClick = () => {
+      menuOpen = false;
+    };
+    const links = document.querySelectorAll('.dropdown-menu a');
+    links.forEach(link => link.addEventListener('click', handleLinkClick));
+  };
+
   const removeClickOutsideListener = () => {
     document.removeEventListener('click', handleClickOutside);
+  };
+
+  const removeLinkClickListener = () => {
+    const links = document.querySelectorAll('.dropdown-menu a');
+    links.forEach(link => link.removeEventListener('click', handleLinkClick));
   };
 
   if (typeof document !== 'undefined') {
     onMount(() => {
       setupClickOutsideListener();
+      setupLinkClickListener();
     });
 
     onDestroy(() => {
       removeClickOutsideListener();
+      removeLinkClickListener();
     });
   }
 </script>
@@ -50,11 +66,11 @@
         <ul class:open={menuOpen} class="dropdown-menu">
           <li><a href="/about">About</a></li>
           <li><a href="/blog">Blog</a></li>
-          <li><a href="/books">Books</a></li>
+          <!-- <li><a href="/books">Books</a></li> -->
         </ul>
       </li>
       <li class="coffee-item">
-        <a href="/coffee" class="coffee-link">Coffee</a>
+        <a href="https://tavolazzitavern.com/" class="coffee-link">Shop</a>
       </li>
     </ul>
   </div>
