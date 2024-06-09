@@ -66,6 +66,7 @@
         <ul class:open={menuOpen} class="dropdown-menu">
           <li><a href="/about">About</a></li>
           <li><a href="/blog">Blog</a></li>
+          <li><a href="/coffee">Coffee</a></li>
           <!-- <li><a href="/books">Books</a></li> -->
         </ul>
       </li>
