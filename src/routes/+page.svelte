@@ -162,11 +162,11 @@
     <CardRoot>
       <CardHeader>
         <CardTitle>Who is Christopher Tavolazzi?</CardTitle>
-        <CardDescription>Learn more about <a href="#" on:click|preventDefault={openPopover} class="text-primary underline">@thecoffeejesus</a></CardDescription>
+        <CardDescription>Learn more about <button on:click={openPopover} class="text-primary underline">@thecoffeejesus</button></CardDescription>
       </CardHeader>
       <CardContent>
         <p>
-          I'm Christopher Tavolazzi, known online as <a href="#" on:click|preventDefault={openPopover} class="text-primary underline">@thecoffeejesus</a>. I'm a creator, artist, musician, software developer, and more. My work spans across various fields, from art and music to software development and AI research.
+          I'm Christopher Tavolazzi, known online as <button on:click={openPopover} class="text-primary underline">@thecoffeejesus</button>. I'm a creator, artist, musician, software developer, and more. My work spans across various fields, from art and music to software development and AI research.
         </p>
         <p>
           My mission is to empower you to empower yourself. <span style="display: block; height: .25em;"></span>
