@@ -11,7 +11,7 @@
   import SocialPopover from '$lib/components/SocialPopover.svelte';
   import { supabase } from '$lib/supabaseClient';
   // import { user, checkUser } from '$lib/stores/auth';
-  import introToAiImage from '$lib/images/intro-to-ai-class-screenshot.png';
+  import introToAiImage from '$lib/intro-to-ai-class-screenshot.png';
 
   let socialMediaHandle = '';
   let socialMediaPlatform = '';
