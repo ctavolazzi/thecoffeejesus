@@ -11,6 +11,7 @@
   import SocialPopover from '$lib/components/SocialPopover.svelte';
   import { supabase } from '$lib/supabaseClient';
   // import { user, checkUser } from '$lib/stores/auth';
+  import introToAiImage from '$lib/images/intro-to-ai-class-screenshot.png';
 
   let socialMediaHandle = '';
   let socialMediaPlatform = '';
@@ -126,52 +127,30 @@
     justify-content: center;
     margin: 20px 0;
   }
+
+  .intro-ai-image {
+    max-width: 100%;
+    height: auto;
+    margin: 20px auto;
+    display: block;
+  }
 </style>
 
 <section class="hero">
   <div class="container mx-auto py-12 px-6 max-w-4xl bg-white shadow-md rounded-lg">
     <div class="text-center">
-      <h2 class="text-2xl font-bold">Thank you for being here ❣️</h2>
-      <br>
       <div class="hero-image-container">
         <img src="/hero_image.png" alt="Christopher Tavolazzi" class="hero-image" />
       </div>
       <p class="text-gray-700 mt-4">
         Do you want to escape the grind and do more things that matter? I'm here to help you grow, live more authentically, and overcome your fears.
       </p>
+      <a href="https://themultiverse.school/classes/121">
+        <img src={introToAiImage} alt="Intro to AI" class="intro-ai-image" />
+      </a>
       <Dialog.Root>
-        <Dialog.Trigger class={`${buttonVariants({ variant: "blackBorder" })} font-bold`}>
-          <span class="font-bold">Start Your Journey</span>
-        </Dialog.Trigger>
-        <Dialog.Content class="sm:max-w-[425px]">
-          <Dialog.Header>
-            <Dialog.Title>Enter Your Social Media Details</Dialog.Title>
-            <Dialog.Description>
-              Please provide your social media handle, platform, and current number of followers. Click save when you're done.
-            </Dialog.Description>
-          </Dialog.Header>
-          <div class="grid gap-4 py-4">
-            <div class="grid grid-cols-4 items-center gap-4">
-              <Label for="handle" class="text-right">Handle</Label>
-              <Input id="handle" bind:value={socialMediaHandle} placeholder="e.g., @thecoffeejesus" class="col-span-3" />
-            </div>
-            <div class="grid grid-cols-4 items-center gap-4">
-              <Label for="platform" class="text-right">Platform</Label>
-              <Input id="platform" bind:value={socialMediaPlatform} placeholder="e.g., Twitter" class="col-span-3" />
-            </div>
-            <div class="grid grid-cols-4 items-center gap-4">
-              <Label for="followers" class="text-right">Followers</Label>
-              <Input id="followers" bind:value={followersCount} placeholder="e.g., 5000" class="col-span-3" />
-            </div>
-            <div class="grid grid-cols-4 items-center gap-4">
-              <Label for="notes" class="text-right">Notes</Label>
-              <Input id="notes" bind:value={notes} placeholder="Additional information" class="col-span-3" />
-            </div>
-          </div>
-          <Dialog.Footer>
-            <Button type="button" on:click={handleSubmit}>Save changes</Button>
-          </Dialog.Footer>
-        </Dialog.Content>
+        <!-- Removed the original Dialog.Trigger button -->
+        <!-- If you still need a dialog trigger, consider adding it below the new link -->
       </Dialog.Root>
     </div>
   </div>
