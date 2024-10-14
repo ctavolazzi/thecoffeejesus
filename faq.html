@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Coffee Jesus</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="min-h-screen bg-white">
+    <div id="navbar-placeholder"></div>
+
+    <main class="max-w-3xl mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold text-center mb-8">Frequently Asked Questions</h1>
+        <div class="space-y-4 mb-12">
+            <div class="border border-gray-200 rounded-lg">
+                <button class="flex justify-between items-center w-full p-4 font-medium text-left bg-gray-100 hover:bg-gray-200 focus:outline-none" onclick="toggleAccordion(this)">
+                    <span>Who is Christopher Tavolazzi?</span>
+                    <svg class="w-6 h-6 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div class="hidden p-4 bg-white">
+                    <p>Christopher Tavolazzi, known online as <a href="https://www.instagram.com/thecoffeejesus" class="text-blue-600 hover:underline">@thecoffeejesus</a>, is a creator, artist, musician, and software developer. His work spans various fields, including art, music, software development, and <a href="https://www.thecoffeejesus.com/about" class="text-blue-600 hover:underline">AI research</a>.</p>
+                </div>
+            </div>
+            <div class="border border-gray-200 rounded-lg">
+                <button class="flex justify-between items-center w-full p-4 font-medium text-left bg-gray-100 hover:bg-gray-200 focus:outline-none" onclick="toggleAccordion(this)">
+                    <span>What is Christopher's mission?</span>
+                    <svg class="w-6 h-6 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div class="hidden p-4 bg-white">
+                    <p>Christopher's mission is to empower individuals to unlock their full potential through wellness, financial growth, and skill enhancement. He strives for personal freedom and full-time mobility while living with increasing integrity. Learn more about his approach on the <a href="https://www.thecoffeejesus.com/about" class="text-blue-600 hover:underline">About page</a>.</p>
+                </div>
+            </div>
+            <div class="border border-gray-200 rounded-lg">
+                <button class="flex justify-between items-center w-full p-4 font-medium text-left bg-gray-100 hover:bg-gray-200 focus:outline-none" onclick="toggleAccordion(this)">
+                    <span>What is Christopher's background?</span>
+                    <svg class="w-6 h-6 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div class="hidden p-4 bg-white">
+                    <p>Christopher previously worked as a tech lead at Adobe and as a designer for AES Solar. He left his job to help his disabled mother and subsequently transformed his social media presence, growing from 4,000 to 30,000 followers in just two months. You can follow his journey on <a href="https://www.tiktok.com/@thecoffeejesus" class="text-blue-600 hover:underline">TikTok</a> and <a href="https://www.instagram.com/thecoffeejesus" class="text-blue-600 hover:underline">Instagram</a>.</p>
+                </div>
+            </div>
+            <div class="border border-gray-200 rounded-lg">
+                <button class="flex justify-between items-center w-full p-4 font-medium text-left bg-gray-100 hover:bg-gray-200 focus:outline-none" onclick="toggleAccordion(this)">
+                    <span>How does Christopher help others?</span>
+                    <svg class="w-6 h-6 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div class="hidden p-4 bg-white">
+                    <p>Christopher helps people grow their social media accounts, monetize their creativity, and overcome fears and insecurities. His goal is to empower individuals to achieve remarkable growth and success in their own lives.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- New CTA section from index page -->
+        <section class="max-w-2xl mx-auto mb-8 bg-gray-50 p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold text-center mb-4 text-indigo-600">Unlock Your Potential with AI</h2>
+            <ul class="list-disc list-inside space-y-4 text-left text-gray-700">
+                <li class="pl-2">Accelerate timelines and bring your ideas to life faster than ever before.</li>
+                <li class="pl-2">Shorten the time between imagination and reality with cutting-edge AI tools.</li>
+                <li class="pl-2">Ease your fears about AI by learning to master it and harness its power for good.</li>
+                <li class="pl-2">Empower yourself with skills that are in high demand in today's tech-driven world.</li>
+                <li class="pl-2">Learn how to use generative AI to accomplish tasks like:
+                    <ul class="list-disc list-inside ml-6 text-gray-600">
+                        <li class="pl-2"><strong>AI-assisted content creation</strong> for blogs, social media, and marketing.</li>
+                        <li class="pl-2"><strong>Personalized AI therapy</strong> to improve mental well-being.</li>
+                        <li class="pl-2"><strong>Smart home automation</strong> for enhanced convenience and efficiency.</li>
+                        <li class="pl-2"><strong>AI-driven data analysis</strong> to uncover insights and trends.</li>
+                        <li class="pl-2"><strong>Automating repetitive tasks</strong> to save time and increase productivity.</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+        <div class="mb-12">
+            <a href="https://themultiverse.school/classes/121" class="block w-full transition-transform duration-300 ease-in-out transform hover:scale-105 focus:outline-none">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/intro-to-ai-image-oct-21-XG8o7QXjLi08DUOsXcaCDOfb4TOnrb.webp" alt="Intro to AI course by The Multiverse School" class="w-full h-auto rounded-lg shadow-lg">
+            </a>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        function toggleAccordion(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('svg');
+            content.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+    </script>
+</body>
+</html>
