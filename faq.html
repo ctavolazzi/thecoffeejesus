@@ -1,83 +1,128 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FAQ - Coffee Jesus</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: 0 0; }
+        }
+        .shimmer-text {
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmer 5s linear infinite;
+        }
+        html:not(.dark) .shimmer-text {
+            background-image: linear-gradient(90deg, #4f46e5 0%, #818cf8 20%, #4f46e5 40%, #818cf8 60%, #4f46e5 80%, #818cf8 100%);
+        }
+        .dark .shimmer-text {
+            background-image: linear-gradient(90deg, #4f46e5 0%, #818cf8 10%, #ffffff 20%, #6366f1 30%, #4f46e5 40%, #818cf8 50%, #ffffff 60%, #6366f1 70%, #4f46e5 80%, #818cf8 90%, #ffffff 100%);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        indigo: {
+                            400: '#818cf8',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        },
+                        dark: {
+                            bg: '#1a202c',
+                            text: '#e2e8f0',
+                        },
+                    },
+                },
+            },
+        }
+    </script>
 </head>
-<body class="min-h-screen bg-white">
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200 pt-16">
     <div id="navbar-placeholder"></div>
 
-    <main class="max-w-3xl mx-auto px-4 py-8">
-        <h1 class="text-4xl font-bold text-center mb-8">Frequently Asked Questions</h1>
-        <div class="space-y-4 mb-12">
-            <div class="border border-gray-200 rounded-lg">
-                <button class="flex justify-between items-center w-full p-4 font-medium text-left bg-gray-100 hover:bg-gray-200 focus:outline-none" onclick="toggleAccordion(this)">
-                    <span>Who is Christopher Tavolazzi?</span>
+    <main class="max-w-4xl mx-auto px-4 py-8 space-y-8">
+        <h1 class="text-5xl sm:text-6xl font-extrabold text-center shimmer-text leading-tight mb-8">
+            Frequently Asked Questions
+        </h1>
+
+        <div class="space-y-4">
+            <!-- Existing and Updated FAQs -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md">
+                <button class="flex justify-between items-center w-full p-4 font-medium text-left focus:outline-none" onclick="toggleAccordion(this)">
+                    <span class="text-lg text-indigo-600 dark:text-indigo-400">Can I hire Christopher for consulting?</span>
                     <svg class="w-6 h-6 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
-                <div class="hidden p-4 bg-white">
-                    <p>Christopher Tavolazzi, known online as <a href="https://www.instagram.com/thecoffeejesus" class="text-blue-600 hover:underline">@thecoffeejesus</a>, is a creator, artist, musician, and software developer. His work spans various fields, including art, music, software development, and <a href="https://www.thecoffeejesus.com/about" class="text-blue-600 hover:underline">AI research</a>.</p>
+                <div class="hidden p-4">
+                    <p class="text-gray-700 dark:text-gray-300">Yes, Christopher is available for consulting services. To discuss your needs and explore how he can help, please reach out through his <a href="https://solo.to/thecoffeejesus" class="text-blue-600 dark:text-blue-400 hover:underline">contact page</a>.</p>
                 </div>
             </div>
-            <div class="border border-gray-200 rounded-lg">
-                <button class="flex justify-between items-center w-full p-4 font-medium text-left bg-gray-100 hover:bg-gray-200 focus:outline-none" onclick="toggleAccordion(this)">
-                    <span>What is Christopher's mission?</span>
+
+            <!-- Other existing FAQs... -->
+
+            <!-- New FAQs -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md">
+                <button class="flex justify-between items-center w-full p-4 font-medium text-left focus:outline-none" onclick="toggleAccordion(this)">
+                    <span class="text-lg text-indigo-600 dark:text-indigo-400">How can I stay updated on Christopher's latest projects and content?</span>
                     <svg class="w-6 h-6 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
-                <div class="hidden p-4 bg-white">
-                    <p>Christopher's mission is to empower individuals to unlock their full potential through wellness, financial growth, and skill enhancement. He strives for personal freedom and full-time mobility while living with increasing integrity. Learn more about his approach on the <a href="https://www.thecoffeejesus.com/about" class="text-blue-600 hover:underline">About page</a>.</p>
+                <div class="hidden p-4">
+                    <p class="text-gray-700 dark:text-gray-300">The best way to stay updated is to follow <a href="https://solo.to/thecoffeejesus" class="text-blue-600 dark:text-blue-400 hover:underline">@thecoffeejesus</a> on social media platforms. You can also subscribe to the newsletter for regular updates on new courses, Coffee Jesus Coffee developments, and other exciting projects.</p>
                 </div>
             </div>
-            <div class="border border-gray-200 rounded-lg">
-                <button class="flex justify-between items-center w-full p-4 font-medium text-left bg-gray-100 hover:bg-gray-200 focus:outline-none" onclick="toggleAccordion(this)">
-                    <span>What is Christopher's background?</span>
+
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md">
+                <button class="flex justify-between items-center w-full p-4 font-medium text-left focus:outline-none" onclick="toggleAccordion(this)">
+                    <span class="text-lg text-indigo-600 dark:text-indigo-400">Is the Intro to AI course suitable for beginners?</span>
                     <svg class="w-6 h-6 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
-                <div class="hidden p-4 bg-white">
-                    <p>Christopher previously worked as a tech lead at Adobe and as a designer for AES Solar. He left his job to help his disabled mother and subsequently transformed his social media presence, growing from 4,000 to 30,000 followers in just two months. You can follow his journey on <a href="https://www.tiktok.com/@thecoffeejesus" class="text-blue-600 hover:underline">TikTok</a> and <a href="https://www.instagram.com/thecoffeejesus" class="text-blue-600 hover:underline">Instagram</a>.</p>
+                <div class="hidden p-4">
+                    <p class="text-gray-700 dark:text-gray-300">Yes, the Intro to AI course is designed to be accessible for beginners while also providing value to those with some prior knowledge. It covers fundamental concepts and practical applications, making it suitable for anyone looking to start or enhance their AI journey.</p>
                 </div>
             </div>
-            <div class="border border-gray-200 rounded-lg">
-                <button class="flex justify-between items-center w-full p-4 font-medium text-left bg-gray-100 hover:bg-gray-200 focus:outline-none" onclick="toggleAccordion(this)">
-                    <span>How does Christopher help others?</span>
+
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md">
+                <button class="flex justify-between items-center w-full p-4 font-medium text-left focus:outline-none" onclick="toggleAccordion(this)">
+                    <span class="text-lg text-indigo-600 dark:text-indigo-400">How can I collaborate with Christopher on AI or coffee-related projects?</span>
                     <svg class="w-6 h-6 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
-                <div class="hidden p-4 bg-white">
-                    <p>Christopher helps people grow their social media accounts, monetize their creativity, and overcome fears and insecurities. His goal is to empower individuals to achieve remarkable growth and success in their own lives.</p>
+                <div class="hidden p-4">
+                    <p class="text-gray-700 dark:text-gray-300">Christopher is always open to exciting collaborations. If you have ideas for AI projects, coffee innovations, or other initiatives that align with his interests, please reach out through the <a href="https://solo.to/thecoffeejesus" class="text-blue-600 dark:text-blue-400 hover:underline">contact page</a> to discuss potential partnerships.</p>
                 </div>
             </div>
         </div>
 
-        <!-- New CTA section from index page -->
-        <section class="max-w-2xl mx-auto mb-8 bg-gray-50 p-6 rounded-lg shadow-md">
-            <h2 class="text-2xl font-bold text-center mb-4 text-indigo-600">Unlock Your Potential with AI</h2>
-            <ul class="list-disc list-inside space-y-4 text-left text-gray-700">
-                <li class="pl-2">Accelerate timelines and bring your ideas to life faster than ever before.</li>
-                <li class="pl-2">Shorten the time between imagination and reality with cutting-edge AI tools.</li>
-                <li class="pl-2">Ease your fears about AI by learning to master it and harness its power for good.</li>
-                <li class="pl-2">Empower yourself with skills that are in high demand in today's tech-driven world.</li>
-                <li class="pl-2">Learn how to use generative AI to accomplish tasks like:
-                    <ul class="list-disc list-inside ml-6 text-gray-600">
-                        <li class="pl-2"><strong>AI-assisted content creation</strong> for blogs, social media, and marketing.</li>
-                        <li class="pl-2"><strong>Personalized AI therapy</strong> to improve mental well-being.</li>
-                        <li class="pl-2"><strong>Smart home automation</strong> for enhanced convenience and efficiency.</li>
-                        <li class="pl-2"><strong>AI-driven data analysis</strong> to uncover insights and trends.</li>
-                        <li class="pl-2"><strong>Automating repetitive tasks</strong> to save time and increase productivity.</li>
-                    </ul>
-                </li>
-            </ul>
-        </section>
-        <div class="mb-12">
-            <a href="https://themultiverse.school/classes/121" class="block w-full transition-transform duration-300 ease-in-out transform hover:scale-105 focus:outline-none">
-                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/intro-to-ai-image-oct-21-XG8o7QXjLi08DUOsXcaCDOfb4TOnrb.webp" alt="Intro to AI course by The Multiverse School" class="w-full h-auto rounded-lg shadow-lg">
+        <div class="text-center mt-12">
+            <a href="https://themultiverse.school/classes/121" class="inline-block">
+                <img src="/static/intro-to-ai-image.png" alt="Intro to AI Course" class="w-full md:w-1/2 rounded-lg shadow-md mb-4 md:mb-0 md:mr-4">
+            </a>
+
+            <a href="https://themultiverse.school/classes/121" class="inline-block bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg text-lg transition-colors duration-300 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:focus:ring-offset-gray-900">
+                Enroll in the New Intro to AI Course
+            </a>
+        </div>
+
+        <!-- Simple CTA Section -->
+        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-8 rounded-lg shadow-md mt-12">
+            <h2 class="text-3xl font-bold mb-4">Ready to Start Your AI Journey?</h2>
+            <p class="text-xl mb-6">Whether you're interested in AI courses, coffee innovations, or potential collaborations, I'm here to help.</p>
+            <a href="https://solo.to/thecoffeejesus" 
+               class="inline-block bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1">
+                Get in Touch
             </a>
         </div>
     </main>
 
     <script src="script.js"></script>
+    <script src="darkMode.js"></script>
     <script>
         function toggleAccordion(button) {
             const content = button.nextElementSibling;
