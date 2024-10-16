@@ -436,10 +436,11 @@
         function createDimensionRift() {
             const rift = document.createElement('div');
             rift.className = 'dimension-rift';
-            rift.style.borderWidth = `${Math.random() * 100 + 50}px`;
+            const size = Math.random() * 100 + 50;
+            rift.style.borderWidth = `${size}px`;
             rift.style.borderColor = `transparent transparent transparent rgba(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255},0.3)`;
-            rift.style.left = `${Math.random() * 100}vw`;
-            rift.style.top = `${Math.random() * 100}vh`;
+            rift.style.left = `${Math.random() * (window.innerWidth - size)}px`;
+            rift.style.top = `${Math.random() * (window.innerHeight - size)}px`;
             rift.style.transform = `rotate(${Math.random() * 360}deg)`;
             document.body.appendChild(rift);
             setTimeout(() => rift.remove(), 10000);
@@ -451,14 +452,15 @@
         function createQuantumParticle() {
             const particle = document.createElement('div');
             particle.className = 'quantum-particle';
-            particle.style.left = `${Math.random() * 100}vw`;
-            particle.style.top = `${Math.random() * 100}vh`;
-            particle.style.setProperty('--tx1', `${(Math.random() - 0.5) * 200}px`);
-            particle.style.setProperty('--ty1', `${(Math.random() - 0.5) * 200}px`);
-            particle.style.setProperty('--tx2', `${(Math.random() - 0.5) * 200}px`);
-            particle.style.setProperty('--ty2', `${(Math.random() - 0.5) * 200}px`);
-            particle.style.setProperty('--tx3', `${(Math.random() - 0.5) * 200}px`);
-            particle.style.setProperty('--ty3', `${(Math.random() - 0.5) * 200}px`);
+            particle.style.left = `${Math.random() * (window.innerWidth - 4)}px`;
+            particle.style.top = `${Math.random() * (window.innerHeight - 4)}px`;
+            const maxDistance = 100; // Maximum distance the particle can travel
+            particle.style.setProperty('--tx1', `${(Math.random() - 0.5) * maxDistance}px`);
+            particle.style.setProperty('--ty1', `${(Math.random() - 0.5) * maxDistance}px`);
+            particle.style.setProperty('--tx2', `${(Math.random() - 0.5) * maxDistance}px`);
+            particle.style.setProperty('--ty2', `${(Math.random() - 0.5) * maxDistance}px`);
+            particle.style.setProperty('--tx3', `${(Math.random() - 0.5) * maxDistance}px`);
+            particle.style.setProperty('--ty3', `${(Math.random() - 0.5) * maxDistance}px`);
             document.body.appendChild(particle);
             setTimeout(() => particle.remove(), 20000);
         }
