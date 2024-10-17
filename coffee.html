@@ -275,20 +275,138 @@
                 </div>
             </div>
         </section>
+
+        <!-- Coffee Jesus Coffee Waitlist Signup Component -->
+        <section id="coffee-waitlist" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold mb-4 text-indigo-600 dark:text-indigo-400 text-center">Join the Coffee Jesus Coffee Waitlist</h2>
+
+            <!-- Waitlist Count Display -->
+            <p id="waitlist-count" class="text-center mb-4 text-gray-700 dark:text-gray-300">
+                <span id="waitlist-number">0</span> people have already signed up!
+            </p>
+
+            <form id="coffee-waitlist-form" class="space-y-4 max-w-md mx-auto">
+                <div class="relative">
+                    <input type="text" id="coffee-waitlist-name" name="name" placeholder="Your Name" required
+                           class="w-full p-4 pr-12 rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition duration-300">
+                    <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500">
+                        <i class="fas fa-user"></i>
+                    </span>
+                </div>
+                <div class="relative">
+                    <input type="email" id="coffee-waitlist-email" name="email" placeholder="Your Email Address" required
+                           class="w-full p-4 pr-12 rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition duration-300">
+                    <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                </div>
+                <button type="submit"
+                        class="w-full bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:focus:ring-indigo-500">
+                    Join the Waitlist
+                </button>
+            </form>
+            <p id="coffee-waitlist-message" class="mt-4 text-center text-gray-800 dark:text-gray-200 font-medium"></p>
+        </section>
     </main>
 
     <script src="script.js"></script>
     <script src="darkMode.js"></script>
     <script src="stars.js"></script>
+    <script type="module">
+        import supabaseClient from './supabase.js';
+
+        // Waitlist Form Elements
+        const waitlistForm = document.getElementById('coffee-waitlist-form');
+        const waitlistName = document.getElementById('coffee-waitlist-name');
+        const waitlistEmail = document.getElementById('coffee-waitlist-email');
+        const waitlistMessage = document.getElementById('coffee-waitlist-message');
+        const waitlistNumber = document.getElementById('waitlist-number');
+
+        // Function to fetch and display waitlist count
+        async function fetchWaitlistCount() {
+            try {
+                const { count, error } = await supabaseClient
+                    .from('coffeejesuscoffee_waitlist')
+                    .select('*', { count: 'exact', head: true });
+
+                if (error) throw error;
+
+                waitlistNumber.textContent = count !== null ? count : '0';
+            } catch (error) {
+                console.error('Error fetching waitlist count:', error);
+                waitlistNumber.textContent = '0';
+            }
+        }
+
+        // Initial fetch of waitlist count when the page loads
+        document.addEventListener('DOMContentLoaded', fetchWaitlistCount);
+
+        // Handle form submission
+        waitlistForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const name = waitlistName.value.trim();
+            const email = waitlistEmail.value.trim();
+
+            // Basic Validation
+            if (!name || !email) {
+                waitlistMessage.textContent = 'Please provide both name and email.';
+                waitlistMessage.classList.remove('text-green-500');
+                waitlistMessage.classList.add('text-red-500');
+                return;
+            }
+
+            // Email Format Validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                waitlistMessage.textContent = 'Please enter a valid email address.';
+                waitlistMessage.classList.remove('text-green-500');
+                waitlistMessage.classList.add('text-red-500');
+                return;
+            }
+
+            try {
+                const { data, error } = await supabaseClient
+                    .from('coffeejesuscoffee_waitlist')
+                    .insert([{ name, email }])
+                    .select();
+
+                if (error) throw error;
+
+                waitlistForm.reset();
+                waitlistMessage.textContent = 'Thank you for joining the Coffee Jesus Coffee waitlist!';
+                waitlistMessage.classList.remove('text-red-500');
+                waitlistMessage.classList.add('text-green-500');
+
+                // Update the waitlist count
+                fetchWaitlistCount();
+            } catch (error) {
+                console.error('Error inserting waitlist data:', error);
+                if (error.message.includes('duplicate key value')) {
+                    waitlistMessage.textContent = 'This email is already registered in the waitlist.';
+                } else {
+                    waitlistMessage.textContent = 'There was an error signing you up. Please try again.';
+                }
+                waitlistMessage.classList.remove('text-green-500');
+                waitlistMessage.classList.add('text-red-500');
+            }
+
+            // Clear message after 5 seconds
+            setTimeout(() => {
+                waitlistMessage.textContent = '';
+                waitlistMessage.classList.remove('text-red-500', 'text-green-500');
+            }, 5000);
+        });
+    </script>
     <script>
-    function toggleFAQ(button) {
-        const answer = button.nextElementSibling;
-        const icon = button.querySelector('i');
-        answer.classList.toggle('hidden');
-        icon.classList.toggle('fa-chevron-up');
-        icon.classList.toggle('fa-chevron-down');
-    }
-    document.addEventListener('DOMContentLoaded', createStars);
+        function toggleFAQ(button) {
+            const answer = button.nextElementSibling;
+            const icon = button.querySelector('i');
+            answer.classList.toggle('hidden');
+            icon.classList.toggle('fa-chevron-up');
+            icon.classList.toggle('fa-chevron-down');
+        }
+        document.addEventListener('DOMContentLoaded', createStars);
     </script>
 </body>
 </html>
