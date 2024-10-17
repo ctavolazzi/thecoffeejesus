@@ -152,6 +152,68 @@
         .dark .cosmic-text {
             text-shadow: none;
         }
+
+        .multiverse-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .multiverse-portal {
+            position: relative;
+            width: 200px;
+            height: 200px;
+        }
+
+        .portal-ring {
+            position: absolute;
+            border: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 10s linear infinite;
+        }
+
+        .portal-ring:nth-child(1) {
+            top: -50%; left: -50%; right: -50%; bottom: -50%;
+            border-top-color: #4f46e5;
+            border-bottom-color: #818cf8;
+        }
+
+        .portal-ring:nth-child(2) {
+            top: -25%; left: -25%; right: -25%; bottom: -25%;
+            border-left-color: #6366f1;
+            border-right-color: #818cf8;
+            animation-direction: reverse;
+        }
+
+        .portal-ring:nth-child(3) {
+            top: 0%; left: 0%; right: 0%; bottom: 0%;
+            border-top-color: #4f46e5;
+            border-bottom-color: #818cf8;
+        }
+
+        .multiverse-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 12px 24px;
+            background: linear-gradient(45deg, #8b5cf6, #d946ef);
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .multiverse-button:hover {
+            transform: translate(-50%, -50%) scale(1.05);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.8);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
     <script>
         tailwind.config = {
@@ -193,9 +255,16 @@
             </div>
             
             <div class="text-center">
-                <a href="https://themultiverse.school/classes/121" class="inline-block bg-indigo-600 dark:bg-indigo-500 text-white font-bold py-3 px-6 rounded-lg text-lg transition-colors duration-300 hover:bg-indigo-700 dark:hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:focus:ring-offset-gray-800">
-                    Join the Multiverse
-                </a>
+                <div class="multiverse-container">
+                    <div class="multiverse-portal">
+                        <div class="portal-ring"></div>
+                        <div class="portal-ring"></div>
+                        <div class="portal-ring"></div>
+                        <a href="https://themultiverse.school/classes/121" class="multiverse-button">
+                            <span>Join the Multiverse</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
 
