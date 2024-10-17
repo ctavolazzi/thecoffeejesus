@@ -160,8 +160,8 @@
 
         .multiverse-portal {
             position: relative;
-            width: 240px;
-            height: 240px;
+            width: 200px;
+            height: 200px;
         }
 
         .portal-ring {
@@ -172,60 +172,22 @@
         }
 
         .portal-ring:nth-child(1) {
-            top: -10%; left: -10%; right: -10%; bottom: -10%;
+            top: -50%; left: -50%; right: -50%; bottom: -50%;
             border-top-color: #4f46e5;
             border-bottom-color: #818cf8;
         }
 
         .portal-ring:nth-child(2) {
-            top: 10%; left: 10%; right: 10%; bottom: 10%;
+            top: -25%; left: -25%; right: -25%; bottom: -25%;
             border-left-color: #6366f1;
             border-right-color: #818cf8;
             animation-direction: reverse;
         }
 
         .portal-ring:nth-child(3) {
-            top: 30%; left: 30%; right: 30%; bottom: 30%;
+            top: 0%; left: 0%; right: 0%; bottom: 0%;
             border-top-color: #4f46e5;
             border-bottom-color: #818cf8;
-        }
-
-        .swirl-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            animation: spin 8s linear infinite;
-        }
-
-        .swirl {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 2px solid transparent;
-            border-top-color: rgba(139, 92, 246, 0.5);
-            animation: swirl 4s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
-        }
-
-        .swirl:nth-child(2) {
-            width: 80%;
-            height: 80%;
-            top: 10%;
-            left: 10%;
-            border-top-color: rgba(217, 70, 239, 0.5);
-            animation-duration: 6s;
-            animation-direction: reverse;
-        }
-
-        .swirl:nth-child(3) {
-            width: 60%;
-            height: 60%;
-            top: 20%;
-            left: 20%;
-            border-top-color: rgba(79, 70, 229, 0.5);
-            animation-duration: 8s;
         }
 
         .multiverse-button {
@@ -249,11 +211,6 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes swirl {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
@@ -303,11 +260,6 @@
                         <div class="portal-ring"></div>
                         <div class="portal-ring"></div>
                         <div class="portal-ring"></div>
-                        <div class="swirl-container">
-                            <div class="swirl"></div>
-                            <div class="swirl"></div>
-                            <div class="swirl"></div>
-                        </div>
                         <a href="https://themultiverse.school/classes/121" class="multiverse-button">
                             <span>Join the Multiverse</span>
                         </a>
