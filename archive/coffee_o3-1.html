@@ -97,18 +97,18 @@
 
         @keyframes shimmer {
             0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
+            100% { background-position: 0 0; }
         }
         .shimmer-text {
             background-size: 200% auto;
             color: transparent;
             -webkit-background-clip: text;
             background-clip: text;
-            animation: shimmer 5s linear infinite;
+            animation: shimmer 8s linear infinite;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
         }
         .light .shimmer-text {
-            background-image: linear-gradient(90deg, #FFF8E1 0%, #E6D0B5 25%, #C8A780 50%, #E6D0B5 75%, #FFF8E1 100%);
+            background-image: linear-gradient(90deg, #6D4C41 0%, #A67C52 25%, #C8A780 50%, #A67C52 75%, #6D4C41 100%);
         }
         .dark .shimmer-text {
             background-image: linear-gradient(90deg, #A67C52 0%, #C8A780 25%, #E6D0B5 50%, #C8A780 75%, #A67C52 100%);
@@ -120,91 +120,21 @@
             left: 0;
             right: 0;
             z-index: 1000;
-            height: 80px;
-        }
-
-        main .page-title-section {
-            margin-top: 10vh !important;
-            text-align: center !important;
-            padding: 3rem 2rem !important;
-            background: linear-gradient(135deg, rgba(165, 42, 42, 0.8), rgba(210, 180, 140, 0.8)) !important;
-            border-radius: 1.5rem !important;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
-            position: relative !important;
-            overflow: hidden !important;
-            z-index: 1 !important;
-        }
-
-        .page-title-section::before {
-            content: '☕' !important;
-            position: absolute !important;
-            top: -20px !important;
-            right: -20px !important;
-            font-size: 10rem !important;
-            opacity: 0.1 !important;
-            transform: rotate(-15deg) !important;
-            z-index: -1 !important;
-        }
-
-        .page-title {
-            font-family: 'Playfair Display', serif !important;
-            font-size: 5rem !important;
-            font-weight: 700 !important;
-            color: #FFF8E1 !important;
-            margin-bottom: 1rem !important;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2) !important;
-            position: relative !important;
-            z-index: 2 !important;
-        }
-
-        .page-subtitle {
-            font-family: 'Poppins', sans-serif !important;
-            font-size: 1.75rem !important;
-            color: #FFF8E1 !important;
-            letter-spacing: 0.1em !important;
-            text-transform: uppercase !important;
-            opacity: 0.9 !important;
-            position: relative !important;
-            z-index: 2 !important;
+            height: 80px; /* Adjust this to match your navbar height */
         }
 
         .page-title-section {
-            width: 100% !important;
-            max-width: 900px !important;
-            margin-left: auto !important;
-            margin-right: auto !important;
+            margin-top: 4rem; /* Increase space below main navbar */
+            margin-bottom: 3rem; /* Increase space above secondary nav */
         }
 
-        @media (max-width: 768px) {
-            .page-title {
-                font-size: 3.5rem !important;
-            }
-            .page-subtitle {
-                font-size: 1.25rem !important;
-            }
+        .page-title {
+            font-size: 4rem; /* Keep large font size */
+            margin-bottom: 1rem; /* Space above subtitle */
         }
 
-        /* Shimmer effect for the title */
-        .shimmer-text {
-            background-size: 200% auto !important;
-            color: transparent !important;
-            -webkit-background-clip: text !important;
-            background-clip: text !important;
-            animation: shimmer 5s linear infinite !important;
-        }
-
-        .light .shimmer-text {
-            background-image: linear-gradient(90deg, #FFF8E1 0%, #E6D0B5 25%, #C8A780 50%, #E6D0B5 75%, #FFF8E1 100%) !important;
-        }
-
-        /* Adjust main content to account for the increased header spacing */
-        main {
-            padding-top: 2rem !important;
-        }
-
-        /* Ensure the secondary nav doesn't overlap with the header */
-        .secondary-nav {
-            margin-top: 2rem;
+        .page-subtitle {
+            font-size: 1.5rem;
         }
 
         .secondary-nav {
@@ -360,518 +290,59 @@
         .image-container:hover img {
             transform: scale(1.05);
         }
-
-        /* Enhanced background with subtle coffee bean pattern */
-        .coffee-bg {
-            background-image:
-                linear-gradient(rgba(62, 39, 35, 0.8), rgba(62, 39, 35, 0.8)),
-                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><path d="M30 5c-8.3 0-15 6.7-15 15s6.7 15 15 15 15-6.7 15-15-6.7-15-15-15zm0 25c-5.5 0-10-4.5-10-10s4.5-10 10-10 10 4.5 10 10-4.5 10-10 10z" fill="%23A67C52" fill-opacity="0.1"/></svg>'),
-                url('/static/coffee-bg.jpg');
-            background-attachment: fixed;
-            background-position: center;
-            background-size: auto, auto, cover;
-        }
-
-        /* Improved main title with coffee-colored text gradient */
-        .page-title {
-            background: linear-gradient(45deg, #6D4C41, #A67C52, #C8A780);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-
-        /* Animated coffee cup icon for section titles */
-        .section-title::before {
-            content: '☕';
-            display: inline-block;
-            margin-right: 10px;
-            animation: steamAnimation 2s infinite;
-        }
-        @keyframes steamAnimation {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-5px) rotate(5deg); }
-        }
-
-        /* Enhanced form styling */
-        .form-input {
-            transition: all 0.3s ease;
-            border-bottom: 2px solid #A67C52;
-        }
-        .form-input:focus {
-            border-bottom-color: #6D4C41;
-            box-shadow: 0 4px 6px rgba(166, 124, 82, 0.1);
-        }
-        .input-icon {
-            transition: all 0.3s ease;
-        }
-        .form-input:focus + .input-icon {
-            color: #6D4C41;
-            transform: translateY(-2px) scale(1.1);
-        }
-
-        /* Animated submit button */
-        .submit-btn {
-            position: relative;
-            overflow: hidden;
-        }
-        .submit-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                120deg,
-                transparent,
-                rgba(255, 255, 255, 0.3),
-                transparent
-            );
-            transition: all 0.6s;
-        }
-        .submit-btn:hover::before {
-            left: 100%;
-        }
-
-        /* Enhanced section transitions */
-        .section-transition {
-            transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
-        }
-        .section-transition:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Improved image hover effect */
-        .image-hover {
-            position: relative;
-            overflow: hidden;
-            border-radius: 10px;
-        }
-        .image-hover img {
-            transition: transform 0.5s ease, filter 0.5s ease;
-        }
-        .image-hover:hover img {
-            transform: scale(1.05);
-            filter: brightness(1.1) contrast(1.1);
-        }
-        .image-hover::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle, transparent 50%, rgba(166, 124, 82, 0.3) 150%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        .image-hover:hover::after {
-            opacity: 1;
-        }
-
-        /* Smooth scrolling for anchor links */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Custom selection color */
-        ::selection {
-            background-color: #A67C52;
-            color: white;
-        }
-
-        /* Animated progress bar */
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(to right, #6D4C41, #A67C52, #C8A780);
-            transform-origin: 0 50%;
-            transform: scaleX(0);
-            transition: transform 0.2s ease;
-            z-index: 1000;
-        }
-
-        /* Enhance accessibility */
-        .visually-hidden {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-
-        /* Animated section reveal */
-        .reveal {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Pulsating effect for CTA buttons */
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(166, 124, 82, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(166, 124, 82, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(166, 124, 82, 0); }
-        }
-        .cta-button {
-            animation: pulse 2s infinite;
-        }
-
-        /* Enhanced scrollbar */
-        ::-webkit-scrollbar {
-            width: 12px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #A67C52;
-            border-radius: 6px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #6D4C41;
-        }
-
-        /* Adjust section padding for smooth scrolling */
-        .section-padding {
-            scroll-margin-top: 128px; /* Adjust based on navbar + secondary nav height */
-        }
-
-        /* Adjust main content to account for sticky secondary nav */
-        .main-content {
-            padding-top: 2rem; /* Add some space below the secondary nav */
-        }
-
-        /* Light mode specific styles */
-        .light {
-            --bg-primary: #FFF8E1;
-            --bg-secondary: #E6D0B5;
-            --text-primary: #5D4037;
-            --text-secondary: #8D6E63;
-            --accent: #A67C52;
-        }
-
-        body.light {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-        }
-
-        .light .secondary-nav {
-            background-color: var(--bg-secondary);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .light .secondary-nav a {
-            color: var(--text-primary);
-        }
-
-        .light .secondary-nav a:hover {
-            color: var(--accent);
-        }
-
-        .light .page-title {
-            color: var(--text-primary);
-        }
-
-        .light .page-subtitle {
-            color: var(--text-secondary);
-        }
-
-        .light .section-title {
-            color: var(--accent);
-        }
-
-        .light .form-input {
-            background-color: #FFFFFF;
-            border: 1px solid var(--bg-secondary);
-            color: var(--text-primary);
-        }
-
-        .light .form-input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 2px rgba(166, 124, 82, 0.2);
-        }
-
-        .light .submit-btn {
-            background-color: var(--accent);
-            color: #FFFFFF;
-        }
-
-        .light .submit-btn:hover {
-            background-color: #8D6E63;
-        }
-
-        /* Enhanced scrollbar for light mode */
-        .light ::-webkit-scrollbar {
-            width: 12px;
-        }
-
-        .light ::-webkit-scrollbar-track {
-            background: var(--bg-secondary);
-        }
-
-        .light ::-webkit-scrollbar-thumb {
-            background-color: var(--accent);
-            border-radius: 20px;
-            border: 3px solid var(--bg-secondary);
-        }
-
-        .light ::-webkit-scrollbar-thumb:hover {
-            background-color: var(--text-secondary);
-        }
-
-        /* Light mode header styles */
-        .light .page-title-section {
-            background-color: #D2B48C; /* Light coffee/tan color */
-            padding: 2rem 1rem;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .light .page-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            color: #5D4037; /* Dark brown */
-            margin-bottom: 0.5rem;
-        }
-
-        .light .page-subtitle {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.5rem;
-            color: #8D6E63; /* Medium brown */
-        }
-
-        /* Ensure the header takes full width within its container */
-        .light .page-title-section {
-            width: 100% !important;
-            max-width: 800px !important; /* Adjust as needed */
-            margin-left: auto !important;
-            margin-right: auto !important;
-        }
-
-        /* Add some space below the header */
-        .light .page-title-section + * {
-            margin-top: 2rem;
-        }
-
-        /* Enhanced Animated coffee cup icon */
-        .coffee-icon {
-            position: relative;
-            display: inline-block;
-            font-size: 24px;
-            margin-right: 10px;
-        }
-
-        .coffee-icon::before {
-            content: '☕';
-        }
-
-        .coffee-icon::after {
-            content: '~';
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 16px;
-            opacity: 0;
-            animation: steam 2s infinite;
-        }
-
-        @keyframes steam {
-            0% {
-                top: -10px;
-                opacity: 0;
-            }
-            50% {
-                top: -20px;
-                opacity: 1;
-            }
-            100% {
-                top: -30px;
-                opacity: 0;
-            }
-        }
-
-        /* Apply the coffee icon to section titles */
-        .section-title {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .section-title::before {
-            content: '';
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            background: url('path/to/coffee-icon.svg') no-repeat center center;
-            background-size: contain;
-            margin-right: 10px;
-            animation: tilt 3s ease-in-out infinite;
-        }
-
-        @keyframes tilt {
-            0%, 100% { transform: rotate(0deg); }
-            50% { transform: rotate(10deg); }
-        }
-
-        /* Refined waitlist header styles */
-        .waitlist-header {
-            background: linear-gradient(135deg, #6D4C41, #A67C52);
-            padding: 3rem 1rem;
-            text-align: center;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .waitlist-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            color: #FFF8E1;
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .waitlist-subtitle {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.25rem;
-            color: #E6D0B5;
-            margin-bottom: 2rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .waitlist-coffee-icon {
-            position: absolute;
-            font-size: 8rem;
-            color: rgba(255, 255, 255, 0.1);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .waitlist-count {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #FFF8E1;
-            margin-top: 1rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .form-input {
-            transition: all 0.3s ease;
-        }
-
-        .form-input:focus {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .input-icon {
-            transition: all 0.3s ease;
-        }
-
-        .form-input:focus + .input-icon {
-            color: #6D4C41;
-        }
-
-        .submit-btn {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .submit-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                120deg,
-                transparent,
-                rgba(255, 255, 255, 0.3),
-                transparent
-            );
-            transition: all 0.6s;
-        }
-
-        .submit-btn:hover::before {
-            left: 100%;
-        }
     </style>
 </head>
-<body class="font-sans bg-coffee-100 dark:bg-coffee-900 text-coffee-800 dark:text-coffee-100 transition-colors duration-200 parallax-bg coffee-bg">
-    <div class="progress-bar" id="progressBar"></div>
+<body class="font-sans bg-coffee-100 dark:bg-coffee-900 text-coffee-800 dark:text-coffee-100 transition-colors duration-200 parallax-bg" style="background-image: url('/static/coffee-bg.jpg');">
     <div id="falling-beans-container"></div>
     <div id="navbar-placeholder"></div>
 
     <main class="max-w-4xl mx-auto px-4 py-8 space-y-16">
-        <div class="page-title-section">
-            <h1 class="page-title shimmer-text">Coffee Jesus Coffee</h1>
-            <p class="page-subtitle">Brewing Divine Opportunities</p>
+        <div class="page-title-section relative overflow-hidden">
+            <h1 class="page-title text-5xl sm:text-6xl font-bold font-serif text-coffee-700 dark:text-coffee-300 leading-tight shimmer-text relative z-10">
+                Coffee Jesus Coffee
+            </h1>
+            <p class="page-subtitle text-xl text-coffee-600 dark:text-coffee-400 font-semibold relative z-10">Brewing Divine Opportunities - Coming Soon!</p>
+            <div class="absolute top-0 left-0 w-full h-full bg-coffee-100 dark:bg-coffee-900 opacity-50 z-0"></div>
         </div>
 
-        <!-- Replace the existing waitlist section with this enhanced version -->
+        <!-- Move the waitlist section up, right after the title -->
         <section id="waitlist" class="bg-white dark:bg-coffee-800 p-8 rounded-lg shadow-md section-transition">
-            <div class="waitlist-header">
-                <span class="waitlist-coffee-icon">☕</span>
-                <h2 class="waitlist-title">Join Our Exclusive Waitlist</h2>
-                <p class="waitlist-subtitle">Be the first to experience our divine brew and get exclusive offers!</p>
-                <p class="waitlist-count">
-                    <span id="waitlist-count">0</span> coffee enthusiasts have already joined!
-                </p>
-            </div>
-            <form id="coffee-waitlist-form" class="space-y-6 max-w-md mx-auto">
+            <h2 class="text-3xl font-bold mb-6 text-coffee-600 dark:text-coffee-300 text-center font-serif">Join Our Exclusive Waitlist</h2>
+            <p class="text-center text-lg mb-6 text-coffee-700 dark:text-coffee-200">Be the first to experience our divine brew and get exclusive offers!</p>
+            <form id="coffee-waitlist-form" class="space-y-4 max-w-md mx-auto">
                 <div class="relative">
-                    <label for="coffee-waitlist-name" class="text-sm font-medium text-coffee-700 dark:text-coffee-300 mb-1 block">Your Name</label>
-                    <input type="text" id="coffee-waitlist-name" name="name" placeholder="Enter your name" required
-                           class="form-input w-full p-3 rounded-lg bg-coffee-100 dark:bg-coffee-700 text-coffee-800 dark:text-coffee-100 placeholder-coffee-400 dark:placeholder-coffee-300 border-2 border-coffee-300 dark:border-coffee-600 focus:outline-none focus:border-coffee-500 dark:focus:border-coffee-400 transition duration-300">
-                    <span class="input-icon absolute right-3 top-[60%] transform -translate-y-1/2 text-coffee-400 dark:text-coffee-300">
+                    <input type="text" id="coffee-waitlist-name" name="name" placeholder="Your Name" required
+                           class="form-input w-full p-4 pr-12 rounded-lg border-2 border-coffee-300 dark:border-coffee-600 bg-coffee-100 dark:bg-coffee-700 text-coffee-800 dark:text-coffee-100 placeholder-coffee-400 dark:placeholder-coffee-300 focus:outline-none focus:border-coffee-500 dark:focus:border-coffee-400 transition duration-300">
+                    <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-coffee-400 dark:text-coffee-300">
                         <i class="fas fa-user"></i>
                     </span>
                 </div>
                 <div class="relative">
-                    <label for="coffee-waitlist-email" class="text-sm font-medium text-coffee-700 dark:text-coffee-300 mb-1 block">Your Email Address</label>
-                    <input type="email" id="coffee-waitlist-email" name="email" placeholder="Enter your email" required
-                           class="form-input w-full p-3 rounded-lg bg-coffee-100 dark:bg-coffee-700 text-coffee-800 dark:text-coffee-100 placeholder-coffee-400 dark:placeholder-coffee-300 border-2 border-coffee-300 dark:border-coffee-600 focus:outline-none focus:border-coffee-500 dark:focus:border-coffee-400 transition duration-300">
-                    <span class="input-icon absolute right-3 top-[60%] transform -translate-y-1/2 text-coffee-400 dark:text-coffee-300">
+                    <input type="email" id="coffee-waitlist-email" name="email" placeholder="Your Email Address" required
+                           class="form-input w-full p-4 pr-12 rounded-lg border-2 border-coffee-300 dark:border-coffee-600 bg-coffee-100 dark:bg-coffee-700 text-coffee-800 dark:text-coffee-100 placeholder-coffee-400 dark:placeholder-coffee-300 focus:outline-none focus:border-coffee-500 dark:focus:border-coffee-400 transition duration-300">
+                    <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-coffee-400 dark:text-coffee-300">
                         <i class="fas fa-envelope"></i>
                     </span>
                 </div>
-                <button type="submit" class="submit-btn w-full bg-coffee-600 hover:bg-coffee-700 dark:bg-coffee-500 dark:hover:bg-coffee-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-coffee-400 dark:focus:ring-coffee-300 focus:ring-opacity-50">
-                    Join the Waitlist
+                <button type="submit"
+                        class="w-full bg-coffee-600 hover:bg-coffee-700 dark:bg-coffee-500 dark:hover:bg-coffee-600 text-white font-bold py-4 px-6 rounded-lg transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-coffee-400 dark:focus:ring-coffee-300 focus:ring-opacity-50 relative overflow-hidden group">
+                    <span class="relative z-10">Join the Waitlist</span>
+                    <span class="absolute top-0 left-0 w-full h-full bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
                 </button>
             </form>
             <p id="coffee-waitlist-message" class="mt-4 text-center text-coffee-800 dark:text-coffee-200 font-medium"></p>
+            <p class="text-center text-coffee-600 dark:text-coffee-400 mt-4">
+                <span id="waitlist-count" class="font-bold text-2xl">0</span> coffee enthusiasts have already joined!
+            </p>
         </section>
 
-        <!-- Secondary navigation -->
-        <nav class="secondary-nav">
-            <ul>
-                <li><a href="#vision"><i class="fas fa-eye"></i> Our Vision</a></li>
-                <li><a href="#mission"><i class="fas fa-bullseye"></i> Our Mission</a></li>
-                <li><a href="#coffee"><i class="fas fa-coffee"></i> Our Coffee</a></li>
-                <li><a href="#funding"><i class="fas fa-hand-holding-usd"></i> Funding Needs</a></li>
-                <li><a href="#impact"><i class="fas fa-heart"></i> Your Impact</a></li>
+        <nav class="sticky-nav bg-coffee-200 dark:bg-coffee-800 p-4 rounded-lg shadow-md mb-8 z-10">
+            <ul class="flex flex-wrap justify-center gap-6">
+                <li><a href="#vision" class="flex items-center text-coffee-700 dark:text-coffee-300 hover:underline"><i class="fas fa-eye mr-2"></i>Our Vision</a></li>
+                <li><a href="#mission" class="flex items-center text-coffee-700 dark:text-coffee-300 hover:underline"><i class="fas fa-bullseye mr-2"></i>Our Mission</a></li>
+                <li><a href="#coffee" class="flex items-center text-coffee-700 dark:text-coffee-300 hover:underline"><i class="fas fa-coffee mr-2"></i>Our Coffee</a></li>
+                <li><a href="#funding" class="flex items-center text-coffee-700 dark:text-coffee-300 hover:underline"><i class="fas fa-hand-holding-usd mr-2"></i>Funding Needs</a></li>
+                <li><a href="#impact" class="flex items-center text-coffee-700 dark:text-coffee-300 hover:underline"><i class="fas fa-heart mr-2"></i>Your Impact</a></li>
             </ul>
         </nav>
 
@@ -1167,59 +638,6 @@
                 });
             });
         });
-
-        // Progress bar
-        window.addEventListener('scroll', () => {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.getElementById('progressBar').style.transform = `scaleX(${scrolled / 100})`;
-        });
-
-        // Animated section reveal
-        const revealSections = document.querySelectorAll('.reveal');
-        const revealOnScroll = () => {
-            revealSections.forEach(section => {
-                const sectionTop = section.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                if (sectionTop < windowHeight * 0.75) {
-                    section.classList.add('active');
-                }
-            });
-        };
-        window.addEventListener('scroll', revealOnScroll);
-        revealOnScroll(); // Initial check on page load
-
-        function addAnimatedCoffeeIcons() {
-            const titles = document.querySelectorAll('.section-title');
-            titles.forEach(title => {
-                const icon = document.createElement('span');
-                icon.className = 'coffee-icon';
-                title.prepend(icon);
-            });
-        }
-
-        // Animate coffee icons on scroll
-        function animateCoffeeIconsOnScroll() {
-            const icons = document.querySelectorAll('.coffee-icon');
-            icons.forEach(icon => {
-                const rect = icon.getBoundingClientRect();
-                if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
-                    icon.style.animation = 'steam 2s infinite';
-                } else {
-                    icon.style.animation = 'none';
-                }
-            });
-        }
-
-        // Call these functions when the page loads
-        window.addEventListener('load', () => {
-            addAnimatedCoffeeIcons();
-            animateCoffeeIconsOnScroll();
-        });
-
-        // Animate coffee icons on scroll
-        window.addEventListener('scroll', animateCoffeeIconsOnScroll);
     </script>
 </body>
 </html>

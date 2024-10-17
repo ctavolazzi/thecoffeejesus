@@ -1,4 +1,4 @@
-<header class="bg-white dark:bg-gray-800 shadow-sm fixed top-0 left-0 right-0 z-50">
+<header class="main-navbar bg-white dark:bg-gray-800 shadow-sm fixed top-0 left-0 right-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center py-4">
             <div class="flex-1">
@@ -74,5 +74,13 @@
     }
     .toggle-checkbox:checked + .toggle-label:before {
         transform: translateX(24px);
+    }
+    .main-navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        height: 80px; /* Adjust this to match your navbar height */
     }
 </style>
