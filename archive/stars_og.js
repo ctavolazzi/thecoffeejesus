@@ -1,7 +1,7 @@
 function createStars() {
     const container = document.querySelector('.stars-container');
     if (!container) {
-        console.error('Animated background container not found');
+        console.error('Stars container not found');
         return;
     }
     const containerRect = container.getBoundingClientRect();
