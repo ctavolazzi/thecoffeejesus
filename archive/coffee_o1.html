@@ -41,7 +41,7 @@
             background-clip: text;
             animation: shimmer 5s linear infinite;
         }
-        .light .shimmer-text {
+        html:not(.dark) .shimmer-text {
             background-image: linear-gradient(90deg, #4f46e5 0%, #818cf8 20%, #4f46e5 40%, #818cf8 60%, #4f46e5 80%, #818cf8 100%);
         }
         .dark .shimmer-text {
@@ -104,18 +104,11 @@
             position: sticky;
             top: 64px; /* Adjust this value to match the height of your main navbar */
             z-index: 20;
-            padding-bottom: 1rem; /* Add padding to the bottom of the nav */
         }
 
         /* Anchor point spacing */
         .section-padding {
-            scroll-margin-top: 144px; /* Increase this value to add more space */
-            padding-top: 2rem; /* Add padding to the top of each section */
-        }
-
-        /* Add margin to the main content container */
-        .main-content {
-            margin-top: 2rem; /* Adjust this value as needed */
+            scroll-margin-top: 128px; /* Adjust this value to account for both navbars (main + secondary) */
         }
 
         .faq-item {
@@ -144,13 +137,6 @@
         .faq-item.active .faq-icon {
             transform: rotate(180deg);
         }
-        .section-transition {
-            transition: all 0.3s ease-in-out;
-        }
-        .section-transition:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
     </style>
 </head>
 <body class="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200 pt-16">
@@ -158,12 +144,12 @@
     <div id="navbar-placeholder"></div>
     <div id="falling-beans-container"></div>
 
-    <main class="max-w-4xl mx-auto px-4 py-8 space-y-12 main-content">
+    <main class="max-w-4xl mx-auto px-4 py-8 space-y-12">
         <div class="text-center">
             <h1 class="text-5xl sm:text-6xl font-extrabold shimmer-text leading-tight mb-4">
                 Coffee Jesus Coffee
             </h1>
-            <p class="text-xl text-indigo-600 dark:text-indigo-400 font-semibold">Brewing Divine Opportunities - Coming Soon!</p>
+            <p class="text-xl text-indigo-600 dark:text-indigo-400 font-semibold">Coming Soon - Be Part of the Journey!</p>
         </div>
 
         <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md text-center">
@@ -183,7 +169,7 @@
             </ul>
         </nav>
 
-        <section id="vision" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md section-padding section-transition">
+        <section id="vision" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md section-padding">
             <div class="flex items-center mb-4">
                 <i class="fas fa-eye text-4xl text-indigo-600 dark:text-indigo-400 mr-4"></i>
                 <h2 class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">Our Vision: Transform Lives with Every Cup</h2>
@@ -191,7 +177,7 @@
             <p class="mb-4">Join us in our mission to create a positive impact through every cup of coffee. Coffee Jesus Coffee is dedicated to supporting families in Gaza and funding community programs in the US focused on literacy and socially conscious entrepreneurship.</p>
         </section>
 
-        <section id="mission" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md section-padding section-transition">
+        <section id="mission" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md section-padding">
             <div class="flex items-center mb-4">
                 <i class="fas fa-bullseye text-4xl text-indigo-600 dark:text-indigo-400 mr-4"></i>
                 <h2 class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">Our Mission</h2>
@@ -201,7 +187,7 @@
             <p>We believe that coffee can be more than just a drink – it can be a force for good. That's why Coffee Jesus Coffee will donate 10% of our profits to support families in Gaza and another 10% to fund community programs in the US focused on literacy and socially conscious entrepreneurship.</p>
         </section>
 
-        <section id="coffee" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md section-padding section-transition">
+        <section id="coffee" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md section-padding">
             <div class="flex items-center mb-4">
                 <i class="fas fa-coffee text-4xl text-indigo-600 dark:text-indigo-400 mr-4"></i>
                 <h2 class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">Our Coffee Vision</h2>
@@ -215,7 +201,7 @@
             <p>We are currently exploring partnerships with local roasters to bring you the highest quality, sustainably sourced coffee.</p>
         </section>
 
-        <section id="funding" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md section-padding section-transition">
+        <section id="funding" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md section-padding">
             <div class="flex items-center mb-4">
                 <i class="fas fa-hand-holding-usd text-4xl text-indigo-600 dark:text-indigo-400 mr-4"></i>
                 <h2 class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">Our Funding Needs</h2>
@@ -230,32 +216,21 @@
             </ul>
         </section>
 
-        <section id="impact" class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md section-padding section-transition">
-            <h2 class="text-3xl font-bold mb-8 text-indigo-600 dark:text-indigo-400 text-center">Your Impact</h2>
-            <div class="space-y-6">
-                <h3 class="text-2xl font-semibold mb-4 text-indigo-500 dark:text-indigo-300">Your Support Directly Impacts:</h3>
-                <ul class="space-y-4 text-lg">
-                    <li class="flex items-center">
-                        <i class="fas fa-store text-indigo-500 mr-3"></i>
-                        <span>Small Businesses</span>
-                    </li>
-                    <li class="flex items-center">
-                        <i class="fas fa-users text-indigo-500 mr-3"></i>
-                        <span>Families in Need</span>
-                    </li>
-                    <li class="flex items-center">
-                        <i class="fas fa-lightbulb text-indigo-500 mr-3"></i>
-                        <span>Creative Entrepreneurs All Around the World!</span>
-                    </li>
-                </ul>
-                <p class="mt-6 text-gray-700 dark:text-gray-300">
-                    Your support helps us create sustainable change in communities that need it most. Thank you for joining us on this journey.
-                </p>
+        <section id="impact" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md section-padding">
+            <div class="flex items-center mb-4">
+                <i class="fas fa-heart text-4xl text-indigo-600 dark:text-indigo-400 mr-4"></i>
+                <h2 class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">Your Support Directly Impacts:</h2>
             </div>
+            <ul class="list-none mb-4 text-gray-700 dark:text-gray-300">
+                <li class="flex items-center mb-2"><i class="fas fa-store text-indigo-500 mr-2"></i>Small Businesses</li>
+                <li class="flex items-center mb-2"><i class="fas fa-users text-indigo-500 mr-2"></i>Families in Need</li>
+                <li class="flex items-center mb-2"><i class="fas fa-lightbulb text-indigo-500 mr-2"></i>Creative Entrepreneurs All Around the World!</li>
+            </ul>
+            <p>Your support helps us create sustainable change in communities that need it most. Thank you for joining us on this journey.</p>
         </section>
 
         <!-- FAQ Section -->
-        <section id="faq" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md section-padding section-transition">
+        <section id="faq" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md section-padding">
             <h2 class="text-3xl font-bold mb-6 text-indigo-600 dark:text-indigo-400 text-center">Frequently Asked Questions</h2>
             <div class="space-y-4">
                 <div class="faq-item">
@@ -319,7 +294,7 @@
         </section>
 
         <!-- Testimonials Section -->
-        <section id="testimonials" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md section-padding section-transition">
+        <section class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md section-padding">
             <h2 class="text-3xl font-bold mb-6 text-indigo-600 dark:text-indigo-400 text-center">What Our Supporters Say</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-md">
@@ -346,7 +321,7 @@
         </section>
 
         <!-- Funding Progress Section -->
-        <section class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md section-padding section-transition">
+        <section class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md section-padding">
             <h2 class="text-3xl font-bold mb-6 text-indigo-600 dark:text-indigo-400 text-center">Funding Progress</h2>
             <div class="mb-4">
                 <div class="bg-gray-200 dark:bg-gray-700 rounded-full h-6 overflow-hidden">
@@ -359,17 +334,8 @@
             <p class="text-center text-gray-600 dark:text-gray-300 mt-2">Help us reach our goal and bring Coffee Jesus Coffee to life!</p>
         </section>
 
-        <!-- Call-to-Action Section -->
-        <section class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-16 rounded-lg shadow-lg mt-8 section-transition">
-            <h2 class="text-3xl font-bold mb-6 text-center">Join the Coffee Jesus Coffee Movement</h2>
-            <p class="text-center mb-6">Be a part of our mission to create positive change through coffee. Stay updated on our progress and be the first to know when we launch!</p>
-            <div class="text-center">
-                <a href="https://solo.to/thecoffeejesus" class="inline-block bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-indigo-100 transition duration-300">Reach Out to the Owner</a>
-            </div>
-        </section>
-
         <!-- Coffee Jesus Coffee Waitlist Signup Component -->
-        <section id="coffee-waitlist" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md section-transition">
+        <section id="coffee-waitlist" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
             <h2 class="text-2xl font-bold mb-4 text-indigo-600 dark:text-indigo-400 text-center">Join the Coffee Jesus Coffee Waitlist</h2>
 
             <!-- Waitlist Count Display -->
@@ -581,22 +547,6 @@
         }
 
         document.addEventListener('DOMContentLoaded', animateProgressBar);
-
-        // Intersection Observer for section animations
-        const sections = document.querySelectorAll('.section-transition');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('opacity-100', 'translate-y-0');
-                    entry.target.classList.remove('opacity-0', 'translate-y-4');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        sections.forEach(section => {
-            section.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-500', 'ease-out');
-            observer.observe(section);
-        });
     </script>
 </body>
 </html>

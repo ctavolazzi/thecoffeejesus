@@ -10,6 +10,8 @@ function setupDarkMode() {
             html.classList.remove('dark');
             localStorage.setItem('darkMode', 'disabled');
         }
+        // Dispatch an event when dark mode changes
+        document.dispatchEvent(new Event('darkModeChanged'));
     }
 
     // Check for saved dark mode preference
