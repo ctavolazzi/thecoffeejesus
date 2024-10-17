@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supabase Test Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center mb-8">Supabase Test Page</h1>
+
+        <!-- Data Display Section -->
+        <div id="data-container" class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-center mb-4">Fetched Data</h2>
+            <ul id="data-list" class="list-disc list-inside space-y-2"></ul>
+            <div id="error-message" class="text-red-500 text-center mt-4"></div>
+        </div>
+
+        <!-- Button to Load More Data -->
+        <button id="load-more" class="bg-indigo-600 text-white font-bold py-2 px-4 rounded mt-4 block mx-auto">
+            Load More Data
+        </button>
+    </div>
+
+    <!-- Import Supabase JS file and handle fetching -->
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+        // Initialize Supabase client
+        const supabaseUrl = 'https://cflncektpegrccomneqc.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmbG5jZWt0cGVncmNjb21uZXFjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTYzODg3MzQsImV4cCI6MjAzMTk2NDczNH0.YaNGZ3fjFKoGC48PXEpLCZZTjuH10OZqgxgxXKO8le8';
+        const supabase = createClient(supabaseUrl, supabaseKey);
+
+        // Pagination state
+        let currentPage = 1;
+        const limit = 10;  // Number of records to fetch per page
+
+        // HTML elements
+        const dataList = document.getElementById('data-list');
+        const errorMessage = document.getElementById('error-message');
+        const loadMoreButton = document.getElementById('load-more');
+
+        // Function to fetch data from Supabase
+        async function fetchData(page = 1) {
+            errorMessage.textContent = '';  // Clear previous error
+            try {
+                const start = (page - 1) * limit;
+                const end = start + limit - 1;
+
+                const { data, error, count } = await supabase
+                    .from('thecoffeejesus')  // Replace with your table name
+                    .select('*', { count: 'exact' })  // Fetch total count
+                    .range(start, end);  // Paginate results
+
+                if (error) throw error;
+
+                if (data.length === 0) {
+                    errorMessage.textContent = 'No more data available.';
+                    loadMoreButton.style.display = 'none';
+                } else {
+                    data.forEach(item => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = `Name: ${item.name}, Email: ${item.email}`;
+                        dataList.appendChild(listItem);
+                    });
+
+                    if (dataList.children.length >= count) {
+                        loadMoreButton.style.display = 'none';
+                    }
+                }
+            } catch (error) {
+                errorMessage.textContent = `Error: ${error.message}`;
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        // Load initial data on page load
+        fetchData(currentPage);
+
+        // Load more data when "Load More" button is clicked
+        loadMoreButton.addEventListener('click', () => {
+            currentPage++;
+            fetchData(currentPage);
+        });
+    </script>
+</body>
+</html>
