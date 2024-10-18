@@ -574,6 +574,28 @@
             transform: translateY(0);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
+
+        /* FAQ Answer Transition */
+        .faq-answer {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+        }
+
+        .faq-answer.open {
+            max-height: 500px; /* Adjust based on content length */
+            opacity: 1;
+        }
+
+        /* Chevron Icon Rotation */
+        .faq-question i {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question.open i {
+            transform: rotate(180deg);
+        }
     </style>
 </head>
 <body class="pt-16 font-sans transition-colors duration-200 parallax-bg coffee-bg">
@@ -801,40 +823,55 @@
         <section class="bg-white dark:bg-coffee-800 p-8 rounded-lg shadow-md section-transition">
             <h2 class="text-3xl font-bold mb-6 text-coffee-600 dark:text-coffee-300 font-serif">Frequently Asked Questions</h2>
             <div class="space-y-4">
+                <!-- FAQ Item 1 -->
                 <div class="border-b border-coffee-200 dark:border-coffee-700 pb-4">
-                    <button class="flex justify-between items-center w-full text-left text-coffee-800 dark:text-coffee-100" onclick="toggleFAQ(this)">
+                    <button class="faq-question flex justify-between items-center w-full text-left text-coffee-800 dark:text-coffee-100 focus:outline-none">
                         <span class="font-semibold">How does Coffee Jesus Coffee support communities?</span>
-                        <i class="fas fa-chevron-down text-coffee-600 dark:text-coffee-400"></i>
+                        <i class="fas fa-chevron-down text-coffee-600 dark:text-coffee-400 transition-transform duration-200"></i>
                     </button>
-                    <p class="mt-2 hidden text-coffee-600 dark:text-coffee-300">We donate 20% of our profits to fund community programs focused on literacy and socially conscious entrepreneurship.</p>
+                    <div class="faq-answer mt-2 text-coffee-600 dark:text-coffee-300 transition-all duration-300">
+                        <p>We donate 20% of our profits to fund community programs focused on literacy and socially conscious entrepreneurship.</p>
+                    </div>
                 </div>
+                <!-- FAQ Item 2 -->
                 <div class="border-b border-coffee-200 dark:border-coffee-700 pb-4">
-                    <button class="flex justify-between items-center w-full text-left text-coffee-800 dark:text-coffee-100" onclick="toggleFAQ(this)">
+                    <button class="faq-question flex justify-between items-center w-full text-left text-coffee-800 dark:text-coffee-100 focus:outline-none">
                         <span class="font-semibold">Where does your coffee come from?</span>
-                        <i class="fas fa-chevron-down text-coffee-600 dark:text-coffee-400"></i>
+                        <i class="fas fa-chevron-down text-coffee-600 dark:text-coffee-400 transition-transform duration-200"></i>
                     </button>
-                    <p class="mt-2 hidden text-coffee-600 dark:text-coffee-300">We source our coffee beans from small, sustainable farms around the world. Each batch is carefully selected to ensure the highest quality and ethical production practices.</p>
+                    <div class="faq-answer mt-2 text-coffee-600 dark:text-coffee-300 transition-all duration-300">
+                        <p>We source our coffee beans from small, sustainable farms around the world. Each batch is carefully selected to ensure the highest quality and ethical production practices.</p>
+                    </div>
                 </div>
+                <!-- FAQ Item 3 -->
                 <div class="border-b border-coffee-200 dark:border-coffee-700 pb-4">
-                    <button class="flex justify-between items-center w-full text-left text-coffee-800 dark:text-coffee-100" onclick="toggleFAQ(this)">
+                    <button class="faq-question flex justify-between items-center w-full text-left text-coffee-800 dark:text-coffee-100 focus:outline-none">
                         <span class="font-semibold">When will Coffee Jesus Coffee be available for purchase?</span>
-                        <i class="fas fa-chevron-down text-coffee-600 dark:text-coffee-400"></i>
+                        <i class="fas fa-chevron-down text-coffee-600 dark:text-coffee-400 transition-transform duration-200"></i>
                     </button>
-                    <p class="mt-2 hidden text-coffee-600 dark:text-coffee-300">We're currently in the development phase and working hard to bring Coffee Jesus Coffee to market. Sign up for our newsletter to be the first to know when we launch!</p>
+                    <div class="faq-answer mt-2 text-coffee-600 dark:text-coffee-300 transition-all duration-300">
+                        <p>We're currently in the development phase and working hard to bring Coffee Jesus Coffee to market. Sign up for our newsletter to be the first to know when we launch!</p>
+                    </div>
                 </div>
+                <!-- FAQ Item 4 -->
                 <div class="border-b border-coffee-200 dark:border-coffee-700 pb-4">
-                    <button class="flex justify-between items-center w-full text-left text-coffee-800 dark:text-coffee-100" onclick="toggleFAQ(this)">
+                    <button class="faq-question flex justify-between items-center w-full text-left text-coffee-800 dark:text-coffee-100 focus:outline-none">
                         <span class="font-semibold">How can I support Coffee Jesus Coffee?</span>
-                        <i class="fas fa-chevron-down text-coffee-600 dark:text-coffee-400"></i>
+                        <i class="fas fa-chevron-down text-coffee-600 dark:text-coffee-400 transition-transform duration-200"></i>
                     </button>
-                    <p class="mt-2 hidden text-coffee-600 dark:text-coffee-300">You can support us by spreading the word, following us on social media, and reaching out if you have skills or resources that could help bring our vision to life. Once we launch, purchasing our coffee will directly support our mission.</p>
+                    <div class="faq-answer mt-2 text-coffee-600 dark:text-coffee-300 transition-all duration-300">
+                        <p>You can support us by spreading the word, following us on social media, and reaching out if you have skills or resources that could help bring our vision to life. Once we launch, purchasing our coffee will directly support our mission.</p>
+                    </div>
                 </div>
+                <!-- FAQ Item 5 -->
                 <div class="border-b border-coffee-200 dark:border-coffee-700 pb-4">
-                    <button class="flex justify-between items-center w-full text-left text-coffee-800 dark:text-coffee-100" onclick="toggleFAQ(this)">
+                    <button class="faq-question flex justify-between items-center w-full text-left text-coffee-800 dark:text-coffee-100 focus:outline-none">
                         <span class="font-semibold">What makes Coffee Jesus Coffee unique?</span>
-                        <i class="fas fa-chevron-down text-coffee-600 dark:text-coffee-400"></i>
+                        <i class="fas fa-chevron-down text-coffee-600 dark:text-coffee-400 transition-transform duration-200"></i>
                     </button>
-                    <p class="mt-2 hidden text-coffee-600 dark:text-coffee-300">Our commitment to social impact, high-quality sustainable coffee, and our unique brand story set us apart. We're not just selling coffee; we're creating a movement for positive change.</p>
+                    <div class="faq-answer mt-2 text-coffee-600 dark:text-coffee-300 transition-all duration-300">
+                        <p>Our commitment to social impact, high-quality sustainable coffee, and our unique brand story set us apart. We're not just selling coffee; we're creating a movement for positive change.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -963,15 +1000,38 @@
             }, 5000);
         }
 
-        function toggleFAQ(button) {
+        /**
+         * Toggle the visibility of the FAQ answer and rotate the chevron icon.
+         * @param {Event} event - The click event.
+         */
+        function toggleFAQ(event) {
+            const button = event.currentTarget;
             const answer = button.nextElementSibling;
-            const icon = button.querySelector('i');
-            answer.classList.toggle('hidden');
-            icon.classList.toggle('fa-chevron-up');
-            icon.classList.toggle('fa-chevron-down');
+
+            // Check if the clicked FAQ is already open
+            const isOpen = answer.classList.contains('open');
+
+            // Close all open FAQs
+            const allAnswers = document.querySelectorAll('.faq-answer');
+            const allButtons = document.querySelectorAll('.faq-question');
+
+            allAnswers.forEach(a => a.classList.remove('open'));
+            allButtons.forEach(b => b.classList.remove('open'));
+
+            // If the clicked FAQ was not open, open it
+            if (!isOpen) {
+                answer.classList.add('open');
+                button.classList.add('open');
+            }
         }
 
+        // Assign event listeners to all FAQ question buttons
         document.addEventListener('DOMContentLoaded', () => {
+            const faqButtons = document.querySelectorAll('.faq-question');
+            faqButtons.forEach(button => {
+                button.addEventListener('click', toggleFAQ);
+            });
+
             createFallingBeans();
             animateProgressBar();
         });
