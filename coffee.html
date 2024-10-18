@@ -147,6 +147,7 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
             position: relative;
             z-index: 2;
+            line-height: 1.2; /* This adds space between the lines */
         }
 
         .page-subtitle {
@@ -163,6 +164,7 @@
         @media (max-width: 768px) {
             .page-title {
                 font-size: 3.5rem;
+                line-height: 1.3; /* Slightly more space for smaller screens */
             }
             .page-subtitle {
                 font-size: 1.25rem;
@@ -292,7 +294,7 @@
 
         /* Define CSS Variables for Light Mode */
         :root {
-            --bg-primary: #FFF8E1;
+            --bg-primary: #FFF8E1; /* Lighter cream color */
             --bg-secondary: #FFFFFF;
             --text-primary: #3E2723;
             --text-secondary: #6D4C41;
@@ -358,8 +360,8 @@
 
         /* Light mode specific styles */
         .light {
-            --bg-primary: #FFF8E1;
-            --bg-secondary: #FFFFFF;
+            /* --bg-primary: #FFF8E1; /* Lighter cream color */
+            /* --bg-secondary: #FFFFFF; */
             --text-primary: #3E2723;
             --text-secondary: #6D4C41;
             --accent-color: #A67C52;
@@ -466,6 +468,112 @@
             color: #000000 !important; /* Pure black for maximum contrast */
             text-shadow: none !important; /* Remove any text shadows */
         }
+
+        /* New CSS for the steam and pouring coffee animations */
+        /* Add animation to SVG lines */
+        .steam-line {
+            stroke: rgba(255, 255, 255, 0.7); /* Lighter stroke color */
+            stroke-width: 2;
+            animation: steamRise 4s ease-in-out infinite;
+        }
+
+        .coffee-stream {
+            stroke: #4E342E; /* Coffee color */
+            stroke-width: 5;
+            stroke-dasharray: 0 100;
+            animation: pourCoffee 3s ease-in-out infinite;
+        }
+
+        @keyframes steamRise {
+            0% {
+                opacity: 0;
+                transform: translateY(10px) scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(-10px) scale(1.2);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(10px) scale(1);
+            }
+        }
+
+        @keyframes pourCoffee {
+            0% {
+                stroke-dasharray: 0 100;
+                opacity: 0;
+            }
+            50% {
+                stroke-dasharray: 100 0;
+                opacity: 1;
+            }
+            100% {
+                stroke-dasharray: 0 100;
+                opacity: 0;
+            }
+        }
+
+        /* Ensure the header has no background */
+        .header-no-bg {
+            background-color: transparent;
+            position: relative;
+        }
+
+        /* Ensure SVG scales correctly */
+        header svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Enhance the text appearance */
+        header h1, header p {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Improved "Join the Waitlist" Button */
+        .join-waitlist-btn {
+            position: relative;
+            display: inline-block;
+            background-color: #6D4C41; /* Initial background color */
+            color: #FFFFFF;
+            font-weight: bold;
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            margin-top: 2rem; /* Adjust this value as needed */
+        }
+
+        .join-waitlist-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.5s ease;
+        }
+
+        .join-waitlist-btn:hover {
+            background-color: #8D6E63; /* Hover background color */
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .join-waitlist-btn:hover::after {
+            transform: translate(-50%, -50%) scale(1);
+            transition: transform 0.3s ease;
+        }
+
+        .join-waitlist-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
     </style>
 </head>
 <body class="pt-16 font-sans transition-colors duration-200 parallax-bg coffee-bg">
@@ -473,26 +581,43 @@
     <div id="falling-beans-container"></div>
     <div id="navbar-placeholder"></div>
 
-    <header class="bg-coffee-800 text-coffee-100 py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      <div class="absolute inset-0 opacity-10">
-        <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
-          <path d="M20 20c10 0 10 10 20 10s10-10 20-10 10 10 20 10" fill="none" stroke="currentColor" stroke-width="1.5"/>
-          <path d="M0 40c10 0 10 10 20 10s10-10 20-10 10 10 20 10" fill="none" stroke="currentColor" stroke-width="1.5"/>
-          <path d="M20 60c10 0 10 10 20 10s10-10 20-10 10 10 20 10" fill="none" stroke="currentColor" stroke-width="1.5"/>
-        </svg>
-      </div>
-      <div class="max-w-4xl mx-auto text-center relative z-10">
-        <h1 class="text-6xl sm:text-7xl font-bold mb-4 font-serif text-coffee-100">
-          Coffee Jesus Coffee
-        </h1>
-        <p class="text-xl sm:text-2xl mb-8 text-coffee-300 font-light">
-          Ethically sourced, divinely inspired coffee that changes lives
-        </p>
-        <a href="#coffee-waitlist-form" class="inline-block bg-coffee-600 hover:bg-coffee-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300">
-          Join the Waitlist
-        </a>
-      </div>
-      <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-coffee-900 to-transparent"></div>
+    <header class="header-no-bg text-coffee-100 py-8 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <h1 class="text-6xl sm:text-7xl font-bold mb-2 font-serif text-coffee-100">
+                Coffee Jesus Coffee
+            </h1>
+            <p class="text-xl sm:text-2xl mb-4 text-coffee-300 font-light">
+                Ethically sourced, divinely inspired coffee that changes lives
+            </p>
+        </div>
+        <div class="relative my-4">
+            <svg class="w-40 h-48 mx-auto" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+                <!-- Coffee Cup -->
+                <g id="cup">
+                    <!-- Cup body (now with a flat top) -->
+                    <path d="M20 40 v60 h60 v-60 h-60" fill="#6D4C41"/>
+                    <!-- Cup rim -->
+                    <path d="M15 40 h70" stroke="#4E342E" stroke-width="5" fill="none"/>
+                    <!-- Cup handle -->
+                    <path d="M80 50 a20 20 0 0 1 0 40" fill="none" stroke="#4E342E" stroke-width="5"/>
+                </g>
+                <!-- Steam Lines -->
+                <g id="steam">
+                    <path class="steam-line" d="M30 30 C30 15, 50 15, 50 30" fill="none"/>
+                    <path class="steam-line" d="M40 30 C40 10, 60 10, 60 30" fill="none"/>
+                    <path class="steam-line" d="M50 30 C50 20, 70 20, 70 30" fill="none"/>
+                </g>
+                <!-- Pouring Coffee -->
+                <g id="pour">
+                    <path class="coffee-stream" d="M50 0 v40" stroke-linecap="round"/>
+                </g>
+            </svg>
+        </div>
+        <div class="text-center mt-2">
+            <a href="#coffee-waitlist-form" class="join-waitlist-btn">
+                Join the Waitlist
+            </a>
+        </div>
     </header>
 
     <main class="max-w-4xl mx-auto px-4 py-8 space-y-16">
