@@ -580,17 +580,17 @@
             max-height: 0;
             opacity: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease, opacity 0.3s ease;
+            transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
         }
 
         .faq-answer.open {
-            max-height: 500px; /* Adjust based on content length */
+            max-height: 500px; /* Adjust as needed for content */
             opacity: 1;
         }
 
         /* Chevron Icon Rotation */
         .faq-question i {
-            transition: transform 0.3s ease;
+            transition: transform 0.5s ease-in-out;
         }
 
         .faq-question.open i {
@@ -829,7 +829,7 @@
                         <span class="font-semibold">How does Coffee Jesus Coffee support communities?</span>
                         <i class="fas fa-chevron-down text-coffee-600 dark:text-coffee-400 transition-transform duration-200"></i>
                     </button>
-                    <div class="faq-answer mt-2 text-coffee-600 dark:text-coffee-300 transition-all duration-300">
+                    <div class="faq-answer mt-2 text-coffee-600 dark:text-coffee-300 transition-all duration-500 max-h-0 overflow-hidden opacity-0">
                         <p>We donate 20% of our profits to fund community programs focused on literacy and socially conscious entrepreneurship.</p>
                     </div>
                 </div>
@@ -839,7 +839,7 @@
                         <span class="font-semibold">Where does your coffee come from?</span>
                         <i class="fas fa-chevron-down text-coffee-600 dark:text-coffee-400 transition-transform duration-200"></i>
                     </button>
-                    <div class="faq-answer mt-2 text-coffee-600 dark:text-coffee-300 transition-all duration-300">
+                    <div class="faq-answer mt-2 text-coffee-600 dark:text-coffee-300 transition-all duration-500 max-h-0 overflow-hidden opacity-0">
                         <p>We source our coffee beans from small, sustainable farms around the world. Each batch is carefully selected to ensure the highest quality and ethical production practices.</p>
                     </div>
                 </div>
@@ -849,7 +849,7 @@
                         <span class="font-semibold">When will Coffee Jesus Coffee be available for purchase?</span>
                         <i class="fas fa-chevron-down text-coffee-600 dark:text-coffee-400 transition-transform duration-200"></i>
                     </button>
-                    <div class="faq-answer mt-2 text-coffee-600 dark:text-coffee-300 transition-all duration-300">
+                    <div class="faq-answer mt-2 text-coffee-600 dark:text-coffee-300 transition-all duration-500 max-h-0 overflow-hidden opacity-0">
                         <p>We're currently in the development phase and working hard to bring Coffee Jesus Coffee to market. Sign up for our newsletter to be the first to know when we launch!</p>
                     </div>
                 </div>
@@ -859,7 +859,7 @@
                         <span class="font-semibold">How can I support Coffee Jesus Coffee?</span>
                         <i class="fas fa-chevron-down text-coffee-600 dark:text-coffee-400 transition-transform duration-200"></i>
                     </button>
-                    <div class="faq-answer mt-2 text-coffee-600 dark:text-coffee-300 transition-all duration-300">
+                    <div class="faq-answer mt-2 text-coffee-600 dark:text-coffee-300 transition-all duration-500 max-h-0 overflow-hidden opacity-0">
                         <p>You can support us by spreading the word, following us on social media, and reaching out if you have skills or resources that could help bring our vision to life. Once we launch, purchasing our coffee will directly support our mission.</p>
                     </div>
                 </div>
@@ -869,7 +869,7 @@
                         <span class="font-semibold">What makes Coffee Jesus Coffee unique?</span>
                         <i class="fas fa-chevron-down text-coffee-600 dark:text-coffee-400 transition-transform duration-200"></i>
                     </button>
-                    <div class="faq-answer mt-2 text-coffee-600 dark:text-coffee-300 transition-all duration-300">
+                    <div class="faq-answer mt-2 text-coffee-600 dark:text-coffee-300 transition-all duration-500 max-h-0 overflow-hidden opacity-0">
                         <p>Our commitment to social impact, high-quality sustainable coffee, and our unique brand story set us apart. We're not just selling coffee; we're creating a movement for positive change.</p>
                     </div>
                 </div>
@@ -1012,11 +1012,8 @@
             const isOpen = answer.classList.contains('open');
 
             // Close all open FAQs
-            const allAnswers = document.querySelectorAll('.faq-answer');
-            const allButtons = document.querySelectorAll('.faq-question');
-
-            allAnswers.forEach(a => a.classList.remove('open'));
-            allButtons.forEach(b => b.classList.remove('open'));
+            document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+            document.querySelectorAll('.faq-question').forEach(b => b.classList.remove('open'));
 
             // If the clicked FAQ was not open, open it
             if (!isOpen) {
