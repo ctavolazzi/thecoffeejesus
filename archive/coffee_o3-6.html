@@ -4,16 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coffee Jesus Coffee - Brewing Divine Opportunities</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <!-- Tailwind Configuration -->
     <script>
         tailwind.config = {
-            darkMode: 'class', // Enables class-based dark mode
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -28,43 +24,6 @@
                             800: '#4E342E',
                             900: '#3E2723',
                         },
-                        gray: {
-                            100: '#F9FAFB',
-                            200: '#F3F4F6',
-                            300: '#E5E7EB',
-                            400: '#D1D5DB',
-                            500: '#9CA3AF',
-                            600: '#6B7280',
-                            700: '#4B5563',
-                            800: '#374151',
-                            900: '#1F2937',
-                        },
-                        yellow: {
-                            400: '#F6E05E',
-                            500: '#ECC94B',
-                            600: '#D69E2E',
-                            700: '#B7791F',
-                            800: '#975A16',
-                        },
-                        indigo: {
-                            400: '#818CF8',
-                            500: '#667EEA',
-                            600: '#5A67D8',
-                            700: '#4338CA',
-                            800: '#3730A3',
-                        },
-                        cream: {
-                            100: '#FFFDD0',
-                            200: '#FFF8DC',
-                            300: '#FFF5E1',
-                        },
-                        brown: {
-                            100: '#D2B48C',
-                            200: '#A67C52',
-                            300: '#8D6E63',
-                            400: '#6D4C41',
-                            500: '#5D4037',
-                        },
                     },
                     fontFamily: {
                         serif: ['Playfair Display', 'serif'],
@@ -75,40 +34,12 @@
         }
     </script>
     <style>
-        /* Keyframe Animations */
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
-        @keyframes fallAnimation {
-            0% { transform: translateY(-5vh) rotate(0deg); }
-            100% { transform: translateY(105vh) rotate(360deg); }
-        }
-        @keyframes shimmer {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-        @keyframes steam {
-            0% { transform: translateY(0) scale(1); opacity: 0.8; }
-            50% { transform: translateY(-10px) scale(1.1); opacity: 0.5; }
-            100% { transform: translateY(-20px) scale(1.2); opacity: 0; }
-        }
-        @keyframes tilt {
-            0%, 100% { transform: rotate(0deg); }
-            50% { transform: rotate(10deg); }
-        }
-        @keyframes wave {
-            0% { transform: translateX(0) translateY(0); }
-            50% { transform: translateX(-25px) translateY(10px); }
-            100% { transform: translateX(0) translateY(0); }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Floating Bean Animation */
         .float { animation: float 6s ease-in-out infinite; }
+
         .coffee-bean {
             position: absolute;
             width: 20px;
@@ -117,7 +48,11 @@
             border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
             opacity: 0.7;
             animation: fallAnimation linear infinite;
-            animation-delay: calc(var(--delay) * -1s); /* Negative delay to start sooner */
+            animation-delay: calc(var(--delay) * -1s);
+        }
+        @keyframes fallAnimation {
+            0% { transform: translateY(-5vh) rotate(0deg); }
+            100% { transform: translateY(105vh) rotate(360deg); }
         }
         .dark .coffee-bean { background-color: #A67C52; }
 
@@ -132,7 +67,34 @@
             overflow: hidden;
         }
 
-        /* Shimmer Effect for Text */
+        .section-transition {
+            transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        .section-transition:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .sticky-nav {
+            position: sticky;
+            top: 64px;
+            z-index: 20;
+            backdrop-filter: blur(5px);
+            background-color: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+        }
+        .dark .sticky-nav {
+            background-color: rgba(30, 41, 59, 0.8);
+        }
+        .sticky-nav.scrolled {
+            padding: 0.5rem 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-padding {
+            scroll-margin-top: 128px;
+        }
+
         .shimmer-text {
             background-size: 200% auto;
             color: transparent;
@@ -148,542 +110,65 @@
             background-image: linear-gradient(90deg, #A67C52 0%, #C8A780 25%, #E6D0B5 50%, #C8A780 75%, #A67C52 100%);
         }
 
-        /* Navigation Styles */
-        .main-navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            height: 80px;
-            background-color: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(5px);
-            transition: background-color 0.3s ease;
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
 
-        .dark .main-navbar {
-            background-color: rgba(30, 41, 59, 0.8);
-        }
-
-        .sticky-nav {
-            position: sticky;
-            top: 80px; /* Adjusted to match main navbar height */
-            z-index: 900;
-            backdrop-filter: blur(5px);
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 9999px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            margin: 2rem auto;
-            padding: 0.5rem 1rem;
-            max-width: 800px;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .dark .sticky-nav {
-            background-color: rgba(30, 41, 59, 0.8);
-        }
-
-        .sticky-nav ul {
-            display: flex;
-            justify-content: space-between;
-            gap: 1rem;
-        }
-
-        .sticky-nav a {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1rem;
-            border-radius: 9999px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            color: var(--text-primary);
-        }
-
-        .sticky-nav a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: var(--accent);
-        }
-
-        .dark .sticky-nav a {
-            color: var(--text-primary);
-        }
-
-        .dark .sticky-nav a:hover {
-            background-color: rgba(50, 58, 75, 0.1);
-            color: var(--accent);
-        }
-
-        /* Section Styling */
-        .section-transition {
-            transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
-        }
-
-        .section-transition:hover {
-            transform: translateY(-5px) scale(1.01);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .section-padding {
-            scroll-margin-top: 128px; /* Adjust based on navbar + secondary nav height */
-        }
-
-        /* Page Title Section */
         .page-title-section {
-            margin-top: 10vh !important;
-            text-align: center !important;
-            padding: 3rem 2rem !important;
-            background: linear-gradient(135deg, rgba(165, 42, 42, 0.8), rgba(210, 180, 140, 0.8)) !important;
-            border-radius: 1.5rem !important;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
-            position: relative !important;
-            overflow: hidden !important;
-            z-index: 1 !important;
-            max-width: 800px !important;
-            margin-left: auto !important;
-            margin-right: auto !important;
-            background-color: #D2B48C; /* Light coffee/tan color for light mode */
+            margin-top: 10vh;
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, rgba(165, 42, 42, 0.8), rgba(210, 180, 140, 0.8));
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
 
         .page-title-section::before {
-            content: '☕' !important;
-            position: absolute !important;
-            top: -20px !important;
-            right: -20px !important;
-            font-size: 10rem !important;
-            opacity: 0.1 !important;
-            transform: rotate(-15deg) !important;
-            z-index: -1 !important;
+            content: '☕';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 10rem;
+            opacity: 0.1;
+            transform: rotate(-15deg);
+            z-index: -1;
         }
 
         .page-title {
-            font-family: 'Playfair Display', serif !important;
-            font-size: 5rem !important;
-            font-weight: 700 !important;
-            color: var(--text-primary) !important; /* Dark brown for light mode */
-            margin-bottom: 1rem !important;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2) !important;
-            position: relative !important;
-            z-index: 2 !important;
-            background: linear-gradient(45deg, #6D4C41, #A67C52, #C8A780);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 700;
+            color: #FFF8E1;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 2;
         }
 
         .page-subtitle {
-            font-family: 'Poppins', sans-serif !important;
-            font-size: 1.75rem !important;
-            color: var(--text-secondary) !important; /* Medium brown */
-            letter-spacing: 0.1em !important;
-            text-transform: uppercase !important;
-            opacity: 0.9 !important;
-            position: relative !important;
-            z-index: 2 !important;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.75rem;
+            color: #FFF8E1;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
         }
 
         @media (max-width: 768px) {
             .page-title {
-                font-size: 3.5rem !important;
+                font-size: 3.5rem;
             }
             .page-subtitle {
-                font-size: 1.25rem !important;
+                font-size: 1.25rem;
             }
         }
 
-        /* Secondary Navigation */
-        .secondary-nav {
-            position: sticky;
-            top: 80px; /* Adjust to main navbar height */
-            z-index: 900;
-            padding-left: 2rem;
-            padding-right: 2rem;
-            background-color: rgba(165, 42, 42, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 9999px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .secondary-nav ul {
-            display: flex;
-            justify-content: space-between;
-            gap: 1rem;
-        }
-
-        .secondary-nav li {
-            display: flex;
-            align-items: center;
-        }
-
-        .secondary-nav a {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1rem;
-            border-radius: 9999px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            color: var(--text-primary);
-        }
-
-        .secondary-nav a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: var(--accent);
-        }
-
-        .dark .secondary-nav a:hover {
-            background-color: rgba(50, 58, 75, 0.1);
-            color: var(--accent);
-        }
-
-        .secondary-nav i {
-            font-size: 1.25rem;
-        }
-
-        @media (max-width: 768px) {
-            .secondary-nav {
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
-
-            .secondary-nav a {
-                padding: 0.5rem 0.75rem;
-                font-size: 0.875rem;
-            }
-
-            .secondary-nav i {
-                font-size: 1rem;
-            }
-        }
-
-        /* Progress Bar */
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(to right, #6D4C41, #A67C52, #C8A780);
-            transform-origin: 0 50%;
-            transform: scaleX(0);
-            transition: transform 0.2s ease;
-            z-index: 1000;
-        }
-
-        /* Form Styles */
-        .form-input {
-            transition: all 0.3s ease;
-            border-bottom: 2px solid #A67C52;
-            background-color: #FFFFFF;
-            border: 1px solid var(--bg-secondary);
-            color: var(--text-primary);
-        }
-        .form-input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 2px rgba(166, 124, 82, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .input-icon {
-            transition: all 0.3s ease;
-        }
-        .form-input:focus + .input-icon {
-            color: #6D4C41;
-            transform: translateY(-2px) scale(1.1);
-        }
-
-        .submit-btn {
-            position: relative;
-            overflow: hidden;
-            background-color: var(--accent);
-            color: #FFFFFF;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-        .submit-btn:hover {
-            background-color: #8D6E63;
-            transform: scale(1.05);
-        }
-        .submit-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                120deg,
-                transparent,
-                rgba(255, 255, 255, 0.3),
-                transparent
-            );
-            transition: all 0.6s;
-        }
-        .submit-btn:hover::before {
-            left: 100%;
-        }
-
-        /* Coffee Icon Animations */
-        .coffee-icon {
-            position: relative;
-            display: inline-block;
-            font-size: 24px;
-            margin-right: 10px;
-        }
-
-        .coffee-icon::before {
-            content: '☕';
-        }
-
-        .coffee-icon::after {
-            content: '~';
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 16px;
-            opacity: 0;
-            animation: steam 2s infinite;
-        }
-
-        /* Image Container */
-        .image-container {
-            position: relative;
-            overflow: hidden;
-            border-radius: 0.5rem;
-        }
-
-        .image-container::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to bottom right, rgba(166, 124, 82, 0.2), rgba(109, 76, 65, 0.2));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .image-container:hover::after {
-            opacity: 1;
-        }
-
-        .image-container img {
-            transition: transform 0.3s ease;
-        }
-
-        .image-container:hover img {
-            transform: scale(1.05);
-        }
-
-        /* Parallax Background */
-        .parallax-bg {
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
-        /* Coffee Background Pattern */
-        .coffee-bg {
-            background-image:
-                linear-gradient(rgba(62, 39, 35, 0.8), rgba(62, 39, 35, 0.8)),
-                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><path d="M30 5c-8.3 0-15 6.7-15 15s6.7 15 15 15 15-6.7 15-15-6.7-15-15-15zm0 25c-5.5 0-10-4.5-10-10s4.5-10 10-10 10 4.5 10 10-4.5 10-10 10z" fill="%23A67C52" fill-opacity="0.1"/></svg>'),
-                url('/static/coffee-bg.jpg');
-            background-attachment: fixed;
-            background-position: center;
-            background-size: auto, auto, cover;
-        }
-
-        /* Enhanced Scrollbar */
-        ::-webkit-scrollbar {
-            width: 12px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--bg-secondary);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background-color: var(--accent);
-            border-radius: 20px;
-            border: 3px solid var(--bg-secondary);
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background-color: var(--text-secondary);
-        }
-
-        /* Custom Selection Color */
-        ::selection {
-            background-color: #A67C52;
-            color: white;
-        }
-
-        /* Section Reveal Animations */
-        .reveal {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Visually Hidden for Accessibility */
-        .visually-hidden {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-
-        /* Responsive Adjustments */
-        @media (max-width: 768px) {
-            .page-title-section {
-                padding: 2rem 1rem !important;
-                max-width: 700px !important;
-            }
-            .secondary-nav {
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
-            .secondary-nav a {
-                padding: 0.5rem 0.75rem;
-                font-size: 0.875rem;
-            }
-            .secondary-nav i {
-                font-size: 1rem;
-            }
-            .page-title {
-                font-size: 3.5rem !important;
-            }
-            .page-subtitle {
-                font-size: 1.25rem !important;
-            }
-        }
-
-        /* Light mode specific styles */
-        .light {
-            --bg-primary: #FFF8E1;
-            --bg-secondary: #FFFFFF;
-            --text-primary: #3E2723;
-            --text-secondary: #6D4C41;
-            --accent-color: #A67C52;
-        }
-
-        body {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-        }
-
-        .bg-white {
-            background-color: var(--bg-secondary);
-        }
-
-        .text-coffee-800 {
-            color: var(--text-primary);
-        }
-
-        .text-coffee-600 {
-            color: var(--text-secondary);
-        }
-
-        .bg-coffee-100 {
-            background-color: #FFF8E1;
-        }
-
-        .bg-coffee-200 {
-            background-color: #FFE0B2;
-        }
-
-        .border-coffee-300 {
-            border-color: #FFCC80;
-        }
-
-        .placeholder-coffee-400::placeholder {
-            color: #FFB74D;
-        }
-
-        .bg-coffee-600 {
-            background-color: #A67C52;
-        }
-
-        .hover\:bg-coffee-700:hover {
-            background-color: #8D6E63;
-        }
-
-        /* Improve contrast for form inputs */
-        .form-input {
-            background-color: #FFFFFF;
-            color: #3E2723;
-            border-color: #A67C52;
-        }
-
-        /* Adjust sticky nav for better visibility */
-        .sticky-nav {
-            background-color: rgba(255, 248, 225, 0.9);
-        }
-
-        /* Enhance readability for section titles */
-        h2.text-coffee-600 {
-            color: #5D4037;
-        }
-
-        /* Improve visibility of icons */
-        .text-coffee-500 {
-            color: #795548;
-        }
-
-        /* Adjust progress bar colors */
-        .bg-coffee-200 {
-            background-color: #D7CCC8;
-        }
-
-        .from-coffee-400 {
-            --tw-gradient-from: #8D6E63;
-        }
-
-        .to-coffee-600 {
-            --tw-gradient-to: #5D4037;
-        }
-
-        /* Enhance FAQ section readability */
-        .border-coffee-200 {
-            border-color: #D7CCC8;
-        }
-
-        .text-coffee-600 {
-            color: #5D4037;
-        }
-
-        /* Light mode specific styles */
-        .light .waitlist-section h3 {
-            color: #3E2723 !important; /* Very dark brown, almost black */
-        }
-
-        .light .waitlist-section ul li {
-            color: #3E2723 !important; /* Very dark brown, almost black */
-        }
-
-        /* Extremely specific and important light mode styles */
-        html.light body .waitlist-section h3,
-        html.light body .waitlist-section ul li,
-        html.light body .waitlist-section * {
-            color: #000000 !important; /* Pure black for maximum contrast */
-            text-shadow: none !important; /* Remove any text shadows */
-        }
-
-        /* Additional styles from the second version */
         .waitlist-header {
             background: linear-gradient(135deg, #6D4C41, #A67C52);
             padding: 3rem 1rem;
@@ -731,8 +216,55 @@
             z-index: 1;
         }
 
+        .form-input {
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .coffee-bg {
+            background-image:
+                linear-gradient(rgba(62, 39, 35, 0.8), rgba(62, 39, 35, 0.8)),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><path d="M30 5c-8.3 0-15 6.7-15 15s6.7 15 15 15 15-6.7 15-15-6.7-15-15-15zm0 25c-5.5 0-10-4.5-10-10s4.5-10 10-10 10 4.5 10 10-4.5 10-10 10z" fill="%23A67C52" fill-opacity="0.1"/></svg>'),
+                url('/static/coffee-bg.jpg');
+            background-attachment: fixed;
+            background-position: center;
+            background-size: auto, auto, cover;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, #6D4C41, #A67C52, #C8A780);
+            transform-origin: 0 50%;
+            transform: scaleX(0);
+            transition: transform 0.2s ease;
+            z-index: 1000;
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(0) translateY(0); }
+            50% { transform: translateX(-25px) translateY(10px); }
+            100% { transform: translateX(0) translateY(0); }
+        }
         .bg-pattern {
             animation: wave 15s ease-in-out infinite;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         .animate-fadeInUp {
@@ -759,17 +291,11 @@
         }
     </style>
 </head>
-<body class="pt-16 font-sans bg-coffee-100 dark:bg-coffee-900 text-coffee-800 dark:text-coffee-100 transition-colors duration-200 parallax-bg coffee-bg">
-    <!-- Progress Bar -->
+<body class="pt-16 font-sans bg-coffee-900 text-coffee-100">
     <div class="progress-bar" id="progressBar"></div>
-
-    <!-- Falling Beans Container -->
     <div id="falling-beans-container"></div>
-
-    <!-- Navbar Placeholder -->
     <div id="navbar-placeholder"></div>
 
-    <!-- Header Section -->
     <header class="bg-coffee-800 text-coffee-100 py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       <div class="absolute inset-0 opacity-10">
         <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
@@ -792,11 +318,9 @@
       <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-coffee-900 to-transparent"></div>
     </header>
 
-    <!-- Main Content -->
     <main class="max-w-4xl mx-auto px-4 py-8 space-y-16">
-        <!-- Waitlist Section -->
         <section id="waitlist" class="bg-white dark:bg-coffee-800 p-8 rounded-lg shadow-md section-transition">
-            <div class="waitlist-header relative">
+            <div class="waitlist-header">
                 <span class="waitlist-coffee-icon">☕</span>
                 <h2 class="waitlist-title">Join Our Divine Brew Waitlist</h2>
                 <p class="waitlist-subtitle">Be part of our mission to brew change and savor excellence</p>
@@ -849,7 +373,7 @@
                         <i class="fas fa-envelope"></i>
                     </span>
                 </div>
-                <button type="submit" class="submit-btn w-full bg-coffee-600 hover:bg-coffee-700 dark:bg-coffee-500 dark:hover:bg-coffee-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-coffee-400 dark:focus:ring-coffee-300 focus:ring-opacity-50">
+                <button type="submit" class="w-full bg-coffee-600 hover:bg-coffee-700 dark:bg-coffee-500 dark:hover:bg-coffee-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 focus:outline-none focus:ring-2 focus:ring-coffee-400 dark:focus:ring-coffee-300 focus:ring-opacity-50">
                     Join the Divine Brew Waitlist
                 </button>
                 <p class="text-xs text-center text-coffee-600 dark:text-coffee-400">By joining, you agree to receive emails about our launch, offers, and mission. Unsubscribe anytime.</p>
@@ -857,8 +381,7 @@
             <p id="coffee-waitlist-message" class="mt-4 text-center text-coffee-800 dark:text-coffee-200 font-medium"></p>
         </section>
 
-        <!-- Secondary Navigation -->
-        <nav class="secondary-nav bg-coffee-200 dark:bg-coffee-800 p-3 rounded-lg shadow-md mb-6 transition-colors duration-200">
+        <nav class="sticky-nav bg-coffee-200 dark:bg-coffee-800 p-3 rounded-lg shadow-md mb-6 transition-colors duration-200">
             <ul class="flex flex-wrap justify-center gap-2">
                 <li>
                     <a href="#vision" class="flex items-center px-3 py-1.5 rounded-full text-coffee-800 dark:text-coffee-200 hover:bg-coffee-300 dark:hover:bg-coffee-700 transition-colors duration-200">
@@ -893,8 +416,7 @@
             </ul>
         </nav>
 
-        <!-- Vision Section -->
-        <section id="vision" class="bg-white dark:bg-coffee-800 p-8 rounded-lg shadow-md section-transition section-padding reveal">
+        <section id="vision" class="bg-white dark:bg-coffee-800 p-8 rounded-lg shadow-md section-transition section-padding">
             <h2 class="text-3xl font-bold mb-6 text-coffee-600 dark:text-coffee-300 font-serif">Our Vision: Transform Lives with Every Cup</h2>
             <div class="flex flex-col md:flex-row items-center gap-8">
                 <div class="md:w-1/2">
@@ -907,8 +429,7 @@
             </div>
         </section>
 
-        <!-- Mission Section -->
-        <section id="mission" class="bg-white dark:bg-coffee-800 p-8 rounded-lg shadow-md section-transition section-padding reveal">
+        <section id="mission" class="bg-white dark:bg-coffee-800 p-8 rounded-lg shadow-md section-transition section-padding">
             <h2 class="text-3xl font-bold mb-6 text-coffee-600 dark:text-coffee-300 font-serif">Our Mission</h2>
             <div class="space-y-4">
                 <p class="text-lg">Coffee Jesus Coffee was born of a deep passion to do good in the world. We're not rich - far from it. We are starving artists who just want to make a difference and do something meaningful, while giving back with gratitude for everyone who has supported us so far.</p>
@@ -917,8 +438,7 @@
             </div>
         </section>
 
-        <!-- Coffee Vision Section -->
-        <section id="coffee" class="bg-white dark:bg-coffee-800 p-8 rounded-lg shadow-md section-transition section-padding reveal">
+        <section id="coffee" class="bg-white dark:bg-coffee-800 p-8 rounded-lg shadow-md section-transition section-padding">
             <h2 class="text-3xl font-bold mb-6 text-coffee-600 dark:text-coffee-300 font-serif">Our Coffee Vision</h2>
             <div class="flex flex-col md:flex-row items-center gap-8">
                 <div class="md:w-1/2">
@@ -936,8 +456,7 @@
             </div>
         </section>
 
-        <!-- Funding Section -->
-        <section id="funding" class="bg-white dark:bg-coffee-800 p-8 rounded-lg shadow-md section-transition section-padding reveal">
+        <section id="funding" class="bg-white dark:bg-coffee-800 p-8 rounded-lg shadow-md section-transition section-padding">
             <h2 class="text-3xl font-bold mb-6 text-coffee-600 dark:text-coffee-300 text-center font-serif">Our Funding Progress</h2>
             <div class="mb-6">
                 <div class="bg-coffee-200 dark:bg-coffee-700 rounded-full h-8 overflow-hidden">
@@ -955,8 +474,7 @@
             </div>
         </section>
 
-        <!-- Impact Section -->
-        <section id="impact" class="bg-white dark:bg-coffee-800 p-8 rounded-lg shadow-md section-transition section-padding reveal">
+        <section id="impact" class="bg-white dark:bg-coffee-800 p-8 rounded-lg shadow-md section-transition section-padding">
             <h2 class="text-3xl font-bold mb-6 text-coffee-600 dark:text-coffee-300 text-center font-serif">Your Impact</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="text-center">
@@ -978,8 +496,7 @@
             <p class="text-lg text-center mt-8">Your support helps us create sustainable change in communities that need it most. Thank you for joining us on this journey.</p>
         </section>
 
-        <!-- FAQ Section -->
-        <section class="bg-white dark:bg-coffee-800 p-8 rounded-lg shadow-md section-transition reveal">
+        <section class="bg-white dark:bg-coffee-800 p-8 rounded-lg shadow-md section-transition">
             <h2 class="text-3xl font-bold mb-6 text-coffee-600 dark:text-coffee-300 font-serif">Frequently Asked Questions</h2>
             <div class="space-y-4">
                 <div class="border-b border-coffee-200 dark:border-coffee-700 pb-4">
@@ -1021,13 +538,11 @@
         </section>
     </main>
 
-    <!-- Scripts -->
     <script src="script.js"></script>
     <script src="darkMode.js"></script>
     <script type="module">
         import supabaseClient from './supabase.js';
 
-        // Function to create falling coffee beans
         function createFallingBeans() {
             const container = document.getElementById('falling-beans-container');
             const numberOfBeans = 30;
@@ -1037,16 +552,12 @@
                 bean.classList.add('coffee-bean');
                 bean.style.left = `${Math.random() * 100}vw`;
                 bean.style.animationDuration = `${Math.random() * 15 + 20}s`;
-
-                // Set a custom property for delay, using a smaller range
-                const delay = Math.random() * 5; // Reduced from 10 to 5
+                const delay = Math.random() * 5;
                 bean.style.setProperty('--delay', delay);
-
                 container.appendChild(bean);
             }
         }
 
-        // Function to animate the progress bar
         function animateProgressBar() {
             const progressBar = document.getElementById('progress-bar');
             const currentAmount = document.getElementById('current-amount');
@@ -1134,7 +645,6 @@
             }
         });
 
-        // Function to display messages
         function showMessage(message, type) {
             waitlistMessage.textContent = message;
             waitlistMessage.className = 'mt-4 text-center font-medium';
@@ -1151,7 +661,6 @@
             }, 5000);
         }
 
-        // Function to toggle FAQ answers
         function toggleFAQ(button) {
             const answer = button.nextElementSibling;
             const icon = button.querySelector('i');
@@ -1160,7 +669,6 @@
             icon.classList.toggle('fa-chevron-down');
         }
 
-        // Initialize functions on page load
         document.addEventListener('DOMContentLoaded', () => {
             createFallingBeans();
             animateProgressBar();
@@ -1175,38 +683,6 @@
                 nav.classList.remove('scrolled');
             }
         });
-
-        // Animated coffee cup icons for section titles
-        function addAnimatedCoffeeIcons() {
-            const titles = document.querySelectorAll('.section-title');
-            titles.forEach(title => {
-                const icon = document.createElement('span');
-                icon.className = 'coffee-icon';
-                title.prepend(icon);
-            });
-        }
-
-        // Animate coffee icons on scroll
-        function animateCoffeeIconsOnScroll() {
-            const icons = document.querySelectorAll('.coffee-icon');
-            icons.forEach(icon => {
-                const rect = icon.getBoundingClientRect();
-                if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
-                    icon.style.animation = 'steam 2s infinite';
-                } else {
-                    icon.style.animation = 'none';
-                }
-            });
-        }
-
-        // Call these functions when the page loads
-        window.addEventListener('load', () => {
-            addAnimatedCoffeeIcons();
-            animateCoffeeIconsOnScroll();
-        });
-
-        // Animate coffee icons on scroll
-        window.addEventListener('scroll', animateCoffeeIconsOnScroll);
 
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1223,7 +699,7 @@
             });
         });
 
-        // Progress bar update on scroll
+        // Progress bar
         window.addEventListener('scroll', () => {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -1231,7 +707,7 @@
             document.getElementById('progressBar').style.transform = `scaleX(${scrolled / 100})`;
         });
 
-        // Animated section reveal on scroll
+        // Animated section reveal
         const revealSections = document.querySelectorAll('.reveal');
         const revealOnScroll = () => {
             revealSections.forEach(section => {
