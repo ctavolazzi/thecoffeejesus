@@ -75,7 +75,13 @@
                     <svg class="w-6 h-6 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
                 <div class="hidden p-4">
-                    <p class="text-gray-700 dark:text-gray-300">The best way to stay updated is to follow <a href="https://solo.to/thecoffeejesus" class="text-blue-600 dark:text-blue-400 hover:underline">@thecoffeejesus</a> on social media platforms. You can also subscribe to the newsletter for regular updates on new courses, Coffee Jesus Coffee developments, and other exciting projects.</p>
+                    <p class="text-gray-700 dark:text-gray-300">
+                        The best way to stay updated is to follow 
+                        <a href="https://solo.to/thecoffeejesus" class="text-blue-600 dark:text-blue-400 hover:underline">@thecoffeejesus</a> 
+                        on social media platforms. You can also 
+                        <a href="index.html#newsletter-form" class="text-blue-600 dark:text-blue-400 hover:underline">subscribe to the newsletter</a> 
+                        for regular updates on new courses, Coffee Jesus Coffee developments, and other exciting projects.
+                    </p>
                 </div>
             </div>
 
@@ -100,36 +106,48 @@
             </div>
         </div>
 
-        <div class="text-center mt-12">
-            <a href="https://themultiverse.school/classes/121" class="inline-block">
-                <img src="/static/intro-to-ai-image.png" alt="Intro to AI Course" class="w-full md:w-1/2 rounded-lg shadow-md mb-4 md:mb-0 md:mr-4">
-            </a>
+        <div class="max-w-4xl mx-auto px-4 py-12 space-y-12">
+            <!-- Centered Course Image -->
+            <div class="flex justify-center">
+                <img src="/static/intro-to-ai-image.png" alt="Intro to AI Course" class="w-full max-w-md rounded-lg shadow-2xl transition-transform duration-300 hover:scale-105">
+            </div>
 
-            <a href="https://themultiverse.school/classes/121" class="inline-block bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg text-lg transition-colors duration-300 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:focus:ring-offset-gray-900">
-                Enroll in the New Intro to AI Course
-            </a>
+            <!-- Enrollment Button -->
+            <div class="text-center">
+                <a href="https://themultiverse.school/classes/121" class="inline-block bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg text-lg transition-colors duration-300 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100 dark:focus:ring-offset-gray-900">
+                    Enroll in the New Intro to AI Course
+                </a>
+            </div>
+
+            <!-- Collaboration Message -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6">
+                <p class="text-lg text-gray-700 dark:text-gray-300 mb-4">
+                    Christopher is always open to exciting collaborations. If you have ideas for AI projects, coffee innovations, or other initiatives that align with his interests, please reach out through the <a href="https://solo.to/thecoffeejesus" class="text-blue-600 dark:text-blue-400 hover:underline">contact page</a> to discuss potential partnerships.
+                </p>
+            </div>
+
+            <!-- Ready to Start Your AI Journey Section -->
+            <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-8 rounded-lg shadow-xl">
+                <h2 class="text-3xl font-bold mb-4 text-center">Ready to Start Your AI Journey?</h2>
+                <p class="text-xl mb-6 text-center">Whether you're interested in AI courses, coffee innovations, or potential collaborations, I'm here to help.</p>
+                <div class="text-center">
+                    <a href="https://solo.to/thecoffeejesus" 
+                       class="inline-block bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-indigo-100 transition duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1">
+                        Get in Touch
+                    </a>
+                </div>
+            </div>
         </div>
 
-        <!-- Simple CTA Section -->
-        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-8 rounded-lg shadow-md mt-12">
-            <h2 class="text-3xl font-bold mb-4">Ready to Start Your AI Journey?</h2>
-            <p class="text-xl mb-6">Whether you're interested in AI courses, coffee innovations, or potential collaborations, I'm here to help.</p>
-            <a href="https://solo.to/thecoffeejesus" 
-               class="inline-block bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1">
-                Get in Touch
-            </a>
-        </div>
-    </main>
-
-    <script src="script.js"></script>
-    <script src="darkMode.js"></script>
-    <script>
-        function toggleAccordion(button) {
-            const content = button.nextElementSibling;
-            const icon = button.querySelector('svg');
-            content.classList.toggle('hidden');
-            icon.classList.toggle('rotate-180');
-        }
-    </script>
-</body>
+        <script src="script.js"></script>
+        <script src="darkMode.js"></script>
+        <script>
+            function toggleAccordion(button) {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('svg');
+                content.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
+            }
+        </script>
+    </body>
 </html>

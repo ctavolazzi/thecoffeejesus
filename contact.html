@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Coffee Jesus</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom Styles */
+        .section-transition {
+            transition: all 0.5s ease-in-out;
+        }
+        .section-padding {
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+        }
+        /* Enhanced Accessibility and Readability Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Focus Styles for Better Keyboard Navigation */
+        a:focus, button:focus, input:focus, textarea:focus {
+            outline: 2px dashed #FFD700;
+            outline-offset: 4px;
+        }
+
+        /* Form Styles */
+        .contact-form {
+            background-color: #ffffff;
+            dark:bg-coffee-800;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .form-input {
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .submit-button {
+            background-color: #6D4C41;
+            color: #FFFFFF;
+            font-weight: bold;
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+        .submit-button:hover {
+            background-color: #8D6E63;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .submit-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.5s ease;
+        }
+        .submit-button:hover::after {
+            transform: translate(-50%, -50%) scale(1);
+            transition: transform 0.3s ease;
+        }
+        .error-message {
+            color: #E3342F;
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+        }
+        .success-message {
+            color: #38C172;
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body class="pt-16 font-sans transition-colors duration-200 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <div id="navbar-placeholder"></div>
+
+    <main class="max-w-4xl mx-auto px-4 py-8 space-y-16">
+        <section class="bg-white dark:bg-coffee-800 p-8 rounded-lg shadow-md section-transition section-padding">
+            <h2 class="text-3xl font-bold mb-6 text-center text-coffee-600 dark:text-coffee-300 font-serif">Get in Touch</h2>
+            <div class="max-w-md mx-auto">
+                <form id="contact-form" class="contact-form">
+                    <div class="mb-4">
+                        <label for="contact-name" class="block text-sm font-medium mb-1">Your Name</label>
+                        <input type="text" id="contact-name" name="name" required
+                               class="form-input w-full p-3 rounded-lg bg-gray-100 dark:bg-coffee-700 text-gray-800 dark:text-coffee-100 placeholder-gray-400 dark:placeholder-coffee-300 border-2 border-gray-300 dark:border-coffee-600 focus:outline-none focus:border-coffee-500 dark:focus:border-coffee-400 transition duration-300">
+                        <span class="error-message" id="name-error"></span>
+                    </div>
+                    <div class="mb-4">
+                        <label for="contact-email" class="block text-sm font-medium mb-1">Your Email</label>
+                        <input type="email" id="contact-email" name="email" required
+                               class="form-input w-full p-3 rounded-lg bg-gray-100 dark:bg-coffee-700 text-gray-800 dark:text-coffee-100 placeholder-gray-400 dark:placeholder-coffee-300 border-2 border-gray-300 dark:border-coffee-600 focus:outline-none focus:border-coffee-500 dark:focus:border-coffee-400 transition duration-300">
+                        <span class="error-message" id="email-error"></span>
+                    </div>
+                    <div class="mb-4">
+                        <label for="contact-message" class="block text-sm font-medium mb-1">Your Message</label>
+                        <textarea id="contact-message" name="message" rows="5" required
+                                  class="form-input w-full p-3 rounded-lg bg-gray-100 dark:bg-coffee-700 text-gray-800 dark:text-coffee-100 placeholder-gray-400 dark:placeholder-coffee-300 border-2 border-gray-300 dark:border-coffee-600 focus:outline-none focus:border-coffee-500 dark:focus:border-coffee-400 transition duration-300"></textarea>
+                        <span class="error-message" id="message-error"></span>
+                    </div>
+                    <button type="submit" class="relative submit-button w-full text-center">
+                        Send Message
+                    </button>
+                    <p id="contact-success" class="success-message text-center"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center py-4">
+        <p>&copy; 2023 The Coffee Jesus. All rights reserved.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script src="darkMode.js"></script>
+    <script type="module">
+        import supabaseClient from './supabase.js';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const contactForm = document.getElementById('contact-form');
+            const contactSuccess = document.getElementById('contact-success');
+            const nameError = document.getElementById('name-error');
+            const emailError = document.getElementById('email-error');
+            const messageError = document.getElementById('message-error');
+
+            contactForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                // Clear previous errors
+                nameError.textContent = '';
+                emailError.textContent = '';
+                messageError.textContent = '';
+                contactSuccess.textContent = '';
+
+                const name = document.getElementById('contact-name').value.trim();
+                const email = document.getElementById('contact-email').value.trim();
+                const message = document.getElementById('contact-message').value.trim();
+
+                let hasError = false;
+
+                if (!name) {
+                    nameError.textContent = 'Please enter your name.';
+                    hasError = true;
+                }
+
+                if (!email) {
+                    emailError.textContent = 'Please enter your email.';
+                    hasError = true;
+                } else {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(email)) {
+                        emailError.textContent = 'Please enter a valid email address.';
+                        hasError = true;
+                    }
+                }
+
+                if (!message) {
+                    messageError.textContent = 'Please enter your message.';
+                    hasError = true;
+                }
+
+                if (hasError) {
+                    return;
+                }
+
+                try {
+                    const { data, error } = await supabaseClient
+                        .from('contact_messages')
+                        .insert([{ name, email, message }]);
+
+                    if (error) throw error;
+
+                    contactForm.reset();
+                    contactSuccess.textContent = 'Thank you for reaching out! We will get back to you shortly.';
+                } catch (error) {
+                    console.error('Error inserting contact message:', error);
+                    contactSuccess.textContent = 'There was an error submitting your message. Please try again later.';
+                    contactSuccess.classList.add('error-message');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
