@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coffee Jesus Blog Editor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    h1 {
+      color: #4a2c2a;
+      text-align: center;
+    }
+    .post {
+      background-color: #fff;
+      border-radius: 5px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .post h3 {
+      color: #6f4e37;
+      margin-top: 0;
+    }
+    .post p {
+      margin: 10px 0;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+      color: #4a2c2a;
+    }
+    textarea, input[type="text"], input[type="number"], input[type="url"], input[type="datetime-local"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    textarea {
+      height: 150px;
+    }
+    .checkbox-group {
+      margin-bottom: 10px;
+    }
+    button {
+      background-color: #6f4e37;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #8b6b4a;
+    }
+  </style>
+  <script type="module">
+    import supabaseClient from '../supabase.js';
+
+    const PASSWORD = 'your_secret_password'; // Replace with your desired password
+
+    async function initialize() {
+      const enteredPassword = prompt('Enter the password to access the blog editor:');
+      if (enteredPassword === PASSWORD) {
+        document.getElementById('editor').style.display = 'block';
+        fetchBlogPosts();
+      } else {
+        alert('Incorrect password. Access denied.');
+      }
+    }
+
+    async function fetchBlogPosts() {
+      const { data, error } = await supabaseClient
+        .from('thecoffeejesus_blog')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Error fetching blog posts:', error);
+        return;
+      }
+
+      renderBlogPosts(data);
+    }
+
+    function renderBlogPosts(posts) {
+      const postList = document.getElementById('post-list');
+      postList.innerHTML = ''; // Clear existing posts
+
+      posts.forEach(post => {
+        const postElement = `
+          <div class="post">
+            <h3>${post.title}</h3>
+            <p>By ${post.author}</p>
+            <p>Created: ${new Date(post.created_at).toLocaleString()}</p>
+            
+            <label for="title-${post.id}">Title:</label>
+            <input type="text" id="title-${post.id}" value="${post.title}" placeholder="Title">
+            
+            <label for="author-${post.id}">Author:</label>
+            <input type="text" id="author-${post.id}" value="${post.author}" placeholder="Author">
+            
+            <label for="content-${post.id}">Content:</label>
+            <textarea id="content-${post.id}" placeholder="Content">${post.content}</textarea>
+            
+            <label for="featured_image-${post.id}">Featured Image URL:</label>
+            <input type="url" id="featured_image-${post.id}" value="${post.featured_image || ''}" placeholder="Featured Image URL">
+            
+            <label for="category-${post.id}">Category:</label>
+            <input type="text" id="category-${post.id}" value="${post.category || ''}" placeholder="Category">
+            
+            <label for="tags-${post.id}">Tags (comma-separated):</label>
+            <input type="text" id="tags-${post.id}" value="${post.tags ? post.tags.join(', ') : ''}" placeholder="Tags (comma-separated)">
+            
+            <label for="excerpt-${post.id}">Excerpt:</label>
+            <textarea id="excerpt-${post.id}" placeholder="Excerpt">${post.excerpt || ''}</textarea>
+            
+            <label for="read_time-${post.id}">Read Time (minutes):</label>
+            <input type="number" id="read_time-${post.id}" value="${post.read_time || ''}" placeholder="Read Time (minutes)">
+            
+            <label for="likes-${post.id}">Likes:</label>
+            <input type="number" id="likes-${post.id}" value="${post.likes || 0}" placeholder="Likes">
+            
+            <label for="views-${post.id}">Views:</label>
+            <input type="number" id="views-${post.id}" value="${post.views || 0}" placeholder="Views">
+            
+            <div class="checkbox-group">
+              <label>
+                <input type="checkbox" id="featured-${post.id}" ${post.featured ? 'checked' : ''}>
+                Featured
+              </label>
+            </div>
+            
+            <div class="checkbox-group">
+              <label>
+                <input type="checkbox" id="published-${post.id}" ${post.published ? 'checked' : ''}>
+                Published
+              </label>
+            </div>
+            
+            <label for="published_at-${post.id}">Published At:</label>
+            <input type="datetime-local" id="published_at-${post.id}" value="${post.published_at ? new Date(post.published_at).toISOString().slice(0, 16) : ''}" placeholder="Published At">
+            
+            <button onclick="updatePost(${post.id})">Update Post</button>
+          </div>
+        `;
+        postList.innerHTML += postElement;
+      });
+    }
+
+    window.updatePost = async (postId) => {
+      const title = document.getElementById(`title-${postId}`).value;
+      const author = document.getElementById(`author-${postId}`).value;
+      const content = document.getElementById(`content-${postId}`).value;
+      const featured_image = document.getElementById(`featured_image-${postId}`).value;
+      const category = document.getElementById(`category-${postId}`).value;
+      const tags = document.getElementById(`tags-${postId}`).value.split(',').map(tag => tag.trim());
+      const excerpt = document.getElementById(`excerpt-${postId}`).value;
+      const read_time = parseInt(document.getElementById(`read_time-${postId}`).value) || null;
+      const likes = parseInt(document.getElementById(`likes-${postId}`).value) || 0;
+      const views = parseInt(document.getElementById(`views-${postId}`).value) || 0;
+      const featured = document.getElementById(`featured-${postId}`).checked;
+      const published = document.getElementById(`published-${postId}`).checked;
+      const published_at = document.getElementById(`published_at-${postId}`).value;
+      
+      console.log('Updating post:', postId, {
+        title, author, content, featured_image, category, tags, excerpt,
+        read_time, likes, views, featured, published, published_at
+      });
+
+      const { data, error } = await supabaseClient
+        .from('thecoffeejesus_blog')
+        .update({
+          title,
+          author,
+          content,
+          featured_image,
+          category,
+          tags,
+          excerpt,
+          read_time,
+          likes,
+          views,
+          featured,
+          published,
+          published_at: published_at ? new Date(published_at).toISOString() : null
+        })
+        .eq('id', postId)
+        .select();
+
+      console.log('Update response:', { data, error });
+
+      if (error) {
+        console.error('Error updating post:', error);
+        alert('Error updating post. Please try again.');
+      } else if (data && data.length > 0) {
+        alert('Post updated successfully!');
+        fetchBlogPosts(); // Refresh the post list
+      } else {
+        console.error('No data returned after update');
+        alert('Error updating post. Please try again.');
+      }
+    }
+
+    initialize();
+  </script>
+</head>
+<body>
+  <h1>Coffee Jesus Blog Editor</h1>
+  <div id="editor" style="display: none;">
+    <div id="post-list"></div>
+  </div>
+</body>
+</html>

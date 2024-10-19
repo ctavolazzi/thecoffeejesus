@@ -461,24 +461,27 @@ h1:hover::after {
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     background-color: #ffffff;
     border: 2px solid #FFD700;
+    padding: 20px; /* Add padding to create space between text and border */
 }
 
 .dark .featured-post {
     background-color: #2d3748;
     box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
-    border-color: #FFC107; /* Matching the brighter yellow of the button */
+    border-color: #FFC107;
 }
 
 .featured-post:hover {
     transform: translateY(-10px);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    border-color: #FFA500;
 }
 
 .dark .featured-post:hover {
-    border-color: #FFD700; /* Even brighter on hover, matching button hover */
+    border-color: #FFD700;
+    box-shadow: 0 15px 40px rgba(255, 215, 0, 0.2);
 }
 
 .featured-image-container {
@@ -557,7 +560,7 @@ h1:hover::after {
 }
 
 .featured-post-content {
-    padding: 2rem;
+    padding: 1rem; /* Add some padding to the content */
 }
 
 .featured-post .post-title {
@@ -596,6 +599,12 @@ h1:hover::after {
     color: #e2e8f0;
 }
 
+/* Center the read more button */
+.featured-post .read-more-container {
+    text-align: center;
+    margin-top: 20px; /* Add some space above the button */
+}
+
 .featured-post .read-more {
     display: inline-block;
     padding: 0.75rem 1.5rem;
@@ -606,6 +615,9 @@ h1:hover::after {
     border-radius: 5px;
     transition: all 0.3s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+    outline: none;
+    position: relative; /* For the glow effect */
 }
 
 .featured-post .read-more:hover {
@@ -615,13 +627,33 @@ h1:hover::after {
 }
 
 .dark .featured-post .read-more {
-    background-color: #FFC107; /* Brighter yellow for dark mode */
+    background-color: #FFC107;
     color: #1a202c;
 }
 
 .dark .featured-post .read-more:hover {
-    background-color: #FFD700; /* Even brighter on hover */
-    box-shadow: 0 6px 12px rgba(255, 255, 255, 0.15);
+    background-color: #FFD700;
+    box-shadow: 0 6px 12px rgba(255, 215, 0, 0.15);
+}
+
+/* Add a subtle glow effect on hover */
+.featured-post .read-more::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    z-index: -1;
+    filter: blur(10px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 7px; /* Slightly larger than the button's border-radius */
+}
+
+.featured-post .read-more:hover::after {
+    opacity: 0.7;
 }
 
 @media (max-width: 640px) {

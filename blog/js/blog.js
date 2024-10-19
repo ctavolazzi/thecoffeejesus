@@ -98,7 +98,7 @@ function createPostElement(post) {
             <span><i class="fas fa-calendar-alt"></i> ${new Date(post.created_at).toLocaleDateString()}</span>
             <span><i class="fas fa-tag"></i> ${sanitizeHTML(post.category)}</span>
         </div>
-        <div class="post-content">${sanitizeHTML(truncateContent(post.content, 200))}</div>
+        <div class="post-content">${sanitizeHTML(post.excerpt || truncateContent(post.content, 200))}</div>
         <a href="blog/blog-post.html?id=${post.id}" class="read-more">Read More</a>
     `;
     return postElement;
@@ -128,14 +128,14 @@ function createFeaturedPost(post) {
         <div class="featured-image-container">
             ${post.featured_image ? `<img src="${sanitizeHTML(post.featured_image)}" alt="${sanitizeHTML(post.title)}" class="featured-image">` : ''}
         </div>
-        <div class="featured-post-content">
-            <h3 class="post-title">${sanitizeHTML(post.title)}</h3>
-            <div class="post-meta mb-4">
+        <div class="featured-content">
+            <h2 class="post-title">${sanitizeHTML(post.title)}</h2>
+            <div class="post-meta">
                 <span><i class="fas fa-user"></i> ${sanitizeHTML(post.author)}</span>
                 <span><i class="fas fa-calendar-alt"></i> ${new Date(post.created_at).toLocaleDateString()}</span>
                 <span><i class="fas fa-tag"></i> ${sanitizeHTML(post.category)}</span>
             </div>
-            <div class="post-content mb-4">${sanitizeHTML(truncateContent(post.content, 300))}</div>
+            <div class="post-content">${sanitizeHTML(post.excerpt || truncateContent(post.content, 200))}</div>
             <a href="blog/blog-post.html?id=${post.id}" class="read-more">Read More</a>
         </div>
     `;
@@ -294,5 +294,6 @@ function createBlogPostElement(post) {
     `;
     return postElement;
 }
+
 
 
