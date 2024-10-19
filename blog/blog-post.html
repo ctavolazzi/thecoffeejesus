@@ -48,23 +48,47 @@
     <script type="module" src="js/blog-post.js"></script>
     <script src="../../darkMode.js"></script>
     <script>
-        fetch('/navbar.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('navbar-placeholder').innerHTML = data;
-                Array.from(document.getElementById('navbar-placeholder').getElementsByTagName('script')).forEach(oldScript => {
-                    const newScript = document.createElement('script');
-                    Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
-                    newScript.appendChild(document.createTextNode(oldScript.innerHTML));
-                    oldScript.parentNode.replaceChild(newScript, oldScript);
-                });
-                // Initialize dark mode toggle after navbar is loaded
-                initDarkMode();
-                // Add event listener for mobile menu button
-                document.getElementById('mobile-menu-button').addEventListener('click', function() {
-                    document.getElementById('mobile-menu').classList.toggle('hidden');
-                });
-            });
+        function loadNavbarAndInitialize() {
+            console.log('loadNavbarAndInitialize called');
+            fetch('/navbar.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('navbar-placeholder').innerHTML = data;
+                    console.log('Navbar loaded, calling initDarkMode');
+                    if (typeof initDarkMode === 'function') {
+                        initDarkMode();
+                    } else {
+                        console.error('initDarkMode function not found');
+                    }
+                    
+                    // Add event listener for mobile menu button
+                    const mobileMenuButton = document.getElementById('mobile-menu-button');
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (mobileMenuButton && mobileMenu) {
+                        mobileMenuButton.removeEventListener('click', toggleMobileMenu);
+                        mobileMenuButton.addEventListener('click', toggleMobileMenu);
+                    } else {
+                        console.error('Mobile menu button or menu not found');
+                    }
+                })
+                .catch(error => console.error('Error loading navbar:', error));
+        }
+
+        function toggleMobileMenu(event) {
+            event.preventDefault();
+            console.log('Mobile menu button clicked');
+            const mobileMenu = document.getElementById('mobile-menu');
+            console.log('Mobile menu before toggle:', mobileMenu.classList.contains('hidden'));
+            mobileMenu.classList.toggle('hidden');
+            console.log('Mobile menu after toggle:', mobileMenu.classList.contains('hidden'));
+        }
+
+        // Call the function when the DOM is fully loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadNavbarAndInitialize);
+        } else {
+            loadNavbarAndInitialize();
+        }
 
         // Stars generation
         const starsContainer = document.querySelector('.stars-container');

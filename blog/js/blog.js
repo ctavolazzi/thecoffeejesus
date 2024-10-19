@@ -294,3 +294,5 @@ function createBlogPostElement(post) {
     `;
     return postElement;
 }
+
+

@@ -36,7 +36,9 @@ if (document.readyState === 'loading') {
 }
 
 function initDarkMode() {
+    console.log('initDarkMode called');
     const darkModeToggle = document.getElementById('dark-mode-toggle');
+    console.log('darkModeToggle found:', !!darkModeToggle);
     const htmlElement = document.documentElement;
 
     // Check for saved theme preference or use system preference
@@ -59,3 +61,5 @@ function initDarkMode() {
 }
 
 // Don't call initDarkMode() here, it will be called after the navbar is loaded
+
+
