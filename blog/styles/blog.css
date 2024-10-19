@@ -669,23 +669,23 @@ h1:hover::after {
 }
 
 .blog-title {
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
-    font-weight: 800;
-    color: #FFD700;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-    margin: 0;
-    padding: 0.25rem;
-    display: block;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+    font-size: clamp(1.8rem, 5vw, 2.5rem) !important;
+    font-weight: 800 !important;
+    color: #FFD700 !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2) !important;
+    margin: 0 !important;
+    padding: 0.25rem 0 !important;
+    display: block !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
     position: static !important;
     left: 0 !important;
     transform: none !important;
-    background: linear-gradient(45deg, #FFD700, #FFC000, #FFD700, #FFA500);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-size: 200% 200%;
-    animation: gradientFlow 6s ease infinite;
+    background: linear-gradient(45deg, #FFD700, #FFC000, #FFD700, #FFA500) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-size: 200% 200% !important;
+    animation: gradientFlow 6s ease infinite !important;
 }
 
 @keyframes gradientFlow {
@@ -789,12 +789,18 @@ h1:hover::after {
     }
     
     .blog-title {
-        font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+        font-size: clamp(1.5rem, 4vw, 2rem) !important;
     }
     
     .coffee-cup {
         font-size: clamp(1rem, 3.5vw, 1.8rem);
         bottom: 1px;
         right: 3px;
+    }
+}
+
+@media (max-width: 480px) {
+    .blog-title {
+        font-size: clamp(1.2rem, 3.5vw, 1.8rem) !important;
     }
 }
