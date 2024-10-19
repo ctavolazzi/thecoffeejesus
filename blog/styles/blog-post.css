@@ -19,30 +19,39 @@ body, html {
 body {
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
-    color: var(--text-light);
-    background-color: var(--bg-light);
+    margin: 0;
+    padding: 0;
     transition: background-color 0.3s ease, color 0.3s ease;
-    padding-top: 64px; /* Adjust this value to match your navbar height */
+    background-attachment: fixed;
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
 }
 
+/* Light mode */
+body {
+    background-color: rgba(247, 250, 252, 0.5); /* Even more transparent */
+    color: #2d3748;
+}
+
+/* Dark mode */
 .dark body {
-    background-color: var(--bg-dark);
-    color: var(--text-dark);
+    background-color: rgba(26, 32, 44, 0.5); /* Even more transparent */
+    color: #f7fafc;
 }
 
 #blog-post {
     max-width: 800px;
-    margin: 64px auto 0; /* Adjust top margin to account for navbar */
-    background-color: #ffffff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.05);
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.7); /* More transparent */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    overflow: hidden;
-    margin-top: 1rem; /* Reduce top margin */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .dark #blog-post {
-    background-color: #2d3748;
-    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    background-color: rgba(45, 55, 72, 0.7); /* More transparent */
+    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
 }
 
 .featured-image-container {
@@ -132,10 +141,12 @@ body {
     font-size: 1.1rem;
     line-height: 1.8;
     color: var(--text-light);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
 .dark .post-content {
     color: var(--text-dark);
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 .post-content p {
@@ -342,6 +353,12 @@ body {
     }
 }
 
+/* Remove any top margin or padding from the body and main elements */
+body, main {
+    margin-top: 0;
+    padding-top: 0;
+}
+
 /* Adjust the navbar placeholder to not affect layout */
 #navbar-placeholder {
     position: fixed;
@@ -381,21 +398,21 @@ main {
     left: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none;
     z-index: -1;
-    overflow: hidden;
+    pointer-events: none;
 }
 
 .star {
     position: absolute;
-    background: white;
+    background-color: #fff;
     border-radius: 50%;
-    animation: twinkle 5s infinite ease-in-out;
+    opacity: 0.8; /* More visible stars */
+    animation: twinkle 5s infinite;
 }
 
 @keyframes twinkle {
-    0%, 100% { opacity: 0.3; transform: scale(0.8); }
-    50% { opacity: 1; transform: scale(1); }
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 0.4; }
 }
 
 /* Ensure the main content is above the stars */

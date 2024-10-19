@@ -37,11 +37,15 @@
     <div class="stars-container"></div>
     <div id="navbar-placeholder"></div>
     <main class="animate__animated animate__fadeIn mt-0">
-        <div id="blog-post" class="container mx-auto px-0 max-w-3xl"></div>
-        <div class="mt-8 text-center">
-            <a href="/blog.html" class="inline-block bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors duration-300">
-                <i class="fas fa-arrow-left mr-2"></i>Back to Blog
-            </a>
+        <div id="blog-post" class="container mx-auto px-0 max-w-3xl">
+            <div class="featured-image-container">
+                <img src="{{ post.featured_image }}" alt="{{ post.title }}" class="featured-image">
+            </div>
+            <div class="mt-8 text-center">
+                <a href="/blog.html" class="inline-block bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors duration-300">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Blog
+                </a>
+            </div>
         </div>
     </main>
 
@@ -92,12 +96,12 @@
 
         // Stars generation
         const starsContainer = document.querySelector('.stars-container');
-        const starCount = 200;
+        const starCount = 200; // Increase this number for more stars
 
         for (let i = 0; i < starCount; i++) {
             const star = document.createElement('div');
             star.classList.add('star');
-            star.style.width = `${Math.random() * 2}px`;
+            star.style.width = `${Math.random() * 3}px`; // Slightly larger stars
             star.style.height = star.style.width;
             star.style.left = `${Math.random() * 100}%`;
             star.style.top = `${Math.random() * 100}%`;
@@ -106,5 +110,8 @@
             starsContainer.appendChild(star);
         }
     </script>
+    <button onclick="document.documentElement.classList.toggle('dark'); console.log('Dark mode toggled manually');">
+        Toggle Dark Mode (Test)
+    </button>
 </body>
 </html>
