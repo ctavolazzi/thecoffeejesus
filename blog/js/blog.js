@@ -228,23 +228,50 @@ function initializeBlog() {
     if (titleContainer) {
         const coffeeEmojis = ['☕', '🫖', '🍵'];
         
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 10; i++) {  // Increased from 5 to 10
             const bean = document.createElement('span');
             bean.textContent = coffeeEmojis[Math.floor(Math.random() * coffeeEmojis.length)];
             bean.classList.add('coffee-beans');
             bean.style.setProperty('--tx', `${Math.random() * 100 - 50}px`);
             bean.style.setProperty('--ty', `${-Math.random() * 50 - 50}px`);
             bean.style.setProperty('--r', `${Math.random() * 360}deg`);
+            bean.style.top = `${Math.random() * 100}%`;
+            bean.style.left = `${Math.random() * 100}%`;
             titleContainer.appendChild(bean);
         }
-    }
 
-    const coffeeCupElement = document.querySelector('.coffee-cup');
-    if (coffeeCupElement) {
+        // Add more sparkles
+        for (let i = 0; i < 5; i++) {
+            const sparkle = document.createElement('span');
+            sparkle.classList.add('sparkle');
+            sparkle.style.top = `${Math.random() * 100}%`;
+            sparkle.style.left = `${Math.random() * 100}%`;
+            titleContainer.appendChild(sparkle);
+        }
+
+        // Add more coffee rings
+        for (let i = 0; i < 3; i++) {
+            const ring = document.createElement('span');
+            ring.classList.add('coffee-ring');
+            ring.style.top = `${Math.random() * 100}%`;
+            ring.style.left = `${Math.random() * 100}%`;
+            titleContainer.appendChild(ring);
+        }
+
+        // Add coffee stains
+        for (let i = 0; i < 2; i++) {
+            const stain = document.createElement('span');
+            stain.classList.add('coffee-stain');
+            stain.style.top = `${Math.random() * 100}%`;
+            stain.style.left = `${Math.random() * 100}%`;
+            titleContainer.appendChild(stain);
+        }
+
+        const coffeeCup = document.querySelector('.coffee-cup');
         const steam = document.createElement('span');
         steam.textContent = '☁️';
         steam.classList.add('steam');
-        coffeeCupElement.appendChild(steam);
+        coffeeCup.appendChild(steam);
     }
 }
 
