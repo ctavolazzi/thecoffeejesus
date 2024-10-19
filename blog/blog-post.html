@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post - The Coffee Jesus</title>
+    <link rel="stylesheet" href="styles/blog-post.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brown: {
+                            600: '#8D6E63',
+                            700: '#795548',
+                            800: '#6D4C41',
+                            900: '#5D4037',
+                        },
+                        cream: {
+                            100: '#FFFBF5',
+                            200: '#FFF3E0',
+                            300: '#FFE0B2',
+                        },
+                    },
+                },
+            },
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
+    <div class="stars-container"></div>
+    <div id="navbar-placeholder"></div>
+    <main class="pb-12 -mt-16">
+        <div id="blog-post" class="container mx-auto px-4 max-w-3xl"></div>
+        <div class="mt-8 text-center">
+            <a href="../blog.html" class="back-to-blog">
+                <i class="fas fa-arrow-left mr-2"></i>Back to Blog
+            </a>
+        </div>
+    </main>
+
+    <script type="module" src="js/blog-post.js"></script>
+    <script src="../../darkMode.js"></script>
+    <script>
+        fetch('../../navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar-placeholder').innerHTML = data;
+                Array.from(document.getElementById('navbar-placeholder').getElementsByTagName('script')).forEach(oldScript => {
+                    const newScript = document.createElement('script');
+                    Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                    newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+                    oldScript.parentNode.replaceChild(newScript, oldScript);
+                });
+            });
+
+        // Stars generation
+        const starsContainer = document.querySelector('.stars-container');
+        const starCount = 200;
+
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.width = `${Math.random() * 2}px`;
+            star.style.height = star.style.width;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.animationDuration = `${5 + Math.random() * 10}s`;
+            star.style.animationDelay = `${Math.random() * 5}s`;
+            starsContainer.appendChild(star);
+        }
+
+        // Initialize dark mode
+        document.addEventListener('DOMContentLoaded', () => {
+            setupDarkMode();
+        });
+    </script>
+</body>
+</html>
