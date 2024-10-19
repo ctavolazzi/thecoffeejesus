@@ -125,32 +125,20 @@ function displayErrorMessage(message) {
     blogPostContainer.innerHTML = `<div class="error">${message}</div>`;
 }
 
-// Dark mode toggle functionality
-function initDarkMode() {
-    const darkModeToggle = document.getElementById('dark-mode-toggle');
-    const htmlElement = document.documentElement;
+// Dark mode toggle functionality is handled by darkMode.js
 
-    // Check for saved theme preference or use system preference
-    const savedTheme = localStorage.getItem('theme');
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
-        htmlElement.classList.add('dark');
-        if (darkModeToggle) darkModeToggle.checked = true;
-    } else {
-        htmlElement.classList.remove('dark');
-        if (darkModeToggle) darkModeToggle.checked = false;
+function initScrollAnimations() {
+    const contentElements = document.querySelectorAll('.post-content > *');
+    if (contentElements.length === 0) {
+        console.warn('No content elements found for scroll animations.');
     }
-
-    // Toggle dark mode
-    if (darkModeToggle) {
-        darkModeToggle.addEventListener('change', () => {
-            htmlElement.classList.toggle('dark');
-            localStorage.setItem('theme', htmlElement.classList.contains('dark') ? 'dark' : 'light');
-        });
-    }
+    contentElements.forEach(el => {
+        el.classList.add('animate__animated'); // Ensure the animated class is present
+        observer.observe(el);
+    });
 }
 
+// Intersection Observer setup remains unchanged
 function handleIntersection(entries, observer) {
     entries.forEach(entry => {
         console.log('Intersection entry:', entry);
@@ -169,100 +157,10 @@ const observer = new IntersectionObserver(handleIntersection, {
     threshold: [0, 0.05, 0.1, 0.25, 0.5, 0.75, 1]
 });
 
-function initScrollAnimations() {
-    const contentElements = document.querySelectorAll('.post-content > *');
-    if (contentElements.length === 0) {
-        console.warn('No content elements found for scroll animations.');
-    }
-    contentElements.forEach(el => {
-        el.classList.add('animate__animated'); // Ensure the animated class is present
-        observer.observe(el);
-    });
-}
-
-// Fallback: Show all content if IntersectionObserver is not supported
-if (!('IntersectionObserver' in window)) {
-    document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('.post-content > *').forEach(el => {
-            el.classList.add('animate__fadeIn', 'animate');
-        });
-    });
-}
-
-// Initialize Scroll-to-Top Button
-function initScrollToTop() {
-    const scrollToTopBtn = document.querySelector('.scroll-to-top');
-
-    // Show or hide the button based on scroll position
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) { // Show after scrolling 300px
-            scrollToTopBtn.classList.add('visible');
-        } else {
-            scrollToTopBtn.classList.remove('visible');
-        }
-    });
-
-    // Scroll smoothly to the top when the button is clicked
-    scrollToTopBtn.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-}
-
-// Stars generation optimization
-function generateStars() {
-    const starsContainer = document.querySelector('.stars-container');
-    const starCount = window.innerWidth <= 768 ? 100 : 200; // Reduce stars on smaller screens
-
-    for (let i = 0; i < starCount; i++) {
-        const star = document.createElement('div');
-        star.classList.add('star');
-        star.style.width = `${Math.random() * 2 + 1}px`; // Slightly smaller stars
-        star.style.height = star.style.width;
-        star.style.left = `${Math.random() * 100}%`;
-        star.style.top = `${Math.random() * 100}%`;
-        star.style.animationDuration = `${5 + Math.random() * 10}s`;
-        star.style.animationDelay = `${Math.random() * 5}s`;
-        starsContainer.appendChild(star);
-    }
-}
-
-// Call generateStars on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
     fetchAndDisplayBlogPost().then(() => {
-        initDarkMode();
-        initScrollToTop(); // Existing function
-        initBackToTop();   // New function
+        // Removed initDarkMode() as darkMode.js handles it
+        initScrollAnimations();
+        // If you have other initializations, keep them here
     });
 });
-
-// Back-to-Top Button Functionality
-function initBackToTop() {
-    const backToTopBtn = document.getElementById('back-to-top');
-
-    if (!backToTopBtn) {
-        console.warn('Back-to-Top button not found!');
-        return;
-    }
-
-    // Show or hide the button based on scroll position
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-            backToTopBtn.classList.remove('hidden');
-            backToTopBtn.classList.add('visible');
-        } else {
-            backToTopBtn.classList.remove('visible');
-            backToTopBtn.classList.add('hidden');
-        }
-    });
-
-    // Scroll smoothly to the top when the button is clicked
-    backToTopBtn.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-}
