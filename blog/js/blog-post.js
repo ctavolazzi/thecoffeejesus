@@ -48,7 +48,6 @@ function displayBlogPost(post) {
                 ${post.category ? `<span><i class="fas fa-tag"></i> ${sanitizeHTML(post.category)}</span>` : ''}
                 <span><i class="fas fa-clock"></i> ${readingTime} min read</span>
             </div>
-            <div id="table-of-contents" class="toc"></div>
             <div class="post-content">${parsedContent}</div>
             <div class="post-footer">
                 <button class="share-button" onclick="sharePost()">
@@ -58,27 +57,8 @@ function displayBlogPost(post) {
         </div>
     `;
 
-    // Add scroll to top button
-    const scrollToTopButton = document.createElement('div');
-    scrollToTopButton.className = 'scroll-to-top';
-    scrollToTopButton.innerHTML = '<i class="fas fa-arrow-up"></i>';
-    document.body.appendChild(scrollToTopButton);
-
-    // Scroll to top functionality
-    scrollToTopButton.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    // Show/hide scroll to top button
-    window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 300) {
-            scrollToTopButton.classList.add('visible');
-        } else {
-            scrollToTopButton.classList.remove('visible');
-        }
-    });
-
-    generateTableOfContents();
+    // Remove the table of contents for now
+    // generateTableOfContents();
 }
 
 function estimateReadingTime(content) {

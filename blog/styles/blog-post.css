@@ -10,10 +10,43 @@
     --navbar-height: 64px;
 }
 
-body, html {
+/* Add these styles at the top of your CSS file */
+html, body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+}
+
+#navbar-placeholder {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 56px; /* Height of the mobile navbar */
+}
+
+main {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+#blog-post {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.featured-image-container {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.featured-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
 }
 
 body {
@@ -966,19 +999,13 @@ html {
 }
 
 @media (max-width: 768px) {
-    body {
-        padding-top: 56px; /* Adjust for smaller navbar on mobile */
-    }
 
     #blog-post {
-        margin-top: 0; /* Remove top margin on mobile */
-    }
-
-    .featured-image-container {
-        margin-top: 0; /* Remove top margin on mobile */
+        margin: 0;
+        padding: 0;
     }
 
     .post-content-wrapper {
-        padding-top: 1rem; /* Add some padding to the content */
+        padding: 1rem;
     }
 }
