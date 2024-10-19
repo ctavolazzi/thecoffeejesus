@@ -1150,3 +1150,23 @@ html {
     background-color: var(--accent-hover);
     transform: scale(1.1);
 }
+
+/* Remove the animation on blog body text */
+.post-content > * {
+    opacity: 1;
+    animation: none;
+}
+
+.post-content > *.animate {
+    animation: none;
+}
+
+/* Remove the fadeIn animation */
+@keyframes fadeIn {
+    from { opacity: 1; transform: none; }
+    to { opacity: 1; transform: none; }
+}
+
+.post-content-wrapper {
+    animation: none;
+}

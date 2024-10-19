@@ -64,8 +64,7 @@ function displayBlogPost(post) {
         </div>
     `;
 
-    // Initialize animations after content is inserted
-    initScrollAnimations();
+    // Initialize any necessary functionalities after content is inserted
 }
 
 function estimateReadingTime(content) {
@@ -127,40 +126,9 @@ function displayErrorMessage(message) {
 
 // Dark mode toggle functionality is handled by darkMode.js
 
-function initScrollAnimations() {
-    const contentElements = document.querySelectorAll('.post-content > *');
-    if (contentElements.length === 0) {
-        console.warn('No content elements found for scroll animations.');
-    }
-    contentElements.forEach(el => {
-        el.classList.add('animate__animated'); // Ensure the animated class is present
-        observer.observe(el);
-    });
-}
-
-// Intersection Observer setup remains unchanged
-function handleIntersection(entries, observer) {
-    entries.forEach(entry => {
-        console.log('Intersection entry:', entry);
-        if (entry.isIntersecting) {
-            const animationClass = entry.target.dataset.animation || 'fadeIn';
-            entry.target.classList.add('animate__animated', `animate__${animationClass}`, 'animate');
-            observer.unobserve(entry.target);
-        }
-    });
-}
-
-// Initialize IntersectionObserver with multiple thresholds and rootMargin for better detection
-const observer = new IntersectionObserver(handleIntersection, {
-    root: null,
-    rootMargin: '0px',
-    threshold: [0, 0.05, 0.1, 0.25, 0.5, 0.75, 1]
-});
-
 document.addEventListener('DOMContentLoaded', () => {
     fetchAndDisplayBlogPost().then(() => {
         // Removed initDarkMode() as darkMode.js handles it
-        initScrollAnimations();
         // If you have other initializations, keep them here
     });
 });
