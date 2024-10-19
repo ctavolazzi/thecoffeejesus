@@ -121,21 +121,32 @@
                     document.getElementById('navbar-placeholder').innerHTML = data;
                     
                     // Initialize dark mode toggle after navbar is loaded
-                    initDarkMode();
+                    if (typeof initDarkMode === 'function') {
+                        initDarkMode();
+                    }
                     
                     // Add event listener for mobile menu button
                     const mobileMenuButton = document.getElementById('mobile-menu-button');
                     const mobileMenu = document.getElementById('mobile-menu');
                     if (mobileMenuButton && mobileMenu) {
-                        mobileMenuButton.addEventListener('click', function() {
+                        mobileMenuButton.addEventListener('click', function(event) {
+                            event.preventDefault();
                             mobileMenu.classList.toggle('hidden');
+                            console.log('Mobile menu toggled');  // Add this line for debugging
                         });
+                    } else {
+                        console.error('Mobile menu button or menu not found');  // Add this line for debugging
                     }
-                });
+                })
+                .catch(error => console.error('Error loading navbar:', error));
         }
 
         // Call the function when the DOM is fully loaded
-        document.addEventListener('DOMContentLoaded', loadNavbarAndInitialize);
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadNavbarAndInitialize);
+        } else {
+            loadNavbarAndInitialize();
+        }
 
         // Stars generation
         const starsContainer = document.querySelector('.stars-container');
