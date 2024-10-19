@@ -36,7 +36,8 @@ function displayBlogPost(post) {
     const readingTime = estimateReadingTime(post.content);
 
     blogPostContainer.innerHTML = `
-        ${post.featured_image ? `<div class="featured-image-container mt-0">
+        ${post.featured_image ? `
+        <div class="featured-image-container">
             <img src="${sanitizeHTML(post.featured_image)}" alt="${sanitizeHTML(post.title)}" class="featured-image">
         </div>` : ''}
         <div class="post-content-wrapper">

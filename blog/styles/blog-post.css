@@ -20,7 +20,7 @@ body {
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
     margin: 0;
-    padding: 0;
+    padding-top: 64px; /* Height of the navbar */
     transition: background-color 0.3s ease, color 0.3s ease;
     background-attachment: fixed;
     background-size: 400% 400%;
@@ -47,6 +47,8 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 0;
+    padding-top: 0;
 }
 
 .dark #blog-post {
@@ -60,7 +62,8 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin-top: -1rem; /* Negative margin to pull the image up */
+    margin-top: 0;
+    padding-top: 0;
 }
 
 .featured-image-container:hover {
@@ -72,6 +75,10 @@ body {
     width: 100%;
     height: auto;
     transition: transform 0.5s ease, filter 0.5s ease;
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-top: 0;
 }
 
 .featured-image-container:hover .featured-image {
