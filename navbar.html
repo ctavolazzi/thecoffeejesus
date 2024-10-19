@@ -48,7 +48,18 @@
 </header>
 <style>
     .main-navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        height: 64px; /* Adjust this value if needed */
         transition: background-color 0.3s ease, box-shadow 0.3s ease, height 0.3s ease;
+    }
+    @media (max-width: 768px) {
+        .main-navbar {
+            height: 56px; /* Smaller height for mobile */
+        }
     }
     .toggle-checkbox {
         opacity: 0;
@@ -82,11 +93,6 @@
     }
     .toggle-checkbox:checked + .toggle-label:before {
         transform: translateX(24px);
-    }
-    @media (max-width: 640px) {
-        .main-navbar {
-            height: 64px;
-        }
     }
     #dark-mode-toggle .sun-icon,
     #dark-mode-toggle .moon-icon {

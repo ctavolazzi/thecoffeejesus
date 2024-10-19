@@ -22,6 +22,7 @@ body {
     color: var(--text-light);
     background-color: var(--bg-light);
     transition: background-color 0.3s ease, color 0.3s ease;
+    padding-top: 64px; /* Adjust this value to match your navbar height */
 }
 
 .dark body {
@@ -36,6 +37,7 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.05);
     border-radius: 8px;
     overflow: hidden;
+    margin-top: 1rem; /* Reduce top margin */
 }
 
 .dark #blog-post {
@@ -49,6 +51,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-top: -1rem; /* Negative margin to pull the image up */
 }
 
 .featured-image-container:hover {
@@ -935,4 +938,18 @@ html {
 .share-button:hover::after {
     opacity: 1;
     transform: translateX(-50%) translateY(-5px);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 56px; /* Adjust for smaller navbar on mobile */
+    }
+
+    #blog-post {
+        margin-top: 0.5rem; /* Even smaller top margin on mobile */
+    }
+
+    .featured-image-container {
+        margin-top: -0.5rem; /* Adjust negative margin for mobile */
+    }
 }
