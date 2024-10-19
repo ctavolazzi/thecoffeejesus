@@ -963,10 +963,14 @@ html {
     }
 
     #blog-post {
-        margin-top: 0.5rem; /* Even smaller top margin on mobile */
+        margin-top: 0; /* Remove top margin on mobile */
     }
 
     .featured-image-container {
-        margin-top: -0.5rem; /* Adjust negative margin for mobile */
+        margin-top: 0; /* Remove top margin on mobile */
+    }
+
+    .post-content-wrapper {
+        padding-top: 1rem; /* Add some padding to the content */
     }
 }
