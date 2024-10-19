@@ -20,7 +20,7 @@ body {
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
     margin: 0;
-    padding-top: 64px; /* Height of the navbar */
+    padding-top: 0; /* Remove top padding */
     transition: background-color 0.3s ease, color 0.3s ease;
     background-attachment: fixed;
     background-size: 400% 400%;
@@ -340,6 +340,7 @@ body {
 
 .post-content-wrapper {
     padding: 2rem 2.5rem;
+    padding-top: 0; /* Remove padding */
 }
 
 @media (max-width: 640px) {
