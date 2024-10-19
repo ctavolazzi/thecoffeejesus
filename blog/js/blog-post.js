@@ -37,17 +37,19 @@ function displayBlogPost(post) {
 
     blogPostContainer.innerHTML = `
         ${post.featured_image ? `<div class="featured-image-container"><img src="${sanitizeHTML(post.featured_image)}" alt="${sanitizeHTML(post.title)}" class="featured-image"></div>` : ''}
-        <h1 class="post-title">${sanitizeHTML(post.title)}</h1>
-        <div class="post-meta">
-            <span><i class="fas fa-user"></i> ${sanitizeHTML(post.author)}</span>
-            <span><i class="fas fa-calendar-alt"></i> ${new Date(post.created_at).toLocaleDateString()}</span>
-            ${post.category ? `<span><i class="fas fa-tag"></i> ${sanitizeHTML(post.category)}</span>` : ''}
-        </div>
-        <div class="post-content">${parsedContent}</div>
-        <div class="post-footer">
-            <button class="share-button" onclick="sharePost()">
-                <i class="fas fa-share-alt"></i> Share
-            </button>
+        <div class="post-content-wrapper">
+            <h1 class="post-title">${sanitizeHTML(post.title)}</h1>
+            <div class="post-meta">
+                <span><i class="fas fa-user"></i> ${sanitizeHTML(post.author)}</span>
+                <span><i class="fas fa-calendar-alt"></i> ${new Date(post.created_at).toLocaleDateString()}</span>
+                ${post.category ? `<span><i class="fas fa-tag"></i> ${sanitizeHTML(post.category)}</span>` : ''}
+            </div>
+            <div class="post-content">${parsedContent}</div>
+            <div class="post-footer">
+                <button class="share-button" onclick="sharePost()">
+                    <i class="fas fa-share-alt"></i> Share
+                </button>
+            </div>
         </div>
     `;
 }
