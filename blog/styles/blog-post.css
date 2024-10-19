@@ -1083,12 +1083,12 @@ html {
 
 /* Dark Mode Toggle Styles */
 #dark-mode-toggle:checked + .w-10 {
-    background-color: var(--accent-color);
+    background-color: #4A5568; /* Changed from var(--accent-color) to a neutral gray */
 }
 
 #dark-mode-toggle:checked + .w-10 .dot {
     transform: translateX(100%);
-    background-color: var(--bg-dark);
+    background-color: #FFFFFF; /* Changed from var(--bg-dark) to white */
 }
 
 #dark-mode-toggle + .w-10 .dot {
