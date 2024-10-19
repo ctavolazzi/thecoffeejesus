@@ -2,9 +2,10 @@ import supabaseClient from '../../supabase.js';
 
 async function fetchAndDisplayBlogPosts() {
     const blogPostsContainer = document.getElementById('blog-posts');
-    blogPostsContainer.innerHTML = ''; // Clear existing content
+    if (!blogPostsContainer) return;
+
+    blogPostsContainer.innerHTML = '';
     
-    // Add skeleton loader
     const skeletonLoader = createSkeletonLoader();
     blogPostsContainer.appendChild(skeletonLoader);
 
@@ -16,17 +17,14 @@ async function fetchAndDisplayBlogPosts() {
 
         if (error) throw new Error(`Failed to fetch posts: ${error.message}`);
 
-        // Remove skeleton loader
         blogPostsContainer.removeChild(skeletonLoader);
 
         const fragment = document.createDocumentFragment();
 
-        // Add featured post
         const featuredPost = posts.find(post => post.is_featured) || posts[0];
         const featuredPostElement = createFeaturedPost(featuredPost);
         fragment.appendChild(featuredPostElement);
 
-        // Create category filter
         const categories = [...new Set(posts.map(post => post.category))];
         const categoryFilter = createCategoryFilter(categories);
         fragment.appendChild(categoryFilter);
@@ -41,7 +39,6 @@ async function fetchAndDisplayBlogPosts() {
         blogPostsContainer.appendChild(fragment);
     } catch (error) {
         console.error('Error fetching blog posts:', error);
-        // Remove skeleton loader
         blogPostsContainer.removeChild(skeletonLoader);
         displayErrorMessage('Could not load blog posts. Please try again later.');
     }
@@ -175,23 +172,81 @@ function handleIntersection(entries, observer) {
     });
 }
 
-const observer = new IntersectionObserver(handleIntersection, {
-    root: null,
-    threshold: 0.1
-});
-
 function initScrollAnimations() {
-    document.querySelectorAll('.post').forEach(el => {
-        observer.observe(el);
-    });
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(handleIntersection, {
+            root: null,
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('.post').forEach(el => {
+            observer.observe(el);
+        });
+    } else {
+        // Fallback for browsers that don't support IntersectionObserver
+        document.querySelectorAll('.post').forEach(el => {
+            el.classList.add('animate');
+        });
+    }
 }
 
-// Call this function after the posts are loaded
-document.addEventListener('DOMContentLoaded', () => {
+// Use DOMContentLoaded for modern browsers, and a fallback for older ones
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeBlog);
+} else {
+    initializeBlog();
+}
+
+function initializeBlog() {
     fetchAndDisplayBlogPosts().then(() => {
         initScrollAnimations();
     });
-});
+
+    const blogTitle = document.getElementById('blogTitle');
+    const coffeeCup = document.getElementById('coffeeCup');
+
+    if (blogTitle) {
+        blogTitle.style.opacity = '0';
+        blogTitle.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+            blogTitle.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            blogTitle.style.opacity = '1';
+            blogTitle.style.transform = 'translateY(0)';
+        }, 100);
+    }
+
+    if (coffeeCup) {
+        coffeeCup.addEventListener('click', (e) => {
+            coffeeCup.style.transform = 'scale(1.2) rotate(10deg)';
+            setTimeout(() => {
+                coffeeCup.style.transform = '';
+            }, 300);
+        });
+    }
+
+    const titleContainer = document.querySelector('.blog-title-container');
+    if (titleContainer) {
+        const coffeeEmojis = ['☕', '🫖', '🍵'];
+        
+        for (let i = 0; i < 5; i++) {
+            const bean = document.createElement('span');
+            bean.textContent = coffeeEmojis[Math.floor(Math.random() * coffeeEmojis.length)];
+            bean.classList.add('coffee-beans');
+            bean.style.setProperty('--tx', `${Math.random() * 100 - 50}px`);
+            bean.style.setProperty('--ty', `${-Math.random() * 50 - 50}px`);
+            bean.style.setProperty('--r', `${Math.random() * 360}deg`);
+            titleContainer.appendChild(bean);
+        }
+    }
+
+    const coffeeCupElement = document.querySelector('.coffee-cup');
+    if (coffeeCupElement) {
+        const steam = document.createElement('span');
+        steam.textContent = '☁️';
+        steam.classList.add('steam');
+        coffeeCupElement.appendChild(steam);
+    }
+}
 
 function createBlogPostElement(post) {
     const postElement = document.createElement('div');
@@ -212,48 +267,3 @@ function createBlogPostElement(post) {
     `;
     return postElement;
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    const blogTitle = document.getElementById('blogTitle');
-    const coffeeCup = document.getElementById('coffeeCup');
-
-    // Simple fade-in animation for the title
-    blogTitle.style.opacity = '0';
-    blogTitle.style.transform = 'translateY(20px)';
-    setTimeout(() => {
-        blogTitle.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        blogTitle.style.opacity = '1';
-        blogTitle.style.transform = 'translateY(0)';
-    }, 100);
-
-    // Coffee cup interaction
-    coffeeCup.addEventListener('click', (e) => {
-        coffeeCup.style.transform = 'scale(1.2) rotate(10deg)';
-        setTimeout(() => {
-            coffeeCup.style.transform = '';
-        }, 300);
-    });
-
-    // ... (rest of the code remains the same)
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    const titleContainer = document.querySelector('.blog-title-container');
-    const coffeeEmojis = ['☕', '🫖', '🍵'];
-    
-    for (let i = 0; i < 5; i++) {
-        const bean = document.createElement('span');
-        bean.textContent = coffeeEmojis[Math.floor(Math.random() * coffeeEmojis.length)];
-        bean.classList.add('coffee-beans');
-        bean.style.setProperty('--tx', `${Math.random() * 100 - 50}px`);
-        bean.style.setProperty('--ty', `${-Math.random() * 50 - 50}px`);
-        bean.style.setProperty('--r', `${Math.random() * 360}deg`);
-        titleContainer.appendChild(bean);
-    }
-
-    const coffeeCup = document.querySelector('.coffee-cup');
-    const steam = document.createElement('span');
-    steam.textContent = '☁️';
-    steam.classList.add('steam');
-    coffeeCup.appendChild(steam);
-});
