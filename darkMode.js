@@ -34,3 +34,28 @@ if (document.readyState === 'loading') {
 } else {
     setupDarkMode();
 }
+
+function initDarkMode() {
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    const htmlElement = document.documentElement;
+
+    // Check for saved theme preference or use system preference
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+        htmlElement.classList.add('dark');
+        darkModeToggle.checked = true;
+    } else {
+        htmlElement.classList.remove('dark');
+        darkModeToggle.checked = false;
+    }
+
+    // Toggle dark mode
+    darkModeToggle.addEventListener('change', () => {
+        htmlElement.classList.toggle('dark');
+        localStorage.setItem('theme', htmlElement.classList.contains('dark') ? 'dark' : 'light');
+    });
+}
+
+// Don't call initDarkMode() here, it will be called after the navbar is loaded

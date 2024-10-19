@@ -91,17 +91,15 @@ function filterPosts(category) {
 
 function createPostElement(post) {
     const postElement = document.createElement('div');
-    postElement.className = 'post';
+    postElement.className = 'post animate__animated animate__fadeIn';
     postElement.dataset.category = post.category;
     postElement.innerHTML = `
         ${post.featured_image ? `<img src="${sanitizeHTML(post.featured_image)}" alt="${sanitizeHTML(post.title)}" class="featured-image">` : ''}
         <h2 class="post-title">${sanitizeHTML(post.title)}</h2>
         <div class="post-meta">
-            <span>By ${sanitizeHTML(post.author)}</span>
-            <span> • </span>
-            <span>${new Date(post.created_at).toLocaleDateString()}</span>
-            <span> • </span>
-            <span class="post-category">${sanitizeHTML(post.category)}</span>
+            <span><i class="fas fa-user"></i> ${sanitizeHTML(post.author)}</span>
+            <span><i class="fas fa-calendar-alt"></i> ${new Date(post.created_at).toLocaleDateString()}</span>
+            <span><i class="fas fa-tag"></i> ${sanitizeHTML(post.category)}</span>
         </div>
         <div class="post-content">${sanitizeHTML(truncateContent(post.content, 200))}</div>
         <a href="blog/blog-post.html?id=${post.id}" class="read-more">Read More</a>
@@ -128,23 +126,20 @@ function displayErrorMessage(message) {
 // Add this function
 function createFeaturedPost(post) {
     const featuredPostElement = document.createElement('div');
-    featuredPostElement.className = 'featured-post mb-12';
+    featuredPostElement.className = 'featured-post post animate__animated animate__fadeIn';
     featuredPostElement.innerHTML = `
-        <h2 class="text-3xl font-bold mb-4">Featured Post</h2>
-        <div class="featured-post-content bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
-            ${post.featured_image ? `<img src="${sanitizeHTML(post.featured_image)}" alt="${sanitizeHTML(post.title)}" class="featured-image w-full h-64 object-cover">` : ''}
-            <div class="p-6">
-                <h3 class="text-2xl font-bold mb-2">${sanitizeHTML(post.title)}</h3>
-                <div class="post-meta mb-4">
-                    <span>By ${sanitizeHTML(post.author)}</span>
-                    <span> • </span>
-                    <span>${new Date(post.created_at).toLocaleDateString()}</span>
-                    <span> • </span>
-                    <span class="post-category">${sanitizeHTML(post.category)}</span>
-                </div>
-                <div class="post-content mb-4">${sanitizeHTML(truncateContent(post.content, 300))}</div>
-                <a href="blog/blog-post.html?id=${post.id}" class="read-more">Read More</a>
+        <div class="featured-image-container">
+            ${post.featured_image ? `<img src="${sanitizeHTML(post.featured_image)}" alt="${sanitizeHTML(post.title)}" class="featured-image">` : ''}
+        </div>
+        <div class="featured-post-content">
+            <h3 class="post-title">${sanitizeHTML(post.title)}</h3>
+            <div class="post-meta mb-4">
+                <span><i class="fas fa-user"></i> ${sanitizeHTML(post.author)}</span>
+                <span><i class="fas fa-calendar-alt"></i> ${new Date(post.created_at).toLocaleDateString()}</span>
+                <span><i class="fas fa-tag"></i> ${sanitizeHTML(post.category)}</span>
             </div>
+            <div class="post-content mb-4">${sanitizeHTML(truncateContent(post.content, 300))}</div>
+            <a href="blog/blog-post.html?id=${post.id}" class="read-more">Read More</a>
         </div>
     `;
     return featuredPostElement;
@@ -171,4 +166,94 @@ function createSkeletonLoader() {
     return skeletonLoader;
 }
 
-document.addEventListener('DOMContentLoaded', fetchAndDisplayBlogPosts);
+function handleIntersection(entries, observer) {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('animate');
+            observer.unobserve(entry.target);
+        }
+    });
+}
+
+const observer = new IntersectionObserver(handleIntersection, {
+    root: null,
+    threshold: 0.1
+});
+
+function initScrollAnimations() {
+    document.querySelectorAll('.post').forEach(el => {
+        observer.observe(el);
+    });
+}
+
+// Call this function after the posts are loaded
+document.addEventListener('DOMContentLoaded', () => {
+    fetchAndDisplayBlogPosts().then(() => {
+        initScrollAnimations();
+    });
+});
+
+function createBlogPostElement(post) {
+    const postElement = document.createElement('div');
+    postElement.className = 'post bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-transform duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl relative';
+    
+    postElement.innerHTML = `
+        ${post.featured_image ? `<img src="${sanitizeHTML(post.featured_image)}" alt="${sanitizeHTML(post.title)}" class="w-full h-48 object-cover">` : ''}
+        <div class="p-6">
+            <h2 class="text-2xl font-bold mb-2 text-gray-900 dark:text-gray-100">${sanitizeHTML(post.title)}</h2>
+            <div class="post-meta mb-4">
+                <span><i class="fas fa-user"></i> ${sanitizeHTML(post.author)}</span>
+                <span><i class="fas fa-calendar-alt"></i> ${new Date(post.created_at).toLocaleDateString()}</span>
+                <span><i class="fas fa-tag"></i> ${sanitizeHTML(post.category)}</span>
+            </div>
+            <p class="text-gray-700 dark:text-gray-300 mb-4">${sanitizeHTML(truncateContent(post.content, 150))}</p>
+            <a href="blog/blog-post.html?id=${post.id}" class="read-more">Read More</a>
+        </div>
+    `;
+    return postElement;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const blogTitle = document.getElementById('blogTitle');
+    const coffeeCup = document.getElementById('coffeeCup');
+
+    // Simple fade-in animation for the title
+    blogTitle.style.opacity = '0';
+    blogTitle.style.transform = 'translateY(20px)';
+    setTimeout(() => {
+        blogTitle.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        blogTitle.style.opacity = '1';
+        blogTitle.style.transform = 'translateY(0)';
+    }, 100);
+
+    // Coffee cup interaction
+    coffeeCup.addEventListener('click', (e) => {
+        coffeeCup.style.transform = 'scale(1.2) rotate(10deg)';
+        setTimeout(() => {
+            coffeeCup.style.transform = '';
+        }, 300);
+    });
+
+    // ... (rest of the code remains the same)
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const titleContainer = document.querySelector('.blog-title-container');
+    const coffeeEmojis = ['☕', '🫖', '🍵'];
+    
+    for (let i = 0; i < 5; i++) {
+        const bean = document.createElement('span');
+        bean.textContent = coffeeEmojis[Math.floor(Math.random() * coffeeEmojis.length)];
+        bean.classList.add('coffee-beans');
+        bean.style.setProperty('--tx', `${Math.random() * 100 - 50}px`);
+        bean.style.setProperty('--ty', `${-Math.random() * 50 - 50}px`);
+        bean.style.setProperty('--r', `${Math.random() * 360}deg`);
+        titleContainer.appendChild(bean);
+    }
+
+    const coffeeCup = document.querySelector('.coffee-cup');
+    const steam = document.createElement('span');
+    steam.textContent = '☁️';
+    steam.classList.add('steam');
+    coffeeCup.appendChild(steam);
+});

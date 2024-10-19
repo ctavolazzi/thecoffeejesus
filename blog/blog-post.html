@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles/blog-post.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -33,11 +34,12 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
+    <div class="stars-container"></div>
     <div id="navbar-placeholder"></div>
-    <main>
+    <main class="animate__animated animate__fadeIn">
         <div id="blog-post" class="container mx-auto px-0 max-w-3xl"></div>
         <div class="mt-8 text-center">
-            <a href="../blog.html" class="back-to-blog">
+            <a href="/blog.html" class="inline-block bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors duration-300">
                 <i class="fas fa-arrow-left mr-2"></i>Back to Blog
             </a>
         </div>
@@ -46,7 +48,7 @@
     <script type="module" src="js/blog-post.js"></script>
     <script src="../../darkMode.js"></script>
     <script>
-        fetch('../../navbar.html')
+        fetch('/navbar.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('navbar-placeholder').innerHTML = data;
@@ -55,6 +57,12 @@
                     Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
                     newScript.appendChild(document.createTextNode(oldScript.innerHTML));
                     oldScript.parentNode.replaceChild(newScript, oldScript);
+                });
+                // Initialize dark mode toggle after navbar is loaded
+                initDarkMode();
+                // Add event listener for mobile menu button
+                document.getElementById('mobile-menu-button').addEventListener('click', function() {
+                    document.getElementById('mobile-menu').classList.toggle('hidden');
                 });
             });
 
@@ -73,11 +81,6 @@
             star.style.animationDelay = `${Math.random() * 5}s`;
             starsContainer.appendChild(star);
         }
-
-        // Initialize dark mode
-        document.addEventListener('DOMContentLoaded', () => {
-            setupDarkMode();
-        });
     </script>
 </body>
 </html>
