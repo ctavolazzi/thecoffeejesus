@@ -428,6 +428,7 @@
         .animate-float {
             animation: float 3s ease-in-out infinite;
         }
+
     </style>
     <script>
         tailwind.config = {
@@ -471,7 +472,7 @@
             <div class="text-center">
                 <div class="multiverse-section">
                     <h2 class="multiverse-title">Join the Multiverse</h2>
-                    <div class="multiverse-container" onclick="window.location.href='https://themultiverse.school/classes/121';">
+                    <div class="multiverse-container" onclick="window.location.href='https://themultiverse.school/';">
                         <div class="dimensional-fold"></div>
                         <div class="time-distortion"></div>
                         <div class="dimensional-rift"></div>
@@ -480,8 +481,8 @@
                             <div class="portal-ring"></div>
                             <div class="portal-ring"></div>
                             <div class="portal-ring"></div>
-                            <a href="https://themultiverse.school/classes/121" class="multiverse-button" aria-label="Click Me">
-                                <span><i class="fas fa-arrow-right ml-2"></i> Click Me<i class="fas fa-arrow-left ml-2"></i></span>
+                            <a href="https://themultiverse.school/" class="multiverse-button" aria-label="Join The Multiverse">
+                                <span><i class="fas fa-arrow-right ml-2"></i> Join The Multiverse <i class="fas fa-arrow-left ml-2"></i></span>
                             </a>
                         </div>
                         <div class="particles">
@@ -555,7 +556,7 @@
             <h2 class="text-3xl font-bold mb-6 text-center text-indigo-600 dark:text-indigo-400">About Your Instructor</h2>
             <div class="flex flex-col items-center">
                 <div class="w-full md:w-2/3 text-center">
-                    <p class="text-xl mb-4 text-gray-700 dark:text-gray-300">I'm Christopher Tavolazzi, known online as @thecoffeejesus. As a tech industry veteran and AI researcher, I'm passionate about empowering others to harness the power of artificial intelligence.</p>
+                    <p class="text-xl mb-4 text-gray-700 dark:text-gray-300">I'm Christopher Tavolazzi, known online as <a href="https://solo.to/thecoffeejesus" class="text-indigo-600 dark:text-indigo-400 hover:underline">@thecoffeejesus</a>. As a tech industry veteran and AI researcher, I'm passionate about empowering others to harness the power of artificial intelligence.</p>
                     <p class="text-lg mb-4 text-gray-700 dark:text-gray-300">With experience as a tech lead at Adobe and a following of over 100,000 across social media, I bring real-world insights and cutting-edge knowledge to help you succeed in the AI-driven future.</p>
                     <div class="mt-6 flex justify-center space-x-4">
                         <a href="https://twitter.com/thecoffeejesus" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300">
@@ -621,6 +622,17 @@
                     </button>
                 </form>
                 <p id="newsletter-message" class="mt-6 text-center text-cream-100 dark:text-gray-200 font-semibold"></p>
+                <!-- Added iframe below the newsletter form -->
+                <div class="mt-12 space-y-6">
+                    <h3 class="text-2xl font-bold text-yellow-400 text-center">Support The Mission</h3>
+                    <iframe 
+                        id='kofiframe' 
+                        src='https://ko-fi.com/thecoffeejesus/?hidefeed=true&widget=true&embed=true&preview=true' 
+                        style='border:none;width:100%;padding:4px;background:#1f2937;' 
+                        height='712' 
+                        title='thecoffeejesus'
+                    ></iframe>
+                </div>
             </div>
         </div>
     </div>
@@ -641,6 +653,17 @@
             star.style.animationDelay = `${Math.random() * 5}s`;
             starsContainer.appendChild(star);
         }
+    </script>
+
+    <!-- Ko-fi floating button -->
+    <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+    <script>
+      kofiWidgetOverlay.draw('thecoffeejesus', {
+        'type': 'floating-chat',
+        'floating-chat.donateButton.text': 'Support me',
+        'floating-chat.donateButton.background-color': '#fcbf47',
+        'floating-chat.donateButton.text-color': '#323842'
+      });
     </script>
 </body>
 </html>
