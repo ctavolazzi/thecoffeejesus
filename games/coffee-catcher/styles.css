@@ -300,3 +300,20 @@ body {
         width: 250px;
     }
 }
+
+/* ... existing styles ... */
+
+.powerup-button.speed-boost {
+    background-color: #4a90e2;
+    position: relative;
+}
+
+.powerup-button.speed-boost.active {
+    animation: speedBoostGlow 1s infinite;
+}
+
+@keyframes speedBoostGlow {
+    0% { box-shadow: 0 0 5px #4a90e2; }
+    50% { box-shadow: 0 0 15px #4a90e2; }
+    100% { box-shadow: 0 0 5px #4a90e2; }
+}

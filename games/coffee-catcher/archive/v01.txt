@@ -1,0 +1,887 @@
+const GAME_CONFIG = {
+    levels: {
+        1: { beansNeeded: 10, beanSpeed: 3, pointMultiplier: 1.0 },
+        2: { beansNeeded: 15, beanSpeed: 3.5, pointMultiplier: 1.5 },
+        3: { beansNeeded: 20, beanSpeed: 4, pointMultiplier: 2.0 },
+        4: { beansNeeded: 25, beanSpeed: 4.5, pointMultiplier: 2.5 },
+        5: { beansNeeded: 30, beanSpeed: 5, pointMultiplier: 3.0 }
+    },
+    initial: {
+        timeLimit: 30,
+        beanCount: 0
+    }
+};
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Coffee Catcher</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Prevent pinch zoom on mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Game Stats -->
+        <div class="game-stats">
+            <div>Level: <span id="level">1</span></div>
+            <div>Time: <span id="time">30</span>s</div>
+            <div>Misses: <span id="misses">0</span></div>
+            <div>Beans: <span id="beans">0/10</span></div>
+            <div>Score: <span id="score">0</span></div>
+        </div>
+
+        <!-- Status Effects -->
+        <div class="status-effects" id="statusEffects">
+            <!-- Status effects will be added here dynamically -->
+        </div>
+
+        <!-- Game Layout -->
+        <div class="game-layout">
+            <!-- Game Canvas -->
+            <canvas id="gameCanvas" width="400" height="400"></canvas>
+        </div>
+
+        <!-- Powerups (New Layout) -->
+        <div class="powerups-container">
+            <div class="powerups-row">
+                <button class="powerup-button catch-all" id="catchAllButton" title="Catch All Beans (Press 1)" data-key="1"></button>
+                <button class="powerup-button" disabled title="Locked" data-key="2"></button>
+                <button class="powerup-button" disabled title="Locked" data-key="3"></button>
+                <button class="powerup-button" disabled title="Locked" data-key="4"></button>
+            </div>
+            <div class="powerups-row">
+                <button class="powerup-button" disabled title="Locked" data-key="5"></button>
+                <button class="powerup-button" disabled title="Locked" data-key="6"></button>
+                <button class="powerup-button" disabled title="Locked" data-key="7"></button>
+                <button class="powerup-button" disabled title="Locked" data-key="8"></button>
+            </div>
+        </div>
+
+        <!-- Mobile Controls -->
+        <div class="mobile-controls">
+            <button class="mobile-control-btn" id="moveLeft" aria-label="Move Left">←</button>
+            <button class="mobile-control-btn" id="moveRight" aria-label="Move Right">→</button>
+        </div>
+
+        <!-- Game Over Modal (Hidden by default) -->
+        <div class="game-over-modal" id="gameOverModal" style="display: none;">
+            <div class="modal-content">
+                <h2>Game Over!</h2>
+                <div class="final-score">Score: <span id="finalScore">0</span></div>
+                <button id="restartButton">Play Again</button>
+            </div>
+        </div>
+
+        <!-- Scripts -->
+        <script src="gameConfig.js"></script>
+        <script src="quotes.js"></script>
+        <script src="statusManager.js"></script>
+        <script src="script.js"></script>
+
+        <!-- Prevent default touch behavior -->
+        <script>
+            document.addEventListener('touchmove', function(e) {
+                e.preventDefault();
+            }, { passive: false });
+
+            // Prevent double tap to zoom
+            let lastTouchEnd = 0;
+            document.addEventListener('touchend', function(e) {
+                const now = Date.now();
+                if (now - lastTouchEnd <= 300) {
+                    e.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
+        </script>
+    </div>
+</body>
+</html>
+
+class ScoreManager {
+    constructor() {
+        this.scores = this.loadScores();
+    }
+
+    loadScores() {
+        const saved = localStorage.getItem('coffeeScores');
+        return saved ? JSON.parse(saved) : {
+            highScore: 0,
+            topScores: [],
+            stats: {
+                maxLevel: 0,
+                totalBeansCollected: 0,
+                gamesPlayed: 0
+            }
+        };
+    }
+
+    saveScore(score, level, beansCollected) {
+        const scores = this.loadScores();
+        
+        // Update high score if necessary
+        if (score > scores.highScore) {
+            scores.highScore = score;
+        }
+
+        // Update stats
+        scores.stats.maxLevel = Math.max(scores.stats.maxLevel, level);
+        scores.stats.totalBeansCollected += beansCollected;
+        scores.stats.gamesPlayed++;
+
+        // Add to top scores (keep top 5)
+        scores.topScores.push({
+            score,
+            level,
+            beans: beansCollected,
+            date: new Date().toISOString()
+        });
+        scores.topScores.sort((a, b) => b.score - a.score);
+        scores.topScores = scores.topScores.slice(0, 5);
+
+        localStorage.setItem('coffeeScores', JSON.stringify(scores));
+        return scores;
+    }
+}
+
+// Game state management
+const gameState = {
+    status: 'playing',  // playing, paused, levelUp, gameOver
+    player: {
+        x: 0,
+        y: 0,
+        width: 50,
+        height: 10,
+        speed: 8,
+        dx: 0
+    },
+    level: {
+        current: 1,
+        beansForNext: GAME_CONFIG.levels[1].beansNeeded,
+        beanSpeed: GAME_CONFIG.levels[1].beanSpeed
+    },
+    stats: {
+        remainingTime: GAME_CONFIG.initial.timeLimit,
+        score: 0,
+        misses: 0,
+        beansCollected: 0
+    },
+    beans: [],
+    lastTimestamp: 0,
+    multiplier: {
+        current: 1,
+        lastCatchTime: 0,
+        resetTimeout: null
+    }
+};
+
+// Power-up management
+const powerUps = {
+    catchAll: {
+        cooldown: 10000, // 10 seconds
+        lastUsed: 0,
+        isAvailable: function() {
+            return Date.now() - this.lastUsed >= this.cooldown;
+        }
+    }
+};
+
+// Canvas setup
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+
+// Touch and drag controls
+let isDragging = false;
+let dragStartX = 0;
+let touchActive = false;
+let touchDirection = 0;
+
+// Initialize game
+function initGame() {
+    // Initialize status manager
+    window.statusManager = new StatusManager();
+    
+    // Set initial player position
+    gameState.player.x = (canvas.width - gameState.player.width) / 2;
+    gameState.player.y = canvas.height - gameState.player.height - 10;
+    
+    // Reset game state
+    gameState.stats.remainingTime = GAME_CONFIG.initial.timeLimit;
+    gameState.stats.score = 0;
+    gameState.stats.misses = 0;
+    gameState.stats.beansCollected = 0;
+    gameState.beans = [];
+    gameState.level.current = 1;
+    
+    // Start game loop
+    requestAnimationFrame(gameLoop);
+    
+    // Start timer
+    startTimer();
+}
+
+// Game loop
+function gameLoop(timestamp) {
+    if (!gameState.lastTimestamp) gameState.lastTimestamp = timestamp;
+    const deltaTime = (timestamp - gameState.lastTimestamp) / 1000;
+    gameState.lastTimestamp = timestamp;
+
+    updateGame(deltaTime);
+    drawGame();
+    updatePowerUpStates();
+
+    if (gameState.status === 'playing') {
+        requestAnimationFrame(gameLoop);
+    }
+}
+
+// Update game state
+function updateGame(deltaTime) {
+    // Update player position
+    if (gameState.player.dx !== 0) {
+        gameState.player.x += gameState.player.dx * deltaTime;
+        gameState.player.x = Math.max(0, Math.min(gameState.player.x, canvas.width - gameState.player.width));
+    }
+
+    // Update beans
+    updateBeans(deltaTime);
+
+    // Check for level completion
+    if (gameState.stats.beansCollected >= gameState.level.beansForNext) {
+        levelUp();
+    }
+}
+
+// Update beans positions and collisions
+function updateBeans(deltaTime) {
+    // Spawn new beans
+    if (Math.random() < 0.02) {
+        spawnBean();
+    }
+
+    // Update existing beans
+    gameState.beans = gameState.beans.filter(bean => {
+        if (bean.collected) return false;
+
+        bean.y += gameState.level.beanSpeed * deltaTime * 60;
+
+        // Check for collection
+        if (!bean.collected && 
+            bean.y + 10 >= gameState.player.y &&
+            bean.x >= gameState.player.x &&
+            bean.x <= gameState.player.x + gameState.player.width) {
+            collectBean(bean);
+            return false;
+        }
+
+        // Check for miss
+        if (bean.y > canvas.height) {
+            gameState.stats.misses++;
+            updateStats();
+            return false;
+        }
+
+        return true;
+    });
+}
+
+// Draw game state
+function drawGame() {
+    // Clear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw player
+    ctx.fillStyle = '#8B4513';
+    ctx.fillRect(gameState.player.x, gameState.player.y, gameState.player.width, gameState.player.height);
+
+    // Draw beans
+    ctx.fillStyle = '#6F4E37';
+    gameState.beans.forEach(bean => {
+        if (!bean.collected) {
+            ctx.beginPath();
+            ctx.arc(bean.x, bean.y, 5, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    });
+}
+
+// Spawn new bean
+function spawnBean() {
+    gameState.beans.push({
+        x: Math.random() * (canvas.width - 10) + 5,
+        y: -10,
+        collected: false
+    });
+}
+
+// Collect bean
+function collectBean(bean) {
+    bean.collected = true;
+    gameState.stats.beansCollected++;
+    gameState.stats.score += 100 * gameState.multiplier.current;
+    updateStats();
+    
+    // Show floating score text
+    showFloatingText(`+${100 * gameState.multiplier.current}`, bean.x, bean.y);
+}
+
+// Level up
+function levelUp() {
+    gameState.level.current++;
+    gameState.level.beansForNext = GAME_CONFIG.levels[gameState.level.current]?.beansNeeded || Infinity;
+    gameState.level.beanSpeed = GAME_CONFIG.levels[gameState.level.current]?.beanSpeed || gameState.level.beanSpeed;
+    gameState.stats.remainingTime += 10; // Bonus time
+    updateStats();
+}
+
+// Timer management
+function startTimer() {
+    const timerInterval = setInterval(() => {
+        if (gameState.status === 'playing') {
+            gameState.stats.remainingTime--;
+            updateStats();
+
+            if (gameState.stats.remainingTime <= 0) {
+                clearInterval(timerInterval);
+                gameOver();
+            }
+        }
+    }, 1000);
+}
+
+// Game over
+function gameOver() {
+    gameState.status = 'gameOver';
+    if (window.statusManager) {
+        clearInterval(window.statusManager.quoteInterval);
+    }
+    // Handle game over logic...
+}
+
+// Update UI stats
+function updateStats() {
+    document.getElementById('level').textContent = gameState.level.current;
+    document.getElementById('time').textContent = gameState.stats.remainingTime;
+    document.getElementById('misses').textContent = gameState.stats.misses;
+    document.getElementById('beans').textContent = `${gameState.stats.beansCollected}/${gameState.level.beansForNext}`;
+    document.getElementById('score').textContent = gameState.stats.score;
+}
+
+// Power-up activation
+function activateCatchAllPowerUp() {
+    if (!powerUps.catchAll.isAvailable()) return;
+    
+    const button = document.getElementById('catchAllButton');
+    button.disabled = true;
+    button.classList.add('cooldown');
+    
+    // Collect all beans
+    gameState.beans.forEach(bean => {
+        if (!bean.collected) {
+            showFloatingText(`+${100 * gameState.multiplier.current}`, bean.x, bean.y);
+            collectBean(bean);
+        }
+    });
+    
+    gameState.beans = [];
+    powerUps.catchAll.lastUsed = Date.now();
+    
+    // Reset button after cooldown
+    setTimeout(() => {
+        button.disabled = false;
+        button.classList.remove('cooldown');
+    }, powerUps.catchAll.cooldown);
+}
+
+// Update power-up states
+function updatePowerUpStates() {
+    const catchAllButton = document.getElementById('catchAllButton');
+    if (powerUps.catchAll.isAvailable() && catchAllButton.disabled) {
+        catchAllButton.disabled = false;
+        catchAllButton.classList.remove('cooldown');
+    }
+}
+
+// Show floating score text
+function showFloatingText(text, x, y) {
+    const floatingText = document.createElement('div');
+    floatingText.className = 'floating-text';
+    floatingText.textContent = text;
+    floatingText.style.left = `${x}px`;
+    floatingText.style.top = `${y}px`;
+    floatingText.style.color = '#FFD700'; // Add this line to force the color
+    canvas.parentElement.appendChild(floatingText);
+    
+    setTimeout(() => floatingText.remove(), 1000);
+}
+
+// Touch and drag controls
+function handleMobileControl(direction) {
+    gameState.player.dx = direction * gameState.player.speed;
+}
+
+function startDrag(e) {
+    isDragging = true;
+    dragStartX = e.touches ? e.touches[0].clientX : e.clientX;
+}
+
+function drag(e) {
+    if (!isDragging) return;
+    e.preventDefault();
+    const currentX = e.touches ? e.touches[0].clientX : e.clientX;
+    const deltaX = currentX - dragStartX;
+    dragStartX = currentX;
+
+    gameState.player.x += deltaX;
+    gameState.player.x = Math.max(0, Math.min(gameState.player.x, canvas.width - gameState.player.width));
+}
+
+function stopDrag() {
+    isDragging = false;
+}
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', () => {
+    // Keyboard controls
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft' || e.key === 'a') gameState.player.dx = -gameState.player.speed;
+        if (e.key === 'ArrowRight' || e.key === 'd') gameState.player.dx = gameState.player.speed;
+        
+        // Number key support for power-ups
+        if (e.key === '1') {
+            const button = document.getElementById('catchAllButton');
+            if (!button.disabled) {
+                activateCatchAllPowerUp();
+            }
+        }
+    });
+
+    document.addEventListener('keyup', (e) => {
+        if ((e.key === 'ArrowLeft' || e.key === 'a') && gameState.player.dx < 0) gameState.player.dx = 0;
+        if ((e.key === 'ArrowRight' || e.key === 'd') && gameState.player.dx > 0) gameState.player.dx = 0;
+    });
+
+    // Touch controls
+    canvas.addEventListener('touchstart', startDrag);
+    canvas.addEventListener('touchmove', drag);
+    canvas.addEventListener('touchend', stopDrag);
+    
+    // Mouse controls
+    canvas.addEventListener('mousedown', startDrag);
+    canvas.addEventListener('mousemove', drag);
+    canvas.addEventListener('mouseup', stopDrag);
+    canvas.addEventListener('mouseleave', stopDrag);
+
+    // Mobile control buttons
+    document.getElementById('moveLeft').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        handleMobileControl(-1);
+    });
+
+    document.getElementById('moveRight').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        handleMobileControl(1);
+    });
+
+    document.getElementById('moveLeft').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        if (gameState.player.dx < 0) gameState.player.dx = 0;
+    });
+
+    document.getElementById('moveRight').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        if (gameState.player.dx > 0) gameState.player.dx = 0;
+    });
+
+    // Power-up button
+    document.getElementById('catchAllButton').addEventListener('click', activateCatchAllPowerUp);
+    
+    // Initialize game
+    initGame();
+});
+
+class StatusManager {
+    constructor() {
+        this.statusArea = document.getElementById('statusEffects');
+        this.quoteInterval = null;
+        this.initialize();
+    }
+
+    initialize() {
+        this.statusArea.innerHTML = '';
+        this.showEffect('welcome', 3000);
+        
+        setTimeout(() => {
+            this.startQuoteRotation();
+        }, 3000);
+    }
+
+    showEffect(type, duration, message = '') {
+        // Remove old effects of the same type
+        const existingEffects = this.statusArea.querySelectorAll(`.status-effect[data-type="${type}"]`);
+        existingEffects.forEach(effect => effect.remove());
+
+        const effect = document.createElement('div');
+        effect.className = 'status-effect';
+        effect.dataset.type = type;
+        
+        switch(type) {
+            case 'welcome':
+                effect.textContent = 'Good luck!';
+                break;
+            case 'levelUp':
+                effect.textContent = `Level ${gameState.level.current}!`;
+                break;
+            case 'timeBonus':
+                effect.textContent = '+10 seconds!';
+                break;
+            case 'quote':
+                effect.textContent = message;
+                break;
+            default:
+                effect.textContent = message;
+        }
+        
+        this.statusArea.appendChild(effect);
+        effect.offsetHeight; // Force reflow
+        effect.classList.add('active');
+        
+        if (type !== 'quote') {
+            setTimeout(() => {
+                effect.classList.remove('active');
+                setTimeout(() => effect.remove(), 300);
+            }, duration);
+        }
+    }
+
+    startQuoteRotation() {
+        this.updateQuote();
+        this.quoteInterval = setInterval(() => this.updateQuote(), 5000); // Changed to 5 seconds
+    }
+
+    updateQuote() {
+        const randomQuote = COFFEE_QUOTES[Math.floor(Math.random() * COFFEE_QUOTES.length)];
+        this.showEffect('quote', 4700, randomQuote); // Slightly shorter than the interval
+    }
+
+    reset() {
+        this.statusArea.innerHTML = '';
+        clearInterval(this.quoteInterval);
+        this.startQuoteRotation();
+    }
+
+    levelUp() {
+        this.showEffect('levelUp', 2000);
+        setTimeout(() => {
+            this.showEffect('timeBonus', 2000);
+        }, 1000);
+    }
+}
+
+
+/* Add at the top for the dark background */
+body {
+    background: #1a1a1a;
+    color: #fff;
+}
+
+/* Game Canvas and Container Styles */
+.game-container {
+    position: relative;
+    width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Reduced from 20px to tighten up the layout */
+}
+
+#gameCanvas {
+    background: #2d2d2d;
+    border: 2px solid #8B4513;
+    box-shadow: 0 0 20px rgba(139, 69, 19, 0.3);
+}
+
+/* Stats Display */
+.game-stats {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 1rem;
+    background: #2d2d2d;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 2px solid #8B4513;
+}
+
+.game-stats div {
+    margin: 0 1rem;
+}
+
+/* Power-up Buttons */
+.powerups-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.powerups-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.powerup-button {
+    width: 45px;
+    height: 45px;
+    border-radius: 8px;
+    background: #2d2d2d;
+    border: 2px solid #8B4513;
+    cursor: not-allowed;
+    opacity: 0.5;
+    position: relative; /* Added for key indicator positioning */
+}
+
+.powerup-button.catch-all {
+    background: #2d2d2d url('assets/magnet-icon.png') center/60% no-repeat;
+    border: 2px solid #8B4513;
+    opacity: 1;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Key indicator */
+.powerup-button::after {
+    content: attr(data-key);
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    background: rgba(45, 45, 45, 0.5); /* Increased transparency */
+    color: rgba(139, 69, 19, 0.7); /* Increased transparency */
+    font-size: 10px;
+    padding: 2px 4px;
+    border-radius: 3px;
+    border: 1px solid rgba(139, 69, 19, 0.7); /* Increased transparency */
+}
+
+/* Cooldown overlay - moved to use ::before instead of ::after */
+.powerup-button.catch-all::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    transform-origin: bottom;
+    transform: scaleY(0);
+}
+
+/* Active state */
+.powerup-button.catch-all:not(:disabled) {
+    border-color: #8B4513;
+}
+
+/* Hover state */
+.powerup-button.catch-all:not(:disabled):hover {
+    background-color: #3d3d3d;
+}
+
+/* Disabled/cooldown state */
+.powerup-button.catch-all:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.powerup-button.catch-all.cooldown::before {
+    animation: cooldown 10s linear forwards;
+}
+
+/* Status Effects Area */
+.status-effects {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    min-height: 40px;
+    background: rgba(45, 45, 45, 0.9);
+    border: 2px solid #8B4513;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.status-effect {
+    position: absolute;
+    color: #FFD700;
+    font-size: 1.2rem;
+    text-align: center;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.status-effect.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Floating Score Text */
+.game-container .floating-text {
+    position: absolute;
+    color: #FFD700 !important;  /* Golden yellow with !important */
+    font-weight: bold;
+    font-size: 1.2rem;
+    pointer-events: none;
+    animation: floatUp 1s ease-out forwards;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+
+/* Animations */
+@keyframes cooldown {
+    from {
+        transform: scaleY(0);  /* Start from empty */
+    }
+    to {
+        transform: scaleY(1);  /* Fill to full */
+    }
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+        color: #FFD700;
+    }
+    100% {
+        transform: translateY(-50px);
+        opacity: 0;
+        color: #FFD700;
+    }
+}
+
+/* Add animation for collected beans */
+.collected-bean {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #8B4513;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: collectBean 0.5s ease-out forwards;
+}
+
+@keyframes collectBean {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+/* Mobile Controls */
+.mobile-controls {
+    display: none; /* Hidden by default on desktop */
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 100px;
+}
+
+.mobile-control-btn {
+    width: 60px;
+    height: 60px;
+    background: rgba(139, 69, 19, 0.3);
+    border: 2px solid #8B4513;
+    border-radius: 50%;
+    color: #8B4513;
+    font-size: 24px;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+
+.mobile-control-btn:active {
+    background: rgba(139, 69, 19, 0.5);
+}
+
+/* Show mobile controls on touch devices */
+@media (hover: none) and (pointer: coarse) {
+    .mobile-controls {
+        display: flex;
+    }
+    
+    /* Adjust game container padding to make room for controls */
+    .game-container {
+        padding-bottom: 100px;
+    }
+}
+
+/* Responsive scaling */
+@media screen and (max-width: 700px) {
+    .game-container {
+        width: 450px;
+    }
+
+    #gameCanvas {
+        width: 450px;
+        height: 450px;  /* Assuming your canvas is square */
+    }
+
+    .game-stats {
+        max-width: 450px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .game-container {
+        width: 350px;
+    }
+
+    #gameCanvas {
+        width: 350px;
+        height: 350px;
+    }
+
+    .game-stats {
+        max-width: 350px;
+    }
+
+    .status-effects {
+        width: 300px;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .game-container {
+        width: 300px;
+    }
+
+    #gameCanvas {
+        width: 300px;
+        height: 300px;
+    }
+
+    .game-stats {
+        max-width: 300px;
+    }
+
+    .status-effects {
+        width: 250px;
+    }
+}
+

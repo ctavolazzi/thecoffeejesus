@@ -8,125 +8,214 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        /* Custom Styles */
-        .section-transition {
-            transition: all 0.5s ease-in-out;
-        }
-        .section-padding {
-            padding-top: 4rem;
-            padding-bottom: 4rem;
-        }
-        /* Enhanced Accessibility and Readability Styles */
-        body, html {
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-        }
-
-        /* Focus Styles for Better Keyboard Navigation */
-        a:focus, button:focus, input:focus, textarea:focus {
-            outline: 2px dashed #FFD700;
-            outline-offset: 4px;
-        }
-
-        /* Form Styles */
-        .contact-form {
-            background-color: #ffffff;
-            dark:bg-coffee-800;
-            padding: 2rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .form-input {
-            transition: all 0.3s ease;
-        }
-        .form-input:focus {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .submit-button {
-            background-color: #6D4C41;
-            color: #FFFFFF;
-            font-weight: bold;
-            padding: 0.75rem 2rem;
-            border-radius: 0.5rem;
-            text-decoration: none;
-            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-            overflow: hidden;
-            margin-top: 1rem;
-        }
-        .submit-button:hover {
-            background-color: #8D6E63;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-        .submit-button::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 300%;
-            height: 300%;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            transition: transform 0.5s ease;
-        }
-        .submit-button:hover::after {
-            transform: translate(-50%, -50%) scale(1);
-            transition: transform 0.3s ease;
-        }
-        .error-message {
-            color: #E3342F;
-            margin-top: 0.5rem;
-            font-size: 0.875rem;
-        }
-        .success-message {
-            color: #38C172;
-            margin-top: 0.5rem;
-            font-size: 0.875rem;
-        }
-    </style>
 </head>
 <body class="pt-16 font-sans transition-colors duration-200 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <!-- Navbar Placeholder -->
     <div id="navbar-placeholder"></div>
 
     <main class="max-w-4xl mx-auto px-4 py-8 space-y-16">
-        <section class="bg-white dark:bg-coffee-800 p-8 rounded-lg shadow-md section-transition section-padding">
-            <h2 class="text-3xl font-bold mb-6 text-center text-coffee-600 dark:text-coffee-300 font-serif">Get in Touch</h2>
+        <section class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
+            <h2 class="text-3xl font-bold mb-6 text-center text-gray-800 dark:text-gray-100 font-serif">Get in Touch</h2>
+            
             <div class="max-w-md mx-auto">
-                <form id="contact-form" class="contact-form">
-                    <div class="mb-4">
-                        <label for="contact-name" class="block text-sm font-medium mb-1">Your Name</label>
-                        <input type="text" id="contact-name" name="name" required
-                               class="form-input w-full p-3 rounded-lg bg-gray-100 dark:bg-coffee-700 text-gray-800 dark:text-coffee-100 placeholder-gray-400 dark:placeholder-coffee-300 border-2 border-gray-300 dark:border-coffee-600 focus:outline-none focus:border-coffee-500 dark:focus:border-coffee-400 transition duration-300">
-                        <span class="error-message" id="name-error"></span>
+                <form id="contact-form" class="space-y-6">
+                    <!-- Name Input -->
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                            Name
+                        </label>
+                        <input type="text" 
+                               id="name" 
+                               name="name" 
+                               required
+                               class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 
+                                      bg-white dark:bg-gray-700 
+                                      text-gray-900 dark:text-gray-100
+                                      focus:ring-2 focus:ring-[#FFD700] focus:border-transparent
+                                      transition duration-200">
                     </div>
-                    <div class="mb-4">
-                        <label for="contact-email" class="block text-sm font-medium mb-1">Your Email</label>
-                        <input type="email" id="contact-email" name="email" required
-                               class="form-input w-full p-3 rounded-lg bg-gray-100 dark:bg-coffee-700 text-gray-800 dark:text-coffee-100 placeholder-gray-400 dark:placeholder-coffee-300 border-2 border-gray-300 dark:border-coffee-600 focus:outline-none focus:border-coffee-500 dark:focus:border-coffee-400 transition duration-300">
-                        <span class="error-message" id="email-error"></span>
+
+                    <!-- Email Input -->
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                            Email
+                        </label>
+                        <input type="email" 
+                               id="email" 
+                               name="email" 
+                               required
+                               class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 
+                                      bg-white dark:bg-gray-700 
+                                      text-gray-900 dark:text-gray-100
+                                      focus:ring-2 focus:ring-[#FFD700] focus:border-transparent
+                                      transition duration-200">
                     </div>
-                    <div class="mb-4">
-                        <label for="contact-message" class="block text-sm font-medium mb-1">Your Message</label>
-                        <textarea id="contact-message" name="message" rows="5" required
-                                  class="form-input w-full p-3 rounded-lg bg-gray-100 dark:bg-coffee-700 text-gray-800 dark:text-coffee-100 placeholder-gray-400 dark:placeholder-coffee-300 border-2 border-gray-300 dark:border-coffee-600 focus:outline-none focus:border-coffee-500 dark:focus:border-coffee-400 transition duration-300"></textarea>
-                        <span class="error-message" id="message-error"></span>
+
+                    <!-- Social Handle Input -->
+                    <div>
+                        <label for="social_handle" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                            Social Media Handle (optional)
+                        </label>
+                        <input type="text" 
+                               id="social_handle" 
+                               name="social_handle" 
+                               placeholder="@yourusername"
+                               class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 
+                                      bg-white dark:bg-gray-700 
+                                      text-gray-900 dark:text-gray-100
+                                      focus:ring-2 focus:ring-[#FFD700] focus:border-transparent
+                                      transition duration-200">
                     </div>
-                    <button type="submit" class="relative submit-button w-full text-center">
+
+                    <!-- Platform Checkboxes -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                            Preferred Social Platforms (select all that apply)
+                        </label>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" name="preferred_platforms" value="Twitter"
+                                       class="form-checkbox h-5 w-5 text-[#FFD700] border-gray-300 dark:border-gray-600 rounded
+                                              focus:ring-[#FFD700] dark:bg-gray-700">
+                                <span class="ml-2 text-gray-700 dark:text-gray-300">Twitter</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" name="preferred_platforms" value="X"
+                                       class="form-checkbox h-5 w-5 text-[#FFD700] border-gray-300 dark:border-gray-600 rounded
+                                              focus:ring-[#FFD700] dark:bg-gray-700">
+                                <span class="ml-2 text-gray-700 dark:text-gray-300">X</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" name="preferred_platforms" value="Instagram"
+                                       class="form-checkbox h-5 w-5 text-[#FFD700] border-gray-300 dark:border-gray-600 rounded
+                                              focus:ring-[#FFD700] dark:bg-gray-700">
+                                <span class="ml-2 text-gray-700 dark:text-gray-300">Instagram</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" name="preferred_platforms" value="TikTok"
+                                       class="form-checkbox h-5 w-5 text-[#FFD700] border-gray-300 dark:border-gray-600 rounded
+                                              focus:ring-[#FFD700] dark:bg-gray-700">
+                                <span class="ml-2 text-gray-700 dark:text-gray-300">TikTok</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" name="preferred_platforms" value="GitHub"
+                                       class="form-checkbox h-5 w-5 text-[#FFD700] border-gray-300 dark:border-gray-600 rounded
+                                              focus:ring-[#FFD700] dark:bg-gray-700">
+                                <span class="ml-2 text-gray-700 dark:text-gray-300">GitHub</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" name="preferred_platforms" value="Facebook"
+                                       class="form-checkbox h-5 w-5 text-[#FFD700] border-gray-300 dark:border-gray-600 rounded
+                                              focus:ring-[#FFD700] dark:bg-gray-700">
+                                <span class="ml-2 text-gray-700 dark:text-gray-300">Facebook</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" name="preferred_platforms" value="Snapchat"
+                                       class="form-checkbox h-5 w-5 text-[#FFD700] border-gray-300 dark:border-gray-600 rounded
+                                              focus:ring-[#FFD700] dark:bg-gray-700">
+                                <span class="ml-2 text-gray-700 dark:text-gray-300">Snapchat</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" name="preferred_platforms" value="Reddit"
+                                       class="form-checkbox h-5 w-5 text-[#FFD700] border-gray-300 dark:border-gray-600 rounded
+                                              focus:ring-[#FFD700] dark:bg-gray-700">
+                                <span class="ml-2 text-gray-700 dark:text-gray-300">Reddit</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" name="preferred_platforms" value="Other"
+                                       class="form-checkbox h-5 w-5 text-[#FFD700] border-gray-300 dark:border-gray-600 rounded
+                                              focus:ring-[#FFD700] dark:bg-gray-700">
+                                <span class="ml-2 text-gray-700 dark:text-gray-300">Other</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Message Input -->
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                            Message
+                        </label>
+                        <textarea id="message" 
+                                  name="message" 
+                                  rows="4" 
+                                  required
+                                  class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 
+                                         bg-white dark:bg-gray-700 
+                                         text-gray-900 dark:text-gray-100
+                                         focus:ring-2 focus:ring-[#FFD700] focus:border-transparent
+                                         transition duration-200"></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" 
+                            class="w-full px-6 py-3 bg-[#FFD700] hover:bg-[#FFC000] 
+                                   text-black font-semibold rounded-lg 
+                                   transition duration-300 ease-in-out transform hover:scale-105 
+                                   focus:outline-none focus:ring-2 focus:ring-[#FFD700] focus:ring-opacity-50">
                         Send Message
                     </button>
-                    <p id="contact-success" class="success-message text-center"></p>
+
+                    <!-- Success/Error Messages -->
+                    <div id="form-messages" class="mt-4 text-center hidden">
+                        <p id="success-message" class="text-green-500 dark:text-green-400 hidden"></p>
+                        <p id="error-message" class="text-red-500 dark:text-red-400 hidden"></p>
+                    </div>
                 </form>
+            </div>
+        </section>
+
+        <!-- Additional Contact Information -->
+        <section class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
+            <h3 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100 font-serif">Other Ways to Connect</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Social Media -->
+                <div class="space-y-4">
+                    <h4 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Social Media</h4>
+                    <div class="flex space-x-6">
+                        <a href="https://twitter.com/TheCoffeeJesus" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           class="text-gray-600 dark:text-gray-400 hover:text-[#FFD700] dark:hover:text-[#FFD700] transition duration-200"
+                           title="Twitter">
+                            <i class="fab fa-twitter text-2xl"></i>
+                        </a>
+                        <a href="https://instagram.com/TheCoffeeJesus" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           class="text-gray-600 dark:text-gray-400 hover:text-[#FFD700] dark:hover:text-[#FFD700] transition duration-200"
+                           title="Instagram">
+                            <i class="fab fa-instagram text-2xl"></i>
+                        </a>
+                        <a href="https://tiktok.com/@thecoffeejesus" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           class="text-gray-600 dark:text-gray-400 hover:text-[#FFD700] dark:hover:text-[#FFD700] transition duration-200"
+                           title="TikTok">
+                            <i class="fab fa-tiktok text-2xl"></i>
+                        </a>
+                        <a href="https://github.com/ctavolazzi" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           class="text-gray-600 dark:text-gray-400 hover:text-[#FFD700] dark:hover:text-[#FFD700] transition duration-200"
+                           title="GitHub">
+                            <i class="fab fa-github text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Response Time -->
+                <div class="space-y-4">
+                    <h4 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Response Time</h4>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        We typically respond within 24-48 hours during business days.
+                    </p>
+                </div>
             </div>
         </section>
     </main>
 
-    <footer class="text-center py-4">
+    <footer class="text-center py-4 text-gray-600 dark:text-gray-400">
         <p>&copy; 2023 The Coffee Jesus. All rights reserved.</p>
     </footer>
 
@@ -136,68 +225,59 @@
     <script type="module">
         import supabaseClient from './supabase.js';
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const contactForm = document.getElementById('contact-form');
-            const contactSuccess = document.getElementById('contact-success');
-            const nameError = document.getElementById('name-error');
-            const emailError = document.getElementById('email-error');
-            const messageError = document.getElementById('message-error');
+        document.getElementById('contact-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formMessages = document.getElementById('form-messages');
+            const successMessage = document.getElementById('success-message');
+            const errorMessage = document.getElementById('error-message');
+            
+            try {
+                // Get selected platforms
+                const platformCheckboxes = document.querySelectorAll('input[name="preferred_platforms"]:checked');
+                const selectedPlatforms = Array.from(platformCheckboxes).map(checkbox => checkbox.value);
 
-            contactForm.addEventListener('submit', async (event) => {
-                event.preventDefault();
+                // Get form data
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    social_handle: document.getElementById('social_handle').value || null,
+                    preferred_platforms: selectedPlatforms,
+                    message: document.getElementById('message').value,
+                    created_at: new Date().toISOString()
+                };
 
-                // Clear previous errors
-                nameError.textContent = '';
-                emailError.textContent = '';
-                messageError.textContent = '';
-                contactSuccess.textContent = '';
+                // Send to Supabase
+                const { data, error } = await supabaseClient
+                    .from('contact_requests')
+                    .insert([formData])
+                    .select();
 
-                const name = document.getElementById('contact-name').value.trim();
-                const email = document.getElementById('contact-email').value.trim();
-                const message = document.getElementById('contact-message').value.trim();
+                if (error) throw error;
 
-                let hasError = false;
+                // Show success message
+                formMessages.classList.remove('hidden');
+                successMessage.textContent = 'Message sent successfully!';
+                successMessage.classList.remove('hidden');
+                errorMessage.classList.add('hidden');
+                
+                // Reset form
+                e.target.reset();
 
-                if (!name) {
-                    nameError.textContent = 'Please enter your name.';
-                    hasError = true;
-                }
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    formMessages.classList.add('hidden');
+                    successMessage.classList.add('hidden');
+                }, 5000);
 
-                if (!email) {
-                    emailError.textContent = 'Please enter your email.';
-                    hasError = true;
-                } else {
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (!emailRegex.test(email)) {
-                        emailError.textContent = 'Please enter a valid email address.';
-                        hasError = true;
-                    }
-                }
-
-                if (!message) {
-                    messageError.textContent = 'Please enter your message.';
-                    hasError = true;
-                }
-
-                if (hasError) {
-                    return;
-                }
-
-                try {
-                    const { data, error } = await supabaseClient
-                        .from('contact_messages')
-                        .insert([{ name, email, message }]);
-
-                    if (error) throw error;
-
-                    contactForm.reset();
-                    contactSuccess.textContent = 'Thank you for reaching out! We will get back to you shortly.';
-                } catch (error) {
-                    console.error('Error inserting contact message:', error);
-                    contactSuccess.textContent = 'There was an error submitting your message. Please try again later.';
-                    contactSuccess.classList.add('error-message');
-                }
-            });
+            } catch (error) {
+                console.error('Error:', error);
+                // Show error message
+                formMessages.classList.remove('hidden');
+                errorMessage.textContent = 'There was an error sending your message. Please try again.';
+                errorMessage.classList.remove('hidden');
+                successMessage.classList.add('hidden');
+            }
         });
     </script>
 </body>

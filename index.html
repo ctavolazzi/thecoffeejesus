@@ -16,48 +16,156 @@
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmbG5jZWt0cGVncmNjb21uZXFjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTYzODg3MzQsImV4cCI6MjAzMTk2NDczNH0.YaNGZ3fjFKoGC48PXEpLCZZTjuH10OZqgxgxXKO8le8';
         const supabase = createClient(supabaseUrl, supabaseKey);
 
+        // Get DOM elements and add loading state management
         const subscriberNumber = document.getElementById('subscriber-number');
         const newsletterForm = document.getElementById('newsletter-form');
         const newsletterEmail = document.getElementById('newsletter-email');
+        const newsletterName = document.getElementById('newsletter-name');
         const newsletterMessage = document.getElementById('newsletter-message');
+        const submitButton = newsletterForm.querySelector('button[type="submit"]');
+        const newsletterMessageInput = document.getElementById('newsletter-message-input');
 
-        async function updateSubscriberCount() {
-            try {
-                const { count, error } = await supabase
-                    .from('thecoffeejesus')
-                    .select('*', { count: 'exact', head: true });
+        // Original button text for reset
+        const originalButtonText = submitButton.innerHTML;
 
-                if (error) throw error;
+        // Helper function to set loading state
+        function setLoading(isLoading) {
+            submitButton.disabled = isLoading;
+            submitButton.innerHTML = isLoading 
+                ? '<span class="inline-flex items-center"><svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Subscribing...</span>'
+                : originalButtonText;
+            
+            // Disable/enable form inputs
+            newsletterEmail.disabled = isLoading;
+            newsletterName.disabled = isLoading;
+        }
 
-                subscriberNumber.textContent = count !== null ? count : 'many';
-            } catch (error) {
-                console.error('Error fetching subscriber count:', error);
-                subscriberNumber.textContent = 'many';
+        // Function to show message with optional auto-hide
+        function showMessage(message, isError = false, autoHide = true) {
+            newsletterMessage.textContent = message;
+            newsletterMessage.style.color = isError ? '#f87171' : '#4ade80';
+            newsletterMessage.style.opacity = '1';
+            
+            if (autoHide) {
+                setTimeout(() => {
+                    newsletterMessage.style.opacity = '0';
+                }, 5000);
             }
         }
 
+        // Updated subscriber count function with loading state
+        async function updateSubscriberCount() {
+            const countElement = document.getElementById('subscriber-number');
+            countElement.style.opacity = '0.5';
+            
+            try {
+                const { count, error } = await supabase
+                    .from('newsletter_subscribers')
+                    .select('*', { count: 'exact', head: true });
+
+                if (error) throw error;
+                
+                // Animate the count change
+                const currentCount = parseInt(countElement.textContent) || 0;
+                const newCount = count || 0;
+                
+                // Simple animation for count change
+                const steps = 20;
+                const increment = (newCount - currentCount) / steps;
+                let current = currentCount;
+                
+                for (let i = 0; i <= steps; i++) {
+                    setTimeout(() => {
+                        countElement.textContent = Math.round(current + (increment * i));
+                        if (i === steps) countElement.style.opacity = '1';
+                    }, (i * 1000) / steps);
+                }
+            } catch (error) {
+                console.error('Error fetching subscriber count:', error);
+                countElement.textContent = 'many';
+                countElement.style.opacity = '1';
+            }
+        }
+
+        // Debounce helper for email validation
+        const debounce = (func, wait) => {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        };
+
+        // Email validation helper
+        const validateEmail = (email) => {
+            const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+            return emailRegex.test(email);
+        };
+
+        // Real-time email validation
+        newsletterEmail.addEventListener('input', debounce((e) => {
+            const email = e.target.value.trim();
+            if (email && !validateEmail(email)) {
+                e.target.classList.add('border-red-500');
+                showMessage('Please enter a valid email address.', true, false);
+            } else {
+                e.target.classList.remove('border-red-500');
+                newsletterMessage.style.opacity = '0';
+            }
+        }, 500));
+
+        // Form submission handler
         newsletterForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const email = newsletterEmail.value;
+            
+            // Get and clean input values
+            const email = newsletterEmail.value.trim().toLowerCase();
+            const name = newsletterName.value.trim();
+            const message = newsletterMessageInput.value.trim();
+
+            // Validate email
+            if (!validateEmail(email)) {
+                showMessage('Please enter a valid email address.', true);
+                newsletterEmail.focus();
+                return;
+            }
+
+            setLoading(true);
 
             try {
                 const { data, error } = await supabase
-                    .from('thecoffeejesus')
-                    .insert([{ email: email }]);
+                    .from('newsletter_subscribers')
+                    .insert([{ 
+                        email: email,
+                        name: name || null,
+                        message: message || null
+                    }]);
 
-                if (error) throw error;
+                if (error) {
+                    if (error.code === '23505') {
+                        showMessage('This email is already subscribed!', true);
+                    } else {
+                        throw error;
+                    }
+                    return;
+                }
 
-                newsletterMessage.textContent = 'Thank you for subscribing!';
-                newsletterMessage.style.color = '#4ade80'; // green-400
+                showMessage('Thank you for subscribing! 🎉');
                 newsletterForm.reset();
                 await updateSubscriberCount();
             } catch (error) {
                 console.error('Error:', error);
-                newsletterMessage.textContent = 'An error occurred. Please try again.';
-                newsletterMessage.style.color = '#f87171'; // red-400
+                showMessage('An error occurred. Please try again.', true);
+            } finally {
+                setLoading(false);
             }
         });
 
+        // Initial subscriber count update
         updateSubscriberCount();
     </script>
     <style>
@@ -406,19 +514,6 @@
         @keyframes orbit { 0% { transform: rotate(0deg) translateX(60px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(60px) rotate(-360deg); } }
         @keyframes ripple { 0%, 100% { transform: scale(0.8); opacity: 0.5; } 50% { transform: scale(1.2); opacity: 1; } }
         @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.3; } 50% { transform: scale(1.5); opacity: 1; } }
-        @keyframes glowPulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; filter: blur(5px); } 50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; filter: blur(10px); } }
-        @keyframes energyBeam { 0% { transform: translate(-50%, -50%) rotate(0deg) scaleY(1); } 50% { transform: translate(-50%, -50%) rotate(180deg) scaleY(1.2); } 100% { transform: translate(-50%, -50%) rotate(360deg) scaleY(1); } }
-        @keyframes dimensionalRift { 0% { clip-path: circle(50% at 50% 50%); } 50% { clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); } 100% { clip-path: circle(50% at 50% 50%); } }
-        @keyframes quantumFluctuation { 0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); filter: blur(0px); } 50% { opacity: 0.5; transform: scale(0.98) rotate(180deg); filter: blur(2px); } }
-        @keyframes timeWarp { 0% { transform: perspective(500px) rotateY(0deg); } 100% { transform: perspective(500px) rotateY(360deg); } }
-        @keyframes dimensionalShift { 0%, 100% { transform: translateZ(0) rotate(0deg); } 50% { transform: translateZ(50px) rotate(180deg); } }
-        @keyframes cosmicPulse { 0%, 100% { background-size: 100% 100%; } 50% { background-size: 120% 120%; } }
-        @keyframes quantumTunnel { 0% { transform: scale(1) rotate(0deg); opacity: 1; } 50% { transform: scale(0) rotate(720deg); opacity: 0; } 100% { transform: scale(1) rotate(0deg); opacity: 1; } }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes reverseSpin { 0% { transform: rotate(360deg); } 100% { transform: rotate(0deg); } }
-        @keyframes orbit { 0% { transform: rotate(0deg) translateX(60px) rotate(0deg); } 100% { transform: rotate(360deg) translateX(60px) rotate(-360deg); } }
-        @keyframes ripple { 0%, 100% { transform: scale(0.8); opacity: 0.5; } 50% { transform: scale(1.2); opacity: 1; } }
-        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.3; } 50% { transform: scale(1.5); opacity: 1; } }
 
         @keyframes float {
             0%, 100% { transform: translateY(0); }
@@ -427,6 +522,30 @@
 
         .animate-float {
             animation: float 3s ease-in-out infinite;
+        }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Smooth transitions for messages */
+        #newsletter-message {
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        /* Smooth transitions for form elements */
+        #newsletter-email,
+        #newsletter-name {
+            transition: border-color 0.3s ease-in-out;
         }
 
     </style>
@@ -612,6 +731,20 @@
                         <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-cream-200 dark:text-gray-400">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="relative mt-4">
+                        <textarea 
+                            id="newsletter-message-input" 
+                            name="message" 
+                            rows="3" 
+                            placeholder="Anything you'd like me to know about you? (Optional)" 
+                            class="w-full p-4 rounded-lg border-2 border-cream-200 dark:border-gray-600 bg-brown-900 bg-opacity-50 dark:bg-gray-800 text-cream-100 dark:text-gray-200 placeholder-cream-300 dark:placeholder-gray-400 focus:outline-none focus:border-yellow-400 dark:focus:border-yellow-500 focus:ring-2 focus:ring-yellow-400 dark:focus:ring-yellow-500 transition duration-300"
+                        ></textarea>
+                        <span class="absolute right-4 top-4 text-cream-200 dark:text-gray-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
                             </svg>
                         </span>
                     </div>
