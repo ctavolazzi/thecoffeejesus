@@ -25,6 +25,7 @@ class HeroElement extends HTMLElement {
                     box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
                     transition: all 0.2s ease;
                     color: white;
+                    text-decoration: none;
                 }
                 .social-icon:hover {
                     transform: translateY(-2px);
@@ -116,18 +117,18 @@ class HeroElement extends HTMLElement {
                 <img src="/static/hero_image.png" alt="TheCoffeeJesus in cherry blossoms" class="w-full h-auto rounded-lg shadow-2xl">
                 <div class="social-stats-container">
                     <div class="social-row">
-                        <div class="social-icon tiktok">
+                        <a href="https://www.tiktok.com/@thecoffeejesus" target="_blank" rel="noopener noreferrer" class="social-icon tiktok">
                             <i class="fab fa-tiktok"></i>
-                        </div>
+                        </a>
                         <div class="stats">
                             <span class="follower-count social-text" data-target="80">0</span>
                             <span class="k-text ml-1 social-text">K</span>
                         </div>
                     </div>
                     <div class="social-row">
-                        <div class="social-icon instagram">
+                        <a href="https://www.instagram.com/thecoffeejesus" target="_blank" rel="noopener noreferrer" class="social-icon instagram">
                             <i class="fab fa-instagram"></i>
-                        </div>
+                        </a>
                         <div class="stats">
                             <span class="follower-count social-text" data-target="45">0</span>
                             <span class="k-text ml-1 social-text">K</span>
