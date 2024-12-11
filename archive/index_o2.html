@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Coffee Jesus - Join the Multiverse</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        .animated-bg {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .shimmer-text {
+            background: linear-gradient(90deg, #000, #fff, #000);
+            background-size: 80% 100%;
+            background-repeat: no-repeat;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 5s infinite;
+            background-position: -500% 0;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -500% 0; }
+            100% { background-position: 500% 0; }
+        }
+
+        .cosmic-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .stars, .aurora, .nebula {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 5s infinite ease-in-out;
+        }
+
+        .aurora {
+            background: linear-gradient(45deg, rgba(255,0,255,0.1), rgba(0,255,255,0.1), rgba(255,0,255,0.1));
+            filter: blur(60px);
+            opacity: 0.3;
+            animation: aurora-flow 20s linear infinite;
+        }
+
+        .nebula {
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="nebula" cx="50%" cy="50%" r="50%" fx="50%" fy="50%"><stop offset="0%" stop-color="rgba(255,0,255,0.1)"/><stop offset="100%" stop-color="rgba(0,0,255,0)"/></radialGradient></defs><circle cx="50" cy="50" r="50" fill="url(%23nebula)"/></svg>');
+            background-size: 300% 300%;
+            animation: nebula-swirl 30s ease infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes aurora-flow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        @keyframes nebula-swirl {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        .multiverse-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .multiverse-portal {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 320px;
+            height: 60px;
+            padding: 5px;
+            border-radius: 30px;
+            background: linear-gradient(45deg, #0f172a, #1e293b);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+            overflow: hidden;
+        }
+
+        .portal-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            animation: spin 10s linear infinite;
+        }
+
+        .portal-ring:nth-child(1) {
+            top: -50%; left: -50%; right: -50%; bottom: -50%;
+            border-top-color: #4f46e5;
+            border-bottom-color: #818cf8;
+        }
+
+        .portal-ring:nth-child(2) {
+            top: -25%; left: -25%; right: -25%; bottom: -25%;
+            border-left-color: #6366f1;
+            border-right-color: #818cf8;
+            animation-direction: reverse;
+        }
+
+        .portal-ring:nth-child(3) {
+            top: 0%; left: 0%; right: 0%; bottom: 0%;
+            border-top-color: #4f46e5;
+            border-bottom-color: #818cf8;
+        }
+
+        .multiverse-button {
+            position: relative;
+            z-index: 10;
+            padding: 8px 24px;
+            border-radius: 25px;
+            background: linear-gradient(45deg, #8b5cf6, #d946ef);
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+            text-decoration: none;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .multiverse-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.8);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .cosmic-dust {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(var(--tx), var(--ty)); }
+        }
+
+        .cosmic-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .dimension-rift {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            opacity: 0;
+            filter: blur(5px);
+            animation: rift-open 10s infinite ease-in-out;
+        }
+
+        @keyframes rift-open {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 0.7; transform: scale(1); }
+        }
+
+        .quantum-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: radial-gradient(circle, #fff 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            animation: quantum-float 20s infinite linear;
+        }
+
+        @keyframes quantum-float {
+            0% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(var(--tx1), var(--ty1)) scale(1.5); }
+            50% { transform: translate(var(--tx2), var(--ty2)) scale(0.5); }
+            75% { transform: translate(var(--tx3), var(--ty3)) scale(2); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
+        .multiverse-button {
+            position: relative;
+            z-index: 10;
+            padding: 12px 30px;
+            border-radius: 30px;
+            background: linear-gradient(45deg, #8b5cf6, #d946ef, #8b5cf6);
+            background-size: 200% 200%;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-decoration: none;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            transition: all 0.5s ease;
+            animation: gradient-shift 5s ease infinite;
+            overflow: hidden;
+        }
+
+        .multiverse-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
+            transform: scale(0);
+            transition: transform 0.6s ease-out;
+        }
+
+        .multiverse-button:hover::before {
+            transform: scale(1);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(0.95); opacity: 0.7; }
+            50% { transform: scale(1); opacity: 1; }
+        }
+
+        .cosmic-text {
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: cosmic-text-animate 5s ease infinite;
+        }
+
+        @keyframes cosmic-text-animate {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .parallax-stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            perspective: 100px;
+        }
+
+        .parallax-star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 5s infinite ease-in-out;
+        }
+
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        indigo: {
+                            400: '#818cf8',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        },
+                        dark: {
+                            bg: '#1a202c',
+                            text: '#e2e8f0',
+                        },
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200 pt-16">
+    <div id="navbar-placeholder"></div>
+
+    <canvas class="cosmic-canvas"></canvas>
+    <div class="parallax-stars"></div>
+
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-12 space-y-4 relative">
+        <div class="animated-bg rounded-lg">
+            <h1 class="text-6xl sm:text-7xl md:text-8xl font-extrabold text-center cosmic-text leading-tight">
+                Unlock Your <span class="block">Full Potential</span>
+            </h1>
+        </div>
+        
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
+            <div class="mb-6">
+                <img src="/static/hero_image.png" alt="AI-powered future" class="w-full h-auto rounded-lg shadow-2xl">
+            </div>
+            
+            <div class="text-center">
+                <div class="multiverse-container">
+                    <div class="multiverse-portal">
+                        <div class="portal-ring"></div>
+                        <div class="portal-ring"></div>
+                        <div class="portal-ring"></div>
+                        <a href="https://themultiverse.school/classes/121" class="multiverse-button">
+                            <span>Join the Multiverse</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-indigo-600 dark:text-indigo-400 text-center">Master AI with The Multiverse School</h2>
+            <div class="flex flex-col md:flex-row items-center mb-6">
+                <div class="w-full md:w-1/2 md:pr-4 mb-4 md:mb-0">
+                    <p class="text-lg sm:text-xl mb-4 text-gray-700 dark:text-gray-300">Accelerate your career and bring your ideas to life faster than ever before with our comprehensive Intro to AI course.</p>
+                    <p class="text-base sm:text-lg mb-4 text-gray-700 dark:text-gray-300">The Multiverse School, founded by <a href="https://www.lizthe.dev/" class="text-indigo-600 dark:text-indigo-400 hover:underline">LizTheDeveloper</a>, is a cutting-edge learning platform designed to help you master the latest technologies. With a focus on AI and practical skills, we're here to prepare you for the future of tech.</p>
+                    <p class="text-base sm:text-lg mb-4 text-gray-700 dark:text-gray-300">LizTheDeveloper brings a wealth of experience as an engineer and technical leader, having helped found companies like Hipcamp, Hackbright Academy, and Enki. Join us to learn from industry experts and be part of a growing community of tech enthusiasts.</p>
+                </div>
+                <div class="w-full md:w-1/2 md:pl-4">
+                    <a href="https://themultiverse.school/classes/121" class="block">
+                        <img src="/static/intro-to-ai-image.png" alt="Intro to AI course by The Multiverse School" class="w-full h-auto rounded-lg shadow-md transition-transform duration-300 ease-in-out transform hover:scale-105">
+                    </a>
+                </div>
+            </div>
+            <ul class="list-disc list-inside space-y-2 sm:space-y-4 mb-6 sm:mb-8 text-base sm:text-lg text-gray-700 dark:text-gray-300">
+                <li>Learn AI fundamentals and practical applications</li>
+                <li>Gain hands-on experience with cutting-edge AI tools</li>
+                <li>Develop skills highly sought after in today's job market</li>
+                <li>Join a community of AI enthusiasts and professionals</li>
+            </ul>
+            <div class="text-center">
+                <a href="https://themultiverse.school/classes/121" class="inline-block bg-indigo-600 text-white font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-lg text-lg sm:text-xl transition-colors duration-300 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800">
+                   Enroll in the NEW "Intro to AI" Course
+                </a>
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+            <h2 class="text-3xl font-bold mb-6 text-center text-indigo-600 dark:text-indigo-400">About Your Instructor</h2>
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="w-full md:w-2/3 md:pr-8">
+                    <p class="text-xl mb-4 text-gray-700 dark:text-gray-300">I'm Christopher Tavolazzi, known online as @thecoffeejesus. As a tech industry veteran and AI researcher, I'm passionate about empowering others to harness the power of artificial intelligence.</p>
+                    <p class="text-lg mb-4 text-gray-700 dark:text-gray-300">With experience as a tech lead at Adobe and a following of over 100,000 across social media, I bring real-world insights and cutting-edge knowledge to help you succeed in the AI-driven future.</p>
+                    <div class="mt-6 flex justify-center md:justify-start space-x-4">
+                        <a href="https://twitter.com/thecoffeejesus" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300">
+                            <i class="fab fa-twitter fa-2x"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@thecoffeejesus" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300">
+                            <i class="fab fa-tiktok fa-2x"></i>
+                        </a>
+                        <a href="https://www.instagram.com/thecoffeejesus" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300">
+                            <i class="fab fa-instagram fa-2x"></i>
+                        </a>
+                        <a href="https://github.com/ctavolazzi" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300">
+                            <i class="fab fa-github fa-2x"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script src="darkMode.js"></script>
+    <script>
+        // Three.js cosmic background
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector('.cosmic-canvas'), alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        const starGeometry = new THREE.BufferGeometry();
+        const starMaterial = new THREE.PointsMaterial({ color: 0xFFFFFF, size: 0.02 });
+
+        const starVertices = [];
+        for (let i = 0; i < 10000; i++) {
+            const x = (Math.random() - 0.5) * 2000;
+            const y = (Math.random() - 0.5) * 2000;
+            const z = -Math.random() * 2000;
+            starVertices.push(x, y, z);
+        }
+
+        starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
+        const stars = new THREE.Points(starGeometry, starMaterial);
+        scene.add(stars);
+
+        camera.position.z = 1;
+
+        function animateStars() {
+            requestAnimationFrame(animateStars);
+            stars.rotation.y += 0.0002;
+            renderer.render(scene, camera);
+        }
+
+        animateStars();
+
+        // Dimension rifts
+        function createDimensionRift() {
+            const rift = document.createElement('div');
+            rift.className = 'dimension-rift';
+            rift.style.borderWidth = `${Math.random() * 100 + 50}px`;
+            rift.style.borderColor = `transparent transparent transparent rgba(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255},0.3)`;
+            rift.style.left = `${Math.random() * 100}vw`;
+            rift.style.top = `${Math.random() * 100}vh`;
+            rift.style.transform = `rotate(${Math.random() * 360}deg)`;
+            document.body.appendChild(rift);
+            setTimeout(() => rift.remove(), 10000);
+        }
+
+        setInterval(createDimensionRift, 5000);
+
+        // Quantum particles
+        function createQuantumParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'quantum-particle';
+            particle.style.left = `${Math.random() * 100}vw`;
+            particle.style.top = `${Math.random() * 100}vh`;
+            particle.style.setProperty('--tx1', `${(Math.random() - 0.5) * 200}px`);
+            particle.style.setProperty('--ty1', `${(Math.random() - 0.5) * 200}px`);
+            particle.style.setProperty('--tx2', `${(Math.random() - 0.5) * 200}px`);
+            particle.style.setProperty('--ty2', `${(Math.random() - 0.5) * 200}px`);
+            particle.style.setProperty('--tx3', `${(Math.random() - 0.5) * 200}px`);
+            particle.style.setProperty('--ty3', `${(Math.random() - 0.5) * 200}px`);
+            document.body.appendChild(particle);
+            setTimeout(() => particle.remove(), 20000);
+        }
+
+        setInterval(createQuantumParticle, 1000);
+
+        // Parallax stars
+        const parallaxStars = document.querySelector('.parallax-stars');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'parallax-star';
+            star.style.width = star.style.height = `${Math.random() * 2 + 1}px`;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.transform = `translateZ(${Math.random() * 50 - 25}px)`;
+            parallaxStars.appendChild(star);
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            parallaxStars.style.transform = `translate(${x * 20}px, ${y * 20}px)`;
+        });
+
+        // Multiverse button effect
+        const multiverseButton = document.querySelector('.multiverse-button');
+        multiverseButton.addEventListener('mousemove', (e) => {
+            const rect = multiverseButton.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            multiverseButton.style.setProperty('--mouse-x', `${x}px`);
+            multiverseButton.style.setProperty('--mouse-y', `${y}px`);
+        });
+    </script>
+</body>
+</html>

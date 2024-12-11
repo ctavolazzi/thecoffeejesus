@@ -1,0 +1,24 @@
+{
+  "name": "thecoffeejesus",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "tailwindcss -i ./src/input.css -o ./dist/output.css --minify",
+    "start": "npm run dev & npm run serve",
+    "dev": "tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
+    "serve": "live-server"
+  },
+  "dependencies": {
+    "express": "^4.21.1"
+  },
+  "main": "admin.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "live-server": "^1.2.2",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.14"
+  }
+}

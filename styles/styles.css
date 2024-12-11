@@ -1,0 +1,103 @@
+/* Add steam animation to SVG lines */
+.steam-line {
+    stroke: rgba(255, 255, 255, 0.7); /* Lighter stroke color */
+    stroke-width: 2;
+    animation: steamRise 4s ease-in-out infinite;
+}
+
+.coffee-stream {
+    stroke: #4E342E; /* Coffee color */
+    stroke-width: 5;
+    stroke-dasharray: 0 100;
+    animation: pourCoffee 3s ease-in-out infinite;
+}
+
+@keyframes steamRise {
+    0% {
+        opacity: 0;
+        transform: translateY(10px) scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(-10px) scale(1.2);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(10px) scale(1);
+    }
+}
+
+@keyframes pourCoffee {
+    0% {
+        stroke-dasharray: 0 100;
+        opacity: 0;
+    }
+    50% {
+        stroke-dasharray: 100 0;
+        opacity: 1;
+    }
+    100% {
+        stroke-dasharray: 0 100;
+        opacity: 0;
+    }
+}
+
+/* Ensure the header has no background */
+.header-no-bg {
+    background-color: transparent;
+    position: relative;
+}
+
+/* Ensure SVG scales correctly */
+header svg {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Enhance the text appearance */
+header h1, header p {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Improved "Join the Waitlist" Button */
+.join-waitlist-btn {
+    position: relative;
+    display: inline-block;
+    background-color: #6D4C41; /* Initial background color */
+    color: #FFFFFF;
+    font-weight: bold;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.join-waitlist-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.5s ease;
+}
+
+.join-waitlist-btn:hover {
+    background-color: #8D6E63; /* Hover background color */
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.join-waitlist-btn:hover::after {
+    transform: translate(-50%, -50%) scale(1);
+    transition: transform 0.3s ease;
+}
+
+.join-waitlist-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

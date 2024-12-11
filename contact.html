@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Coffee Jesus</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="pt-16 font-sans transition-colors duration-200 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <!-- Navbar Placeholder -->
+    <div id="navbar-placeholder"></div>
+
+    <main class="max-w-4xl mx-auto px-4 py-8 space-y-16">
+        <section class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
+            <h2 class="text-3xl font-bold mb-6 text-center text-gray-800 dark:text-gray-100 font-serif">Get in Touch</h2>
+            
+            <div class="max-w-md mx-auto">
+                <form id="contact-form" class="space-y-6">
+                    <!-- Name Input -->
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                            Name
+                        </label>
+                        <input type="text" 
+                               id="name" 
+                               name="name" 
+                               required
+                               class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 
+                                      bg-white dark:bg-gray-700 
+                                      text-gray-900 dark:text-gray-100
+                                      focus:ring-2 focus:ring-[#FFD700] focus:border-transparent
+                                      transition duration-200">
+                    </div>
+
+                    <!-- Email Input -->
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                            Email
+                        </label>
+                        <input type="email" 
+                               id="email" 
+                               name="email" 
+                               required
+                               class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 
+                                      bg-white dark:bg-gray-700 
+                                      text-gray-900 dark:text-gray-100
+                                      focus:ring-2 focus:ring-[#FFD700] focus:border-transparent
+                                      transition duration-200">
+                    </div>
+
+                    <!-- Social Handle Input -->
+                    <div>
+                        <label for="social_handle" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                            Social Media Handle (optional)
+                        </label>
+                        <input type="text" 
+                               id="social_handle" 
+                               name="social_handle" 
+                               placeholder="@yourusername"
+                               class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 
+                                      bg-white dark:bg-gray-700 
+                                      text-gray-900 dark:text-gray-100
+                                      focus:ring-2 focus:ring-[#FFD700] focus:border-transparent
+                                      transition duration-200">
+                    </div>
+
+                    <!-- Platform Checkboxes -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                            Preferred Social Platforms (select all that apply)
+                        </label>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" name="preferred_platforms" value="Twitter"
+                                       class="form-checkbox h-5 w-5 text-[#FFD700] border-gray-300 dark:border-gray-600 rounded
+                                              focus:ring-[#FFD700] dark:bg-gray-700">
+                                <span class="ml-2 text-gray-700 dark:text-gray-300">Twitter</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" name="preferred_platforms" value="X"
+                                       class="form-checkbox h-5 w-5 text-[#FFD700] border-gray-300 dark:border-gray-600 rounded
+                                              focus:ring-[#FFD700] dark:bg-gray-700">
+                                <span class="ml-2 text-gray-700 dark:text-gray-300">X</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" name="preferred_platforms" value="Instagram"
+                                       class="form-checkbox h-5 w-5 text-[#FFD700] border-gray-300 dark:border-gray-600 rounded
+                                              focus:ring-[#FFD700] dark:bg-gray-700">
+                                <span class="ml-2 text-gray-700 dark:text-gray-300">Instagram</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" name="preferred_platforms" value="TikTok"
+                                       class="form-checkbox h-5 w-5 text-[#FFD700] border-gray-300 dark:border-gray-600 rounded
+                                              focus:ring-[#FFD700] dark:bg-gray-700">
+                                <span class="ml-2 text-gray-700 dark:text-gray-300">TikTok</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" name="preferred_platforms" value="GitHub"
+                                       class="form-checkbox h-5 w-5 text-[#FFD700] border-gray-300 dark:border-gray-600 rounded
+                                              focus:ring-[#FFD700] dark:bg-gray-700">
+                                <span class="ml-2 text-gray-700 dark:text-gray-300">GitHub</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" name="preferred_platforms" value="Facebook"
+                                       class="form-checkbox h-5 w-5 text-[#FFD700] border-gray-300 dark:border-gray-600 rounded
+                                              focus:ring-[#FFD700] dark:bg-gray-700">
+                                <span class="ml-2 text-gray-700 dark:text-gray-300">Facebook</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" name="preferred_platforms" value="Snapchat"
+                                       class="form-checkbox h-5 w-5 text-[#FFD700] border-gray-300 dark:border-gray-600 rounded
+                                              focus:ring-[#FFD700] dark:bg-gray-700">
+                                <span class="ml-2 text-gray-700 dark:text-gray-300">Snapchat</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" name="preferred_platforms" value="Reddit"
+                                       class="form-checkbox h-5 w-5 text-[#FFD700] border-gray-300 dark:border-gray-600 rounded
+                                              focus:ring-[#FFD700] dark:bg-gray-700">
+                                <span class="ml-2 text-gray-700 dark:text-gray-300">Reddit</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" name="preferred_platforms" value="Other"
+                                       class="form-checkbox h-5 w-5 text-[#FFD700] border-gray-300 dark:border-gray-600 rounded
+                                              focus:ring-[#FFD700] dark:bg-gray-700">
+                                <span class="ml-2 text-gray-700 dark:text-gray-300">Other</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Message Input -->
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                            Message
+                        </label>
+                        <textarea id="message" 
+                                  name="message" 
+                                  rows="4" 
+                                  required
+                                  class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 
+                                         bg-white dark:bg-gray-700 
+                                         text-gray-900 dark:text-gray-100
+                                         focus:ring-2 focus:ring-[#FFD700] focus:border-transparent
+                                         transition duration-200"></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" 
+                            class="w-full px-6 py-3 bg-[#FFD700] hover:bg-[#FFC000] 
+                                   text-black font-semibold rounded-lg 
+                                   transition duration-300 ease-in-out transform hover:scale-105 
+                                   focus:outline-none focus:ring-2 focus:ring-[#FFD700] focus:ring-opacity-50">
+                        Send Message
+                    </button>
+
+                    <!-- Success/Error Messages -->
+                    <div id="form-messages" class="mt-4 text-center hidden">
+                        <p id="success-message" class="text-green-500 dark:text-green-400 hidden"></p>
+                        <p id="error-message" class="text-red-500 dark:text-red-400 hidden"></p>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Additional Contact Information -->
+        <section class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
+            <h3 class="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100 font-serif">Other Ways to Connect</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Social Media -->
+                <div class="space-y-4">
+                    <h4 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Social Media</h4>
+                    <div class="flex space-x-6">
+                        <a href="https://twitter.com/TheCoffeeJesus" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           class="text-gray-600 dark:text-gray-400 hover:text-[#FFD700] dark:hover:text-[#FFD700] transition duration-200"
+                           title="Twitter">
+                            <i class="fab fa-twitter text-2xl"></i>
+                        </a>
+                        <a href="https://instagram.com/TheCoffeeJesus" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           class="text-gray-600 dark:text-gray-400 hover:text-[#FFD700] dark:hover:text-[#FFD700] transition duration-200"
+                           title="Instagram">
+                            <i class="fab fa-instagram text-2xl"></i>
+                        </a>
+                        <a href="https://tiktok.com/@thecoffeejesus" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           class="text-gray-600 dark:text-gray-400 hover:text-[#FFD700] dark:hover:text-[#FFD700] transition duration-200"
+                           title="TikTok">
+                            <i class="fab fa-tiktok text-2xl"></i>
+                        </a>
+                        <a href="https://github.com/ctavolazzi" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           class="text-gray-600 dark:text-gray-400 hover:text-[#FFD700] dark:hover:text-[#FFD700] transition duration-200"
+                           title="GitHub">
+                            <i class="fab fa-github text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Response Time -->
+                <div class="space-y-4">
+                    <h4 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Response Time</h4>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        We typically respond within 24-48 hours during business days.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center py-4 text-gray-600 dark:text-gray-400">
+        <p>&copy; 2023 The Coffee Jesus. All rights reserved.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script src="darkMode.js"></script>
+    <script type="module">
+        import supabaseClient from './supabase.js';
+
+        document.getElementById('contact-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formMessages = document.getElementById('form-messages');
+            const successMessage = document.getElementById('success-message');
+            const errorMessage = document.getElementById('error-message');
+            
+            try {
+                // Get selected platforms
+                const platformCheckboxes = document.querySelectorAll('input[name="preferred_platforms"]:checked');
+                const selectedPlatforms = Array.from(platformCheckboxes).map(checkbox => checkbox.value);
+
+                // Get form data
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    social_handle: document.getElementById('social_handle').value || null,
+                    preferred_platforms: selectedPlatforms,
+                    message: document.getElementById('message').value,
+                    created_at: new Date().toISOString()
+                };
+
+                // Send to Supabase
+                const { data, error } = await supabaseClient
+                    .from('contact_requests')
+                    .insert([formData])
+                    .select();
+
+                if (error) throw error;
+
+                // Show success message
+                formMessages.classList.remove('hidden');
+                successMessage.textContent = 'Message sent successfully!';
+                successMessage.classList.remove('hidden');
+                errorMessage.classList.add('hidden');
+                
+                // Reset form
+                e.target.reset();
+
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    formMessages.classList.add('hidden');
+                    successMessage.classList.add('hidden');
+                }, 5000);
+
+            } catch (error) {
+                console.error('Error:', error);
+                // Show error message
+                formMessages.classList.remove('hidden');
+                errorMessage.textContent = 'There was an error sending your message. Please try again.';
+                errorMessage.classList.remove('hidden');
+                successMessage.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

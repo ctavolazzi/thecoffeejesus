@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Jesus - Brewing Divine Opportunities</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        indigo: {
+                            400: '#818cf8',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        },
+                        dark: {
+                            bg: '#1a202c',
+                            text: '#e2e8f0',
+                        },
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: 0 0; }
+        }
+        .shimmer-text {
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shimmer 5s linear infinite;
+        }
+        .light .shimmer-text {
+            background-image: linear-gradient(90deg, #4f46e5 0%, #818cf8 20%, #4f46e5 40%, #818cf8 60%, #4f46e5 80%, #818cf8 100%);
+        }
+        .dark .shimmer-text {
+            background-image: linear-gradient(90deg, #4f46e5 0%, #818cf8 10%, #ffffff 20%, #6366f1 30%, #4f46e5 40%, #818cf8 50%, #ffffff 60%, #6366f1 70%, #4f46e5 80%, #818cf8 90%, #ffffff 100%);
+        }
+        .animated-bg {
+            overflow: hidden;
+            z-index: -1;
+        }
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: twinkle linear infinite;
+        }
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
+        }
+        .coffee-bean {
+            position: absolute;
+            width: 20px;
+            height: 30px;
+            background-color: #8B4513;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: fallAnimation linear infinite;
+        }
+
+        @keyframes fallAnimation {
+            0% {
+                transform: translateY(-20px) rotate(0deg);
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        /* Falling coffee beans styles */
+        #falling-beans-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        /* Dark mode styles for coffee beans */
+        .dark .coffee-bean {
+            background-color: #D2691E;
+        }
+
+        /* Sticky secondary navbar styles */
+        .sticky-nav {
+            position: sticky;
+            top: 64px; /* Adjust this value to match the height of your main navbar */
+            z-index: 20;
+            padding-bottom: 1rem; /* Add padding to the bottom of the nav */
+        }
+
+        /* Anchor point spacing */
+        .section-padding {
+            scroll-margin-top: 144px; /* Increase this value to add more space */
+            padding-top: 2rem; /* Add padding to the top of each section */
+        }
+
+        /* Add margin to the main content container */
+        .main-content {
+            margin-top: 2rem; /* Adjust this value as needed */
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        .faq-question {
+            cursor: pointer;
+            padding: 1rem 0;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 1000px;
+            padding-bottom: 1rem;
+        }
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+        .section-transition {
+            transition: all 0.3s ease-in-out;
+        }
+        .section-transition:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200 pt-16">
+    <div class="animated-bg fixed inset-0 pointer-events-none"></div>
+    <div id="navbar-placeholder"></div>
+    <div id="falling-beans-container"></div>
+
+    <main class="max-w-4xl mx-auto px-4 py-8 space-y-12 main-content">
+        <div class="text-center">
+            <h1 class="text-5xl sm:text-6xl font-extrabold shimmer-text leading-tight mb-4">
+                Coffee Jesus Coffee
+            </h1>
+            <p class="text-xl text-indigo-600 dark:text-indigo-400 font-semibold">Brewing Divine Opportunities - Coming Soon!</p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md text-center">
+            <img src="/static/cjc-logo-2.png" alt="Coffee Jesus Coffee Logo" class="mx-auto mb-6 w-48 h-48 object-contain">
+            <h2 class="text-2xl font-bold mb-4 text-indigo-600 dark:text-indigo-400">Help Bring This Vision to Life</h2>
+            <p class="mb-4">Coffee Jesus Coffee is still in development, and we need your help to make it a reality. Your expertise, ideas, and support can shape the future of this brand.</p>
+            <a href="https://solo.to/thecoffeejesus" class="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition duration-300">Reach Out to the Owner</a>
+        </div>
+
+        <nav class="sticky-nav bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md mb-8">
+            <ul class="flex flex-wrap justify-center gap-4">
+                <li><a href="#vision" class="flex items-center text-indigo-600 dark:text-indigo-400 hover:underline"><i class="fas fa-eye mr-2"></i>Our Vision</a></li>
+                <li><a href="#mission" class="flex items-center text-indigo-600 dark:text-indigo-400 hover:underline"><i class="fas fa-bullseye mr-2"></i>Our Mission</a></li>
+                <li><a href="#coffee" class="flex items-center text-indigo-600 dark:text-indigo-400 hover:underline"><i class="fas fa-coffee mr-2"></i>Our Coffee</a></li>
+                <li><a href="#funding" class="flex items-center text-indigo-600 dark:text-indigo-400 hover:underline"><i class="fas fa-hand-holding-usd mr-2"></i>Funding Needs</a></li>
+                <li><a href="#impact" class="flex items-center text-indigo-600 dark:text-indigo-400 hover:underline"><i class="fas fa-heart mr-2"></i>Your Impact</a></li>
+            </ul>
+        </nav>
+
+        <section id="vision" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md section-padding section-transition">
+            <div class="flex items-center mb-4">
+                <i class="fas fa-eye text-4xl text-indigo-600 dark:text-indigo-400 mr-4"></i>
+                <h2 class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">Our Vision: Transform Lives with Every Cup</h2>
+            </div>
+            <p class="mb-4">Join us in our mission to create a positive impact through every cup of coffee. Coffee Jesus Coffee is dedicated to supporting families in Gaza and funding community programs in the US focused on literacy and socially conscious entrepreneurship.</p>
+        </section>
+
+        <section id="mission" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md section-padding section-transition">
+            <div class="flex items-center mb-4">
+                <i class="fas fa-bullseye text-4xl text-indigo-600 dark:text-indigo-400 mr-4"></i>
+                <h2 class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">Our Mission</h2>
+            </div>
+            <p class="mb-4">Coffee Jesus Coffee was born of a deep passion to do good in the world. We're not rich - far from it. We are starving artists who just want to make a difference and do something meaningful, while giving back with gratitude for everyone who has supported us so far.</p>
+            <p class="mb-4">As a barista for 4 years in small local coffee shops, Christopher Tavolazzi always dreamed of launching his own brand. With his social media handle, @thecoffeejesus, a nickname inspired by his work as a barista, as well as playing Jesus in "Jesus Christ Superstar".</p>
+            <p>We believe that coffee can be more than just a drink – it can be a force for good. That's why Coffee Jesus Coffee will donate 10% of our profits to support families in Gaza and another 10% to fund community programs in the US focused on literacy and socially conscious entrepreneurship.</p>
+        </section>
+
+        <section id="coffee" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md section-padding section-transition">
+            <div class="flex items-center mb-4">
+                <i class="fas fa-coffee text-4xl text-indigo-600 dark:text-indigo-400 mr-4"></i>
+                <h2 class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">Our Coffee Vision</h2>
+            </div>
+            <p class="mb-4">Our vision is to source coffee from small farms committed to sustainable practices. Each batch will be roasted locally to ensure the freshest and most flavorful coffee.</p>
+            <ul class="list-none mb-4 text-gray-700 dark:text-gray-300">
+                <li class="flex items-center mb-2"><i class="fas fa-check text-green-500 mr-2"></i>Handpicked beans from sustainable farms.</li>
+                <li class="flex items-center mb-2"><i class="fas fa-check text-green-500 mr-2"></i>Locally roasted to perfection for the freshest taste.</li>
+                <li class="flex items-center mb-2"><i class="fas fa-check text-green-500 mr-2"></i>Every purchase will support our mission to create positive change.</li>
+            </ul>
+            <p>We are currently exploring partnerships with local roasters to bring you the highest quality, sustainably sourced coffee.</p>
+        </section>
+
+        <section id="funding" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md section-padding section-transition">
+            <div class="flex items-center mb-4">
+                <i class="fas fa-hand-holding-usd text-4xl text-indigo-600 dark:text-indigo-400 mr-4"></i>
+                <h2 class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">Our Funding Needs</h2>
+            </div>
+            <p class="mb-4">To launch Coffee Jesus Coffee, we need funds for several key areas:</p>
+            <ul class="list-none mb-4 text-gray-700 dark:text-gray-300">
+                <li class="flex items-center mb-2"><i class="fas fa-palette text-indigo-500 mr-2"></i>Graphic Designers: Creating beautiful packaging and branding materials.</li>
+                <li class="flex items-center mb-2"><i class="fas fa-box text-indigo-500 mr-2"></i>Packaging: Buying eco-friendly, high-quality packaging for our coffee.</li>
+                <li class="flex items-center mb-2"><i class="fas fa-truck text-indigo-500 mr-2"></i>Distribution Network: Setting up a reliable and efficient distribution network.</li>
+                <li class="flex items-center mb-2"><i class="fas fa-ad text-indigo-500 mr-2"></i>Advertising: Promoting our brand to reach a wider audience.</li>
+                <li class="flex items-center mb-2"><i class="fas fa-money-bill-wave text-indigo-500 mr-2"></i>Supplier Payments: Ensuring we can pay our suppliers like Stoble Coffee on time.</li>
+            </ul>
+        </section>
+
+        <section id="impact" class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md section-padding section-transition">
+            <h2 class="text-3xl font-bold mb-8 text-indigo-600 dark:text-indigo-400 text-center">Your Impact</h2>
+            <div class="space-y-6">
+                <h3 class="text-2xl font-semibold mb-4 text-indigo-500 dark:text-indigo-300">Your Support Directly Impacts:</h3>
+                <ul class="space-y-4 text-lg">
+                    <li class="flex items-center">
+                        <i class="fas fa-store text-indigo-500 mr-3"></i>
+                        <span>Small Businesses</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-users text-indigo-500 mr-3"></i>
+                        <span>Families in Need</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-lightbulb text-indigo-500 mr-3"></i>
+                        <span>Creative Entrepreneurs All Around the World!</span>
+                    </li>
+                </ul>
+                <p class="mt-6 text-gray-700 dark:text-gray-300">
+                    Your support helps us create sustainable change in communities that need it most. Thank you for joining us on this journey.
+                </p>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md section-padding section-transition">
+            <h2 class="text-3xl font-bold mb-6 text-indigo-600 dark:text-indigo-400 text-center">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                <div class="faq-item">
+                    <div class="faq-question flex justify-between items-center">
+                        <h3 class="text-xl font-semibold">How does Coffee Jesus Coffee support communities?</h3>
+                        <svg class="faq-icon w-6 h-6 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-600 dark:text-gray-300">We donate 20% of our profits: 10% to support families in Gaza and 10% to fund community programs in the US focused on literacy and socially conscious entrepreneurship. Our goal is to create a positive impact with every cup of coffee sold.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question flex justify-between items-center">
+                        <h3 class="text-xl font-semibold">Where does your coffee come from?</h3>
+                        <svg class="faq-icon w-6 h-6 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-600 dark:text-gray-300">We source our coffee beans from small, sustainable farms around the world. Each batch is carefully selected to ensure the highest quality and ethical production practices. We're committed to supporting fair trade and environmentally friendly farming methods.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question flex justify-between items-center">
+                        <h3 class="text-xl font-semibold">When will Coffee Jesus Coffee be available for purchase?</h3>
+                        <svg class="faq-icon w-6 h-6 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-600 dark:text-gray-300">We're currently in the development phase and working hard to bring Coffee Jesus Coffee to market. Our goal is to launch within the next 6-12 months. Sign up for our newsletter to be the first to know when we launch and to receive exclusive early-bird offers!</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question flex justify-between items-center">
+                        <h3 class="text-xl font-semibold">How can I support Coffee Jesus Coffee?</h3>
+                        <svg class="faq-icon w-6 h-6 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-600 dark:text-gray-300">There are several ways to support us:</p>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>Spread the word about our mission on social media</li>
+                            <li>Join our waitlist to stay updated on our progress</li>
+                            <li>Reach out if you have skills or resources that could help bring our vision to life</li>
+                            <li>Once we launch, purchasing our coffee will directly support our mission</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question flex justify-between items-center">
+                        <h3 class="text-xl font-semibold">What makes Coffee Jesus Coffee unique?</h3>
+                        <svg class="faq-icon w-6 h-6 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-600 dark:text-gray-300">Coffee Jesus Coffee stands out due to our:</p>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>Strong commitment to social impact and community support</li>
+                            <li>High-quality, sustainably sourced coffee beans</li>
+                            <li>Unique brand story inspired by our founder's experiences</li>
+                            <li>Dedication to creating a movement for positive change through coffee</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md section-padding section-transition">
+            <h2 class="text-3xl font-bold mb-6 text-indigo-600 dark:text-indigo-400 text-center">What Our Supporters Say</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-md">
+                    <p class="italic mb-4 text-gray-800 dark:text-white">"Coffee Jesus Coffee is not just about great coffee, it's about making a real difference in people's lives. I'm excited to be part of this journey!"</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/women/17.jpg" alt="Jane Doe" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <p class="font-semibold text-indigo-600 dark:text-indigo-300">Jane Doe</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Early Supporter</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-md">
+                    <p class="italic mb-4 text-gray-800 dark:text-white">"I love the idea of enjoying my morning coffee while knowing it's supporting important causes. The commitment to sustainability is truly inspiring!"</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John Smith" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <p class="font-semibold text-indigo-600 dark:text-indigo-300">John Smith</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Coffee Enthusiast</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Funding Progress Section -->
+        <section class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md section-padding section-transition">
+            <h2 class="text-3xl font-bold mb-6 text-indigo-600 dark:text-indigo-400 text-center">Funding Progress</h2>
+            <div class="mb-4">
+                <div class="bg-gray-200 dark:bg-gray-700 rounded-full h-6 overflow-hidden">
+                    <div class="bg-gradient-to-r from-indigo-500 to-purple-500 h-6 rounded-full transition-all duration-1000 ease-out" style="width: 5%" id="progress-bar"></div>
+                </div>
+            </div>
+            <p class="text-center text-xl font-semibold text-gray-800 dark:text-white">
+                <span id="current-amount">$500</span> raised of <span id="goal-amount">$10,000</span> goal
+            </p>
+            <p class="text-center text-gray-600 dark:text-gray-300 mt-2">Help us reach our goal and bring Coffee Jesus Coffee to life!</p>
+        </section>
+
+        <!-- Call-to-Action Section -->
+        <section class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-16 rounded-lg shadow-lg mt-8 section-transition">
+            <h2 class="text-3xl font-bold mb-6 text-center">Join the Coffee Jesus Coffee Movement</h2>
+            <p class="text-center mb-6">Be a part of our mission to create positive change through coffee. Stay updated on our progress and be the first to know when we launch!</p>
+            <div class="text-center">
+                <a href="https://solo.to/thecoffeejesus" class="inline-block bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-indigo-100 transition duration-300">Reach Out to the Owner</a>
+            </div>
+        </section>
+
+        <!-- Coffee Jesus Coffee Waitlist Signup Component -->
+        <section id="coffee-waitlist" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md section-transition">
+            <h2 class="text-2xl font-bold mb-4 text-indigo-600 dark:text-indigo-400 text-center">Join the Coffee Jesus Coffee Waitlist</h2>
+
+            <!-- Waitlist Count Display -->
+            <p id="waitlist-count" class="text-center mb-4 text-gray-700 dark:text-gray-300">
+                <span id="waitlist-number">0</span> people have already signed up!
+            </p>
+
+            <form id="coffee-waitlist-form" class="space-y-4 max-w-md mx-auto">
+                <div class="relative">
+                    <input type="text" id="coffee-waitlist-name" name="name" placeholder="Your Name" required
+                           class="w-full p-4 pr-12 rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition duration-300">
+                    <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500">
+                        <i class="fas fa-user"></i>
+                    </span>
+                </div>
+                <div class="relative">
+                    <input type="email" id="coffee-waitlist-email" name="email" placeholder="Your Email Address" required
+                           class="w-full p-4 pr-12 rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition duration-300">
+                    <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                </div>
+                <button type="submit"
+                        class="w-full bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:focus:ring-indigo-500">
+                    Join the Waitlist
+                </button>
+            </form>
+            <p id="coffee-waitlist-message" class="mt-4 text-center text-gray-800 dark:text-gray-200 font-medium"></p>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+    <script src="darkMode.js"></script>
+    <script src="stars.js"></script>
+    <script type="module">
+        import supabaseClient from './supabase.js';
+
+        // Waitlist Form Elements
+        const waitlistForm = document.getElementById('coffee-waitlist-form');
+        const waitlistName = document.getElementById('coffee-waitlist-name');
+        const waitlistEmail = document.getElementById('coffee-waitlist-email');
+        const waitlistMessage = document.getElementById('coffee-waitlist-message');
+        const waitlistNumber = document.getElementById('waitlist-number');
+
+        // Function to fetch and display waitlist count
+        async function fetchWaitlistCount() {
+            try {
+                const { count, error } = await supabaseClient
+                    .from('coffeejesuscoffee_waitlist')
+                    .select('*', { count: 'exact', head: true });
+
+                if (error) throw error;
+
+                waitlistNumber.textContent = count !== null ? count : '0';
+            } catch (error) {
+                console.error('Error fetching waitlist count:', error);
+                waitlistNumber.textContent = '0';
+            }
+        }
+
+        // Initial fetch of waitlist count when the page loads
+        document.addEventListener('DOMContentLoaded', fetchWaitlistCount);
+
+        // Handle form submission
+        waitlistForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const name = waitlistName.value.trim();
+            const email = waitlistEmail.value.trim();
+
+            // Basic Validation
+            if (!name || !email) {
+                waitlistMessage.textContent = 'Please provide both name and email.';
+                waitlistMessage.classList.remove('text-green-500');
+                waitlistMessage.classList.add('text-red-500');
+                return;
+            }
+
+            // Email Format Validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                waitlistMessage.textContent = 'Please enter a valid email address.';
+                waitlistMessage.classList.remove('text-green-500');
+                waitlistMessage.classList.add('text-red-500');
+                return;
+            }
+
+            try {
+                const { data, error } = await supabaseClient
+                    .from('coffeejesuscoffee_waitlist')
+                    .insert([{ name, email }])
+                    .select();
+
+                if (error) throw error;
+
+                waitlistForm.reset();
+                waitlistMessage.textContent = 'Thank you for joining the Coffee Jesus Coffee waitlist!';
+                waitlistMessage.classList.remove('text-red-500');
+                waitlistMessage.classList.add('text-green-500');
+
+                // Update the waitlist count
+                fetchWaitlistCount();
+            } catch (error) {
+                console.error('Error inserting waitlist data:', error);
+                if (error.message.includes('duplicate key value')) {
+                    waitlistMessage.textContent = 'This email is already registered in the waitlist.';
+                } else {
+                    waitlistMessage.textContent = 'There was an error signing you up. Please try again.';
+                }
+                waitlistMessage.classList.remove('text-green-500');
+                waitlistMessage.classList.add('text-red-500');
+            }
+
+            // Clear message after 5 seconds
+            setTimeout(() => {
+                waitlistMessage.textContent = '';
+                waitlistMessage.classList.remove('text-red-500', 'text-green-500');
+            }, 5000);
+        });
+
+        // Falling coffee beans animation
+        function createFallingBeans() {
+            const container = document.getElementById('falling-beans-container');
+            const beanCount = 50;
+
+            for (let i = 0; i < beanCount; i++) {
+                const bean = document.createElement('div');
+                bean.classList.add('coffee-bean');
+                bean.style.left = `${Math.random() * 100}vw`;
+                bean.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                bean.style.animationDelay = `${Math.random() * 2}s`;
+                container.appendChild(bean);
+            }
+        }
+
+        // Create falling beans when the page loads
+        document.addEventListener('DOMContentLoaded', createFallingBeans);
+
+        // Update bean colors when dark mode changes
+        document.addEventListener('darkModeChanged', () => {
+            const beans = document.querySelectorAll('.coffee-bean');
+            beans.forEach(bean => {
+                bean.style.backgroundColor = document.documentElement.classList.contains('dark') ? '#D2691E' : '#8B4513';
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight active section in the secondary navbar
+        function highlightActiveSection() {
+            const sections = document.querySelectorAll('.section-padding');
+            const navItems = document.querySelectorAll('.sticky-nav a');
+
+            let currentSection = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 150) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('font-bold', 'underline');
+                if (item.getAttribute('href').slice(1) === currentSection) {
+                    item.classList.add('font-bold', 'underline');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', highlightActiveSection);
+        window.addEventListener('load', highlightActiveSection);
+
+        // FAQ functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.closest('.faq-item');
+                faqItem.classList.toggle('active');
+            });
+        });
+
+        // Animated progress bar
+        function animateProgressBar() {
+            const progressBar = document.getElementById('progress-bar');
+            const currentAmount = document.getElementById('current-amount');
+            const goalAmount = document.getElementById('goal-amount');
+
+            const goal = 10000;
+            const current = 500;
+            const percentage = (current / goal) * 100;
+
+            progressBar.style.width = '0%';
+            setTimeout(() => {
+                progressBar.style.width = percentage + '%';
+            }, 500);
+
+            currentAmount.textContent = '$' + current.toLocaleString();
+            goalAmount.textContent = '$' + goal.toLocaleString();
+        }
+
+        document.addEventListener('DOMContentLoaded', animateProgressBar);
+
+        // Intersection Observer for section animations
+        const sections = document.querySelectorAll('.section-transition');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-4');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        sections.forEach(section => {
+            section.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-500', 'ease-out');
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

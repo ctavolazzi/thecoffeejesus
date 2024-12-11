@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Coffee Jesus - Join the Multiverse</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+        const supabaseUrl = 'https://cflncektpegrccomneqc.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNmbG5jZWt0cGVncmNjb21uZXFjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTYzODg3MzQsImV4cCI6MjAzMTk2NDczNH0.YaNGZ3fjFKoGC48PXEpLCZZTjuH10OZqgxgxXKO8le8';
+        const supabase = createClient(supabaseUrl, supabaseKey);
+
+        const subscriberNumber = document.getElementById('subscriber-number');
+        const newsletterForm = document.getElementById('newsletter-form');
+        const newsletterEmail = document.getElementById('newsletter-email');
+        const newsletterMessage = document.getElementById('newsletter-message');
+
+        async function updateSubscriberCount() {
+            try {
+                const { count, error } = await supabase
+                    .from('thecoffeejesus')
+                    .select('*', { count: 'exact', head: true });
+
+                if (error) throw error;
+
+                subscriberNumber.textContent = count !== null ? count : 'many';
+            } catch (error) {
+                console.error('Error fetching subscriber count:', error);
+                subscriberNumber.textContent = 'many';
+            }
+        }
+
+        newsletterForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = newsletterEmail.value;
+
+            try {
+                const { data, error } = await supabase
+                    .from('thecoffeejesus')
+                    .insert([{ email: email }]);
+
+                if (error) throw error;
+
+                newsletterMessage.textContent = 'Thank you for subscribing!';
+                newsletterMessage.style.color = '#4ade80'; // green-400
+                newsletterForm.reset();
+
+                // Update subscriber count after successful subscription
+                await updateSubscriberCount();
+            } catch (error) {
+                console.error('Error:', error);
+                newsletterMessage.textContent = 'An error occurred. Please try again.';
+                newsletterMessage.style.color = '#f87171'; // red-400
+            }
+
+            setTimeout(() => {
+                newsletterMessage.textContent = '';
+            }, 5000);
+        });
+
+        // Initial subscriber count update
+        updateSubscriberCount();
+    </script>
+    <style>
+        .animated-bg {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .shimmer-text {
+            background: linear-gradient(90deg, #000, #fff, #000);
+            background-size: 80% 100%;
+            background-repeat: no-repeat;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 5s infinite;
+            background-position: -500% 0;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -500% 0; }
+            100% { background-position: 500% 0; }
+        }
+
+        .cosmic-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .stars, .aurora, .nebula {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 5s infinite ease-in-out;
+        }
+
+        .aurora {
+            background: linear-gradient(45deg, rgba(255,0,255,0.1), rgba(0,255,255,0.1), rgba(255,0,255,0.1));
+            filter: blur(60px);
+            opacity: 0.3;
+            animation: aurora-flow 20s linear infinite;
+        }
+
+        .nebula {
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="nebula" cx="50%" cy="50%" r="50%" fx="50%" fy="50%"><stop offset="0%" stop-color="rgba(255,0,255,0.1)"/><stop offset="100%" stop-color="rgba(0,0,255,0)"/></radialGradient></defs><circle cx="50" cy="50" r="50" fill="url(%23nebula)"/></svg>');
+            background-size: 300% 300%;
+            animation: nebula-swirl 30s ease infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes aurora-flow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        @keyframes nebula-swirl {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        .multiverse-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .multiverse-portal {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 320px;
+            height: 60px;
+            padding: 5px;
+            border-radius: 30px;
+            background: linear-gradient(45deg, #0f172a, #1e293b);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+            overflow: hidden;
+        }
+
+        .portal-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            animation: spin 10s linear infinite;
+        }
+
+        .portal-ring:nth-child(1) {
+            top: -50%; left: -50%; right: -50%; bottom: -50%;
+            border-top-color: #4f46e5;
+            border-bottom-color: #818cf8;
+        }
+
+        .portal-ring:nth-child(2) {
+            top: -25%; left: -25%; right: -25%; bottom: -25%;
+            border-left-color: #6366f1;
+            border-right-color: #818cf8;
+            animation-direction: reverse;
+        }
+
+        .portal-ring:nth-child(3) {
+            top: 0%; left: 0%; right: 0%; bottom: 0%;
+            border-top-color: #4f46e5;
+            border-bottom-color: #818cf8;
+        }
+
+        .multiverse-button {
+            position: relative;
+            z-index: 10;
+            padding: 8px 24px;
+            border-radius: 25px;
+            background: linear-gradient(45deg, #8b5cf6, #d946ef);
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+            text-decoration: none;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .multiverse-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.8);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .cosmic-dust {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(var(--tx), var(--ty)); }
+        }
+
+        .cosmic-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .dimension-rift {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            opacity: 0;
+            filter: blur(5px);
+            animation: rift-open 10s infinite ease-in-out;
+        }
+
+        @keyframes rift-open {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 0.7; transform: scale(1); }
+        }
+
+        .quantum-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: radial-gradient(circle, #fff 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            animation: quantum-float 20s infinite linear;
+        }
+
+        @keyframes quantum-float {
+            0% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(var(--tx1), var(--ty1)) scale(1.5); }
+            50% { transform: translate(var(--tx2), var(--ty2)) scale(0.5); }
+            75% { transform: translate(var(--tx3), var(--ty3)) scale(2); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
+        .multiverse-button {
+            position: relative;
+            z-index: 10;
+            padding: 12px 30px;
+            border-radius: 30px;
+            background: linear-gradient(45deg, #8b5cf6, #d946ef, #8b5cf6);
+            background-size: 200% 200%;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-decoration: none;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            transition: all 0.5s ease;
+            animation: gradient-shift 5s ease infinite;
+            overflow: hidden;
+        }
+
+        .multiverse-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
+            transform: scale(0);
+            transition: transform 0.6s ease-out;
+        }
+
+        .multiverse-button:hover::before {
+            transform: scale(1);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(0.95); opacity: 0.7; }
+            50% { transform: scale(1); opacity: 1; }
+        }
+
+        .cosmic-text {
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: cosmic-text-animate 5s ease infinite;
+        }
+
+        @keyframes cosmic-text-animate {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .parallax-stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            perspective: 100px;
+        }
+
+        .parallax-star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 5s infinite ease-in-out;
+        }
+
+        .bg-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fade-in-up 0.6s ease-out forwards;
+        }
+
+        .animation-delay-200 {
+            animation-delay: 0.2s;
+        }
+
+        .animation-delay-400 {
+            animation-delay: 0.4s;
+        }
+
+        .animation-delay-600 {
+            animation-delay: 0.6s;
+        }
+
+        .bg-coffee-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d7ccc8' fill-opacity='0.4'%3E%3Cpath d='M30 30c-4.97 0-9-4.03-9-9s4.03-9 9-9 9 4.03 9 9-4.03 9-9 9zm0-16c-3.87 0-7 3.13-7 7s3.13 7 7 7 7-3.13 7-7-3.13-7-7-7zm0 32c-4.97 0-9-4.03-9-9s4.03-9 9-9 9 4.03 9 9-4.03 9-9 9zm0-16c-3.87 0-7 3.13-7 7s3.13 7 7 7 7-3.13 7-7-3.13-7-7-7z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        indigo: {
+                            400: '#818cf8',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        },
+                        dark: {
+                            bg: '#1a202c',
+                            text: '#e2e8f0',
+                        },
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200 pt-16">
+    <div id="navbar-placeholder"></div>
+
+    <canvas class="cosmic-canvas"></canvas>
+    <div class="parallax-stars"></div>
+
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-12 space-y-4 relative">
+        <div class="rounded-lg">
+            <h1 class="text-6xl sm:text-7xl md:text-8xl font-extrabold text-center cosmic-text leading-tight">
+                Unlock Your <span class="block">Full Potential</span>
+            </h1>
+        </div>
+        
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
+            <div class="mb-6">
+                <img src="/static/hero_image.png" alt="AI-powered future" class="w-full h-auto rounded-lg shadow-2xl">
+            </div>
+            
+            <div class="text-center">
+                <div class="multiverse-container">
+                    <div class="multiverse-portal">
+                        <div class="portal-ring"></div>
+                        <div class="portal-ring"></div>
+                        <div class="portal-ring"></div>
+                        <a href="https://themultiverse.school/classes/121" class="multiverse-button">
+                            <span>Join the Multiverse</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-4 text-indigo-600 dark:text-indigo-400 text-center">Master AI with The Multiverse School</h2>
+            
+            <div class="mb-6">
+                <a href="https://themultiverse.school/classes/121">
+                    <img src="/static/intro-to-ai-image.png" alt="Intro to AI course by The Multiverse School" class="w-full h-auto rounded-lg shadow-md transition-transform duration-300 hover:scale-105">
+                </a>
+            </div>
+            
+            <div class="space-y-3 mb-6">
+                <p class="text-base sm:text-lg text-gray-700 dark:text-gray-300">Accelerate your career and bring your ideas to life faster than ever before with our comprehensive Intro to AI course.</p>
+                <p class="text-base sm:text-lg text-gray-700 dark:text-gray-300">The Multiverse School, founded by <a href="https://www.lizthe.dev/" class="text-indigo-600 dark:text-indigo-400 hover:underline">LizTheDeveloper</a>, is a cutting-edge learning platform designed to help you master the latest technologies. With a focus on AI and practical skills, we're here to prepare you for the future of tech.</p>
+            </div>
+            
+            <div class="flex justify-center mb-6">
+                <ul class="list-disc list-inside space-y-1 text-base sm:text-lg text-gray-700 dark:text-gray-300 text-left">
+                    <li>Learn AI fundamentals and practical applications</li>
+                    <li>Gain hands-on experience with cutting-edge AI tools</li>
+                    <li>Develop skills highly sought after in today's job market</li>
+                    <li>Join a community of AI enthusiasts and professionals</li>
+                </ul>
+            </div>
+            
+            <div class="text-center">
+                <a href="https://themultiverse.school/classes/121" class="inline-block bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg text-lg transition-colors duration-300 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800">
+                   Enroll in the NEW "Intro to AI" Course
+                </a>
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+            <h2 class="text-3xl font-bold mb-6 text-center text-indigo-600 dark:text-indigo-400">About Your Instructor</h2>
+            <div class="flex flex-col items-center">
+                <div class="w-full md:w-2/3 text-center">
+                    <p class="text-xl mb-4 text-gray-700 dark:text-gray-300">I'm Christopher Tavolazzi, known online as @thecoffeejesus. As a tech industry veteran and AI researcher, I'm passionate about empowering others to harness the power of artificial intelligence.</p>
+                    <p class="text-lg mb-4 text-gray-700 dark:text-gray-300">With experience as a tech lead at Adobe and a following of over 100,000 across social media, I bring real-world insights and cutting-edge knowledge to help you succeed in the AI-driven future.</p>
+                    <div class="mt-6 flex justify-center space-x-4">
+                        <a href="https://twitter.com/thecoffeejesus" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300">
+                            <i class="fab fa-twitter fa-2x"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@thecoffeejesus" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300">
+                            <i class="fab fa-tiktok fa-2x"></i>
+                        </a>
+                        <a href="https://www.instagram.com/thecoffeejesus" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300">
+                            <i class="fab fa-instagram fa-2x"></i>
+                        </a>
+                        <a href="https://github.com/ctavolazzi" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300">
+                            <i class="fab fa-github fa-2x"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- TheCoffeeJesus Newsletter Signup Component -->
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-0 pb-16">
+        <div class="relative bg-gradient-to-br from-brown-600 via-brown-700 to-brown-800 rounded-2xl shadow-2xl overflow-hidden">
+            <div class="absolute inset-0 bg-coffee-pattern opacity-10"></div>
+            <div class="relative p-8 sm:p-12">
+                <div class="flex justify-center mb-6">
+                    <div class="w-24 h-24 rounded-full border-4 border-yellow-400 shadow-lg overflow-hidden animate-float">
+                        <img src="/static/christopher_photo_headshot.png" alt="TheCoffeeJesus" class="w-full h-full object-cover object-center">
+                    </div>
+                </div>
+                <h2 class="text-4xl sm:text-5xl font-extrabold text-yellow-400 text-center mb-6 animate-fade-in-up">
+                    Join the Congregation
+                </h2>
+                <p class="text-xl text-cream-100 text-center mb-8 animate-fade-in-up animation-delay-200">
+                    Receive divine insights on AI, tech trends, and exclusive content straight from TheCoffeeJesus himself!
+                </p>
+                <p class="text-2xl text-cream-200 text-center mb-10 animate-fade-in-up animation-delay-400">
+                    Join <span id="subscriber-number" class="font-bold text-yellow-400 animate-pulse">0</span> disciples in the Church of Tech & Coffee
+                </p>
+                <form id="newsletter-form" class="space-y-4 max-w-md mx-auto animate-fade-in-up animation-delay-600">
+                    <div class="relative">
+                        <input type="text" id="newsletter-name" placeholder="Your Earthly Name" required
+                               class="w-full p-4 pr-12 rounded-lg border-2 border-cream-200 bg-brown-900 bg-opacity-50 text-cream-100 placeholder-cream-300 focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400 transition duration-300">
+                        <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-cream-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="relative">
+                        <input type="email" id="newsletter-email" placeholder="Your Divine Email Address" required
+                               class="w-full p-4 pr-12 rounded-lg border-2 border-cream-200 bg-brown-900 bg-opacity-50 text-cream-100 placeholder-cream-300 focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400 transition duration-300">
+                        <span class="absolute right-4 top-1/2 transform -translate-y-1/2 text-cream-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                        </span>
+                    </div>
+                    <button type="submit"
+                            class="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-4 px-6 rounded-lg transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-50 relative overflow-hidden group">
+                        <span class="relative z-10">Get the Newsletter</span>
+                        <span class="absolute top-0 left-0 w-full h-full bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
+                    </button>
+                </form>
+                <p id="newsletter-message" class="mt-6 text-center text-cream-100 font-semibold"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="darkMode.js"></script>
+</body>
+</html>
