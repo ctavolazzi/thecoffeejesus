@@ -14,23 +14,22 @@ class HeroElement extends HTMLElement {
                     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
                 }
                 .social-icon {
-                    font-size: 1.75rem;
-                    width: 42px;
-                    height: 42px;
+                    font-size: 1.25rem;
+                    width: 36px;
+                    height: 36px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    border-radius: 10px;
-                    background: #000000;
-                    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
-                    transition: all 0.2s ease;
+                    border-radius: 8px;
+                    box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.4);
+                    transition: all 0.3s ease;
                     color: white;
                     text-decoration: none;
+                    margin: 0 4px;
                 }
                 .social-icon:hover {
-                    transform: translateY(-2px);
-                    box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.5),
-                               -3px -3px 10px rgba(255, 255, 255, 0.15);
+                    transform: translateY(-3px) scale(1.05);
+                    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
                 }
                 .social-icon i {
                     color: white;
@@ -38,79 +37,97 @@ class HeroElement extends HTMLElement {
                     text-stroke: 0;
                 }
                 .social-icon.tiktok {
-                    background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+                    background: #000000;
+                    background: linear-gradient(45deg, #00f2ea, #ff0050);
                 }
                 .social-icon.instagram {
-                    background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+                    background: #d6249f;
+                    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+                }
+                .social-icon.youtube {
+                    background: #FF0000;
+                    background: linear-gradient(45deg, #FF0000, #CC0000);
                 }
                 .social-stats-container {
                     position: absolute;
-                    top: 1.25rem;
+                    top: 1rem;
                     left: 0;
                     right: 0;
                     display: flex;
-                    justify-content: space-around;
-                    padding: 0 3rem;
-                    max-width: 800px;
+                    justify-content: center;
+                    gap: 1rem;
+                    padding: 0 1rem;
+                    max-width: 500px;
                     margin: 0 auto;
                 }
                 .social-row {
                     display: flex;
                     align-items: center;
-                    gap: 0.5rem;
+                    gap: 0.4rem;
+                    background: rgba(0, 0, 0, 0.6);
+                    padding: 0.35rem 0.65rem;
+                    border-radius: 12px;
+                    backdrop-filter: blur(8px);
                 }
                 .stats {
                     display: flex;
                     align-items: baseline;
-                    min-width: 90px;
+                    min-width: 70px;
                     gap: 0.25rem;
                 }
                 .follower-count {
-                    min-width: 55px;
+                    min-width: 45px;
                     text-align: right;
-                    font-size: 2.75rem;
-                    font-weight: 900;
+                    font-size: 1.75rem;
+                    font-weight: 800;
                     letter-spacing: -0.02em;
                 }
                 .k-text {
-                    font-size: 2rem;
-                    font-weight: 800;
+                    font-size: 1.25rem;
+                    font-weight: 700;
                     letter-spacing: -0.02em;
-                    transform: translateY(2px);
-                    text-shadow:
-                        -1px -1px 0 #000,
-                        1px -1px 0 #000,
-                        -1px 1px 0 #000,
-                        1px 1px 0 #000;
+                    opacity: 0.9;
                 }
                 .hero-tagline {
                     position: absolute;
-                    bottom: 2rem;
+                    bottom: 0.75rem;
                     left: 0;
                     right: 0;
                     text-align: center;
                     color: white;
-                    padding: 0 1rem;
+                    padding: 1rem;
+                    transform: translateY(1.8rem);
                 }
                 .tagline-main {
-                    font-size: 1.75rem;
-                    font-weight: 700;
+                    font-size: 2.75rem;
+                    font-weight: 900;
                     margin-bottom: 0.75rem;
+                    line-height: 1.1;
+                    color: rgba(255, 255, 255, 0.95);
                     text-shadow:
-                        2px 2px 4px rgba(0,0,0,0.5),
-                        0 0 10px rgba(0,0,0,0.3);
+                        2px 2px 0 #000,
+                        -2px -2px 0 #000,
+                        2px -2px 0 #000,
+                        -2px 2px 0 #000,
+                        4px 4px 8px rgba(0, 0, 0, 0.5),
+                        0 0 20px rgba(255, 255, 255, 0.2);
+                    transform: perspective(500px) rotateX(5deg);
+                    letter-spacing: -0.02em;
                 }
                 .tagline-sub {
-                    font-size: 1.1rem;
-                    font-weight: 500;
-                    opacity: 0.95;
-                    max-width: 600px;
+                    font-size: 1.15rem;
+                    font-weight: 600;
+                    max-width: 500px;
                     margin: 0 auto;
-                    line-height: 1.6;
-                    text-shadow:
-                        1px 1px 2px rgba(0,0,0,0.8),
-                        0 0 8px rgba(0,0,0,0.4);
-                    letter-spacing: 0.01em;
+                    line-height: 1.3;
+                    letter-spacing: 0;
+                    background: rgba(0, 0, 0, 0.6);
+                    padding: 0.5rem 0.75rem;
+                    border-radius: 4px;
+                    display: inline-block;
+                    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+                    backdrop-filter: blur(10px);
+                    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
                 }
             </style>
             <div class="relative">
@@ -126,11 +143,19 @@ class HeroElement extends HTMLElement {
                         </div>
                     </div>
                     <div class="social-row">
+                        <a href="https://www.youtube.com/@thecoffeejesus" target="_blank" rel="noopener noreferrer" class="social-icon youtube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <div class="stats">
+                            <span class="follower-count social-text" data-target="538">0</span>
+                        </div>
+                    </div>
+                    <div class="social-row">
                         <a href="https://www.instagram.com/thecoffeejesus" target="_blank" rel="noopener noreferrer" class="social-icon instagram">
                             <i class="fab fa-instagram"></i>
                         </a>
                         <div class="stats">
-                            <span class="follower-count social-text" data-target="45">0</span>
+                            <span class="follower-count social-text" data-target="52">0</span>
                             <span class="k-text ml-1 social-text">K</span>
                         </div>
                     </div>
