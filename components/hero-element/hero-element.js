@@ -14,18 +14,18 @@ class HeroElement extends HTMLElement {
                     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
                 }
                 .social-icon {
-                    font-size: 1.25rem;
-                    width: 36px;
-                    height: 36px;
+                    font-size: 0.7rem;
+                    width: 20px;
+                    height: 20px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    border-radius: 8px;
-                    box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.4);
+                    border-radius: 3px;
+                    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
                     transition: all 0.3s ease;
                     color: white;
                     text-decoration: none;
-                    margin: 0 4px;
+                    margin: 0 2px;
                 }
                 .social-icon:hover {
                     transform: translateY(-3px) scale(1.05);
@@ -50,40 +50,40 @@ class HeroElement extends HTMLElement {
                 }
                 .social-stats-container {
                     position: absolute;
-                    top: 1rem;
+                    top: 0.5rem;
                     left: 0;
                     right: 0;
                     display: flex;
                     justify-content: center;
-                    gap: 1rem;
+                    gap: 0.5rem;
                     padding: 0 1rem;
-                    max-width: 500px;
+                    max-width: 300px;
                     margin: 0 auto;
                 }
                 .social-row {
                     display: flex;
                     align-items: center;
-                    gap: 0.4rem;
+                    gap: 0.2rem;
                     background: rgba(0, 0, 0, 0.6);
-                    padding: 0.35rem 0.65rem;
-                    border-radius: 12px;
+                    padding: 0.15rem 0.3rem;
+                    border-radius: 4px;
                     backdrop-filter: blur(8px);
                 }
                 .stats {
                     display: flex;
                     align-items: baseline;
-                    min-width: 70px;
-                    gap: 0.25rem;
+                    min-width: 40px;
+                    gap: 0.15rem;
                 }
                 .follower-count {
-                    min-width: 45px;
+                    min-width: 25px;
                     text-align: right;
-                    font-size: 1.75rem;
+                    font-size: 0.9rem;
                     font-weight: 800;
                     letter-spacing: -0.02em;
                 }
                 .k-text {
-                    font-size: 1.25rem;
+                    font-size: 0.7rem;
                     font-weight: 700;
                     letter-spacing: -0.02em;
                     opacity: 0.9;
