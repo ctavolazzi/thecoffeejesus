@@ -1,7 +1,10 @@
 // Function to load and inject the navbar
 async function loadNavbar() {
     try {
-        const response = await fetch('/components/navbar/navbar.html');
+        // Get the current script's path to determine relative location
+        const scriptPath = document.currentScript ? document.currentScript.src : '';
+        const basePath = scriptPath.substring(0, scriptPath.lastIndexOf('/'));
+        const response = await fetch(`${basePath}/navbar.html`);
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const html = await response.text();
 
