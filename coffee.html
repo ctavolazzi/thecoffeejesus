@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coffee Jesus Coffee - Brewing Divine Opportunities</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
@@ -46,15 +47,34 @@
             height: 30px;
             background-color: #6D4C41;
             border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            opacity: 0.7;
+            opacity: 0.8;
             animation: fallAnimation linear infinite;
-            animation-delay: calc(var(--delay) * -1s);
+            z-index: 1;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            transform-origin: center;
         }
+
+        .dark .coffee-bean {
+            background-color: #A67C52;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
         @keyframes fallAnimation {
-            0% { transform: translateY(-5vh) rotate(0deg); }
-            100% { transform: translateY(105vh) rotate(360deg); }
+            0% {
+                transform: translateY(-5vh) rotate(0deg) scale(1);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(105vh) rotate(360deg) scale(0.8);
+                opacity: 0;
+            }
         }
-        .dark .coffee-bean { background-color: #A67C52; }
 
         #falling-beans-container {
             position: fixed;
@@ -103,9 +123,11 @@
             animation: shimmer 5s linear infinite;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
         }
+
         .light .shimmer-text {
             background-image: linear-gradient(90deg, #FFF8E1 0%, #E6D0B5 25%, #C8A780 50%, #E6D0B5 75%, #FFF8E1 100%);
         }
+
         .dark .shimmer-text {
             background-image: linear-gradient(90deg, #A67C52 0%, #C8A780 25%, #E6D0B5 50%, #C8A780 75%, #A67C52 100%);
         }
@@ -147,7 +169,7 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
             position: relative;
             z-index: 2;
-            line-height: 1.2; /* This adds space between the lines */
+            line-height: 1.2;
         }
 
         .page-subtitle {
@@ -164,7 +186,7 @@
         @media (max-width: 768px) {
             .page-title {
                 font-size: 3.5rem;
-                line-height: 1.3; /* Slightly more space for smaller screens */
+                line-height: 1.3;
             }
             .page-subtitle {
                 font-size: 1.25rem;
@@ -230,11 +252,10 @@
         .coffee-bg {
             background-image:
                 linear-gradient(rgba(62, 39, 35, 0.8), rgba(62, 39, 35, 0.8)),
-                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><path d="M30 5c-8.3 0-15 6.7-15 15s6.7 15 15 15 15-6.7 15-15-6.7-15-15-15zm0 25c-5.5 0-10-4.5-10-10s4.5-10 10-10 10 4.5 10 10-4.5 10-10 10z" fill="%23A67C52" fill-opacity="0.1"/></svg>'),
-                url('/static/coffee-bg.jpg');
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><path d="M30 5c-8.3 0-15 6.7-15 15s6.7 15 15 15 15-6.7 15-15-6.7-15-15-15zm0 25c-5.5 0-10-4.5-10-10s4.5-10 10-10 10 4.5 10 10-4.5 10-10 10z" fill="%23A67C52" fill-opacity="0.1"/></svg>');
             background-attachment: fixed;
             background-position: center;
-            background-size: auto, auto, cover;
+            background-size: auto, auto;
         }
 
         .progress-bar {
@@ -264,11 +285,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
         .animate-fadeInUp {
             animation: fadeInUp 1s ease-out forwards;
         }
@@ -283,7 +299,7 @@
 
         html {
             scroll-behavior: smooth;
-            scroll-padding-top: 2rem; /* Adjusts scroll position to account for any fixed headers */
+            scroll-padding-top: 2rem;
         }
 
         @media (min-width: 640px) {
@@ -292,16 +308,14 @@
             }
         }
 
-        /* Define CSS Variables for Light Mode */
         :root {
-            --bg-primary: #FFF8E1; /* Lighter cream color */
+            --bg-primary: #FFF8E1;
             --bg-secondary: #FFFFFF;
             --text-primary: #3E2723;
             --text-secondary: #6D4C41;
             --accent-color: #A67C52;
         }
 
-        /* Dark Mode Overrides */
         .dark {
             --bg-primary: #3E2723;
             --bg-secondary: #4E342E;
@@ -310,7 +324,6 @@
             --accent-color: #C8A780;
         }
 
-        /* Apply Variables */
         body {
             background-color: var(--bg-primary);
             color: var(--text-primary);
@@ -328,7 +341,6 @@
             color: var(--text-secondary);
         }
 
-        /* Update other color classes to use variables */
         .bg-coffee-100 {
             background-color: var(--bg-primary);
         }
@@ -353,15 +365,11 @@
             background-color: var(--text-secondary);
         }
 
-        /* Shimmer effect for light mode */
-        .shimmer-text {
+        .light .shimmer-text {
             background-image: linear-gradient(90deg, #FFF8E1 0%, #E6D0B5 25%, #C8A780 50%, #E6D0B5 75%, #FFF8E1 100%);
         }
 
-        /* Light mode specific styles */
         .light {
-            /* --bg-primary: #FFF8E1; /* Lighter cream color */
-            /* --bg-secondary: #FFFFFF; */
             --text-primary: #3E2723;
             --text-secondary: #6D4C41;
             --accent-color: #A67C52;
@@ -408,29 +416,24 @@
             background-color: #8D6E63;
         }
 
-        /* Improve contrast for form inputs */
         .form-input {
             background-color: #FFFFFF;
             color: #3E2723;
             border-color: #A67C52;
         }
 
-        /* Adjust sticky nav for better visibility */
         .sticky-nav {
             background-color: rgba(255, 248, 225, 0.9);
         }
 
-        /* Enhance readability for section titles */
         h2.text-coffee-600 {
             color: #5D4037;
         }
 
-        /* Improve visibility of icons */
         .text-coffee-500 {
             color: #795548;
         }
 
-        /* Adjust progress bar colors */
         .bg-coffee-200 {
             background-color: #D7CCC8;
         }
@@ -443,7 +446,6 @@
             --tw-gradient-to: #5D4037;
         }
 
-        /* Enhance FAQ section readability */
         .border-coffee-200 {
             border-color: #D7CCC8;
         }
@@ -452,90 +454,31 @@
             color: #5D4037;
         }
 
-        /* Light mode specific styles */
-        .light .waitlist-section h3 {
-            color: #3E2723 !important; /* Very dark brown, almost black */
-        }
-
-        .light .waitlist-section ul li {
-            color: #3E2723 !important; /* Very dark brown, almost black */
-        }
-
-        /* Extremely specific and important light mode styles */
         html.light body .waitlist-section h3,
         html.light body .waitlist-section ul li,
         html.light body .waitlist-section * {
-            color: #000000 !important; /* Pure black for maximum contrast */
-            text-shadow: none !important; /* Remove any text shadows */
+            color: #000000 !important;
+            text-shadow: none !important;
         }
 
-        /* New CSS for the steam and pouring coffee animations */
-        /* Add animation to SVG lines */
-        .steam-line {
-            stroke: rgba(255, 255, 255, 0.7); /* Lighter stroke color */
-            stroke-width: 2;
-            animation: steamRise 4s ease-in-out infinite;
-        }
-
-        .coffee-stream {
-            stroke: #4E342E; /* Coffee color */
-            stroke-width: 5;
-            stroke-dasharray: 0 100;
-            animation: pourCoffee 3s ease-in-out infinite;
-        }
-
-        @keyframes steamRise {
-            0% {
-                opacity: 0;
-                transform: translateY(10px) scale(1);
-            }
-            50% {
-                opacity: 1;
-                transform: translateY(-10px) scale(1.2);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(10px) scale(1);
-            }
-        }
-
-        @keyframes pourCoffee {
-            0% {
-                stroke-dasharray: 0 100;
-                opacity: 0;
-            }
-            50% {
-                stroke-dasharray: 100 0;
-                opacity: 1;
-            }
-            100% {
-                stroke-dasharray: 0 100;
-                opacity: 0;
-            }
-        }
-
-        /* Ensure the header has no background */
         .header-no-bg {
             background-color: transparent;
             position: relative;
         }
 
-        /* Ensure SVG scales correctly */
         header svg {
             max-width: 100%;
             height: auto;
         }
 
-        /* Enhance the text appearance */
         header h1, header p {
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
-        /* Improved "Join the Waitlist" Button */
         .join-waitlist-btn {
             position: relative;
             display: inline-block;
-            background-color: #6D4C41; /* Initial background color */
+            background-color: #6D4C41;
             color: #FFFFFF;
             font-weight: bold;
             padding: 0.75rem 2rem;
@@ -543,7 +486,7 @@
             text-decoration: none;
             transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
             overflow: hidden;
-            margin-top: 2rem; /* Adjust this value as needed */
+            margin-top: 2rem;
         }
 
         .join-waitlist-btn::after {
@@ -560,7 +503,7 @@
         }
 
         .join-waitlist-btn:hover {
-            background-color: #8D6E63; /* Hover background color */
+            background-color: #8D6E63;
             transform: translateY(-2px);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
@@ -575,7 +518,6 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        /* FAQ Answer Transition */
         .faq-answer {
             max-height: 0;
             opacity: 0;
@@ -584,17 +526,111 @@
         }
 
         .faq-answer.open {
-            max-height: 500px; /* Adjust as needed for content */
+            max-height: 500px;
             opacity: 1;
         }
 
-        /* Chevron Icon Rotation */
         .faq-question i {
             transition: transform 0.5s ease-in-out;
         }
 
         .faq-question.open i {
             transform: rotate(180deg);
+        }
+
+        .coffee-cup-container {
+            position: relative;
+            width: 180px;
+            height: 170px;
+            margin: 2rem auto;
+            border-radius: 1.5rem;
+            padding: 0.75rem;
+            backdrop-filter: blur(8px);
+            background: rgba(255,255,255,0.1);
+            box-shadow:
+                0 0 100px rgba(255,255,255,0.07),
+                0 0 150px rgba(255,255,255,0.1),
+                inset 0 4px 10px rgba(255,255,255,0.2);
+            transition: transform 0.4s cubic-bezier(0.4,0,0.2,1),
+                        box-shadow 0.4s cubic-bezier(0.4,0,0.2,1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .coffee-cup-container:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow:
+                0 0 100px rgba(255,255,255,0.1),
+                0 0 200px rgba(255,255,255,0.15),
+                inset 0 4px 8px rgba(255,255,255,0.3);
+        }
+
+        .rays-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 600px;
+            height: 600px;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transform-origin: center center;
+            z-index: 1;
+        }
+
+        .ray {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 2px;
+            transform-origin: left center;
+            background: linear-gradient(90deg,
+                rgba(255,255,255,0.15) 0%,
+                rgba(255,255,255,0.08) 50%,
+                rgba(255,255,255,0) 100%);
+            filter: blur(1px);
+        }
+
+        .ray:nth-child(1) { transform: rotate(0deg); }
+        .ray:nth-child(2) { transform: rotate(30deg); }
+        .ray:nth-child(3) { transform: rotate(60deg); }
+        .ray:nth-child(4) { transform: rotate(90deg); }
+        .ray:nth-child(5) { transform: rotate(120deg); }
+        .ray:nth-child(6) { transform: rotate(150deg); }
+        .ray:nth-child(7) { transform: rotate(180deg); }
+        .ray:nth-child(8) { transform: rotate(210deg); }
+        .ray:nth-child(9) { transform: rotate(240deg); }
+        .ray:nth-child(10) { transform: rotate(270deg); }
+        .ray:nth-child(11) { transform: rotate(300deg); }
+        .ray:nth-child(12) { transform: rotate(330deg); }
+
+        .coffee-cup-svg {
+            position: relative;
+            width: 160%;
+            height: auto;
+            z-index: 3;
+            transform: translate(-2%, 0);
+        }
+
+        .divine-cup {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            filter: drop-shadow(0 0 20px rgba(255,255,255,0.1));
+        }
+
+        .ray {
+            animation: rayGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes rayGlow {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.3; }
+        }
+
+        .coffee-liquid {
+            filter: url(#cup-glow);
         }
     </style>
 </head>
@@ -613,27 +649,151 @@
             </p>
         </div>
         <div class="relative my-4">
-            <svg class="w-40 h-48 mx-auto" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
-                <!-- Coffee Cup -->
-                <g id="cup">
-                    <!-- Cup body (now with a flat top) -->
-                    <path d="M20 40 v60 h60 v-60 h-60" fill="#6D4C41"/>
-                    <!-- Cup rim -->
-                    <path d="M15 40 h70" stroke="#4E342E" stroke-width="5" fill="none"/>
-                    <!-- Cup handle -->
-                    <path d="M80 50 a20 20 0 0 1 0 40" fill="none" stroke="#4E342E" stroke-width="5"/>
-                </g>
-                <!-- Steam Lines -->
-                <g id="steam">
-                    <path class="steam-line" d="M30 30 C30 15, 50 15, 50 30" fill="none"/>
-                    <path class="steam-line" d="M40 30 C40 10, 60 10, 60 30" fill="none"/>
-                    <path class="steam-line" d="M50 30 C50 20, 70 20, 70 30" fill="none"/>
-                </g>
-                <!-- Pouring Coffee -->
-                <g id="pour">
-                    <path class="coffee-stream" d="M50 0 v40" stroke-linecap="round"/>
-                </g>
-            </svg>
+            <div class="coffee-cup-container">
+                <div class="rays-container">
+                    <div class="ray"></div>
+                    <div class="ray"></div>
+                    <div class="ray"></div>
+                    <div class="ray"></div>
+                    <div class="ray"></div>
+                    <div class="ray"></div>
+                    <div class="ray"></div>
+                    <div class="ray"></div>
+                    <div class="ray"></div>
+                    <div class="ray"></div>
+                    <div class="ray"></div>
+                    <div class="ray"></div>
+                </div>
+
+                <svg class="coffee-cup-svg" viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="cupGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#AA9C94"/>
+                            <stop offset="25%" style="stop-color:#8D6E63"/>
+                            <stop offset="50%" style="stop-color:#6D4C41"/>
+                            <stop offset="75%" style="stop-color:#5D4037"/>
+                            <stop offset="100%" style="stop-color:#4E342E"/>
+                        </linearGradient>
+                        <linearGradient id="liquidGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#c97f5f"/>
+                            <stop offset="35%" style="stop-color:#b26a4b"/>
+                            <stop offset="65%" style="stop-color:#a55c3f"/>
+                            <stop offset="100%" style="stop-color:#8e4b2f"/>
+                            <animate attributeName="x1" values="0%;100%;0%" dur="3s" repeatCount="indefinite"/>
+                            <animate attributeName="x2" values="100%;0%;100%" dur="3s" repeatCount="indefinite"/>
+                        </linearGradient>
+                        <filter id="cup-glow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="2"/>
+                            <feColorMatrix type="matrix"
+                                values="1.5 0 0 0 0
+                                        0 1.5 0 0 0
+                                        0 0 1.5 0 0
+                                        0 0 0 1 0"/>
+                            <feComposite in="SourceGraphic"/>
+                        </filter>
+                        <linearGradient id="shineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:rgba(255,255,255,0)"/>
+                            <stop offset="50%" style="stop-color:rgba(255,255,255,0.3)"/>
+                            <stop offset="100%" style="stop-color:rgba(255,255,255,0)"/>
+                            <animate attributeName="x1" values="-100%;200%" dur="2s" repeatCount="indefinite"/>
+                            <animate attributeName="x2" values="0%;300%" dur="2s" repeatCount="indefinite"/>
+                        </linearGradient>
+                        <filter id="steam-blur" x="0" y="0" width="200%" height="200%">
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="2"/>
+                        </filter>
+                        <clipPath id="cup-mask">
+                            <rect x="20" y="40" width="60" height="60"/>
+                        </clipPath>
+                        <pattern id="ripplePattern" width="10" height="10" patternUnits="userSpaceOnUse">
+                            <circle cx="5" cy="5" r="2" fill="white" opacity="0.1"/>
+                        </pattern>
+                    </defs>
+
+                    <g transform="translate(75, -15) scale(3.7)">
+                        <g class="pouring-coffee">
+                            <path class="coffee-stream"
+                                  d="M50 0 C50 0, 50 20, 50 40"
+                                  stroke="#4E342E"
+                                  stroke-width="4"
+                                  stroke-linecap="round"
+                                  fill="none"
+                                  stroke-dasharray="100"
+                                  stroke-dashoffset="100" />
+                            <circle class="coffee-droplet" cx="50" cy="20" r="1.5" fill="#4E342E">
+                                <animate attributeName="cy" values="20;45" dur="0.5s" repeatCount="indefinite"/>
+                                <animate attributeName="opacity" values="1;0" dur="0.5s" repeatCount="indefinite"/>
+                            </circle>
+                            <circle class="coffee-droplet" cx="48" cy="15" r="1" fill="#4E342E">
+                                <animate attributeName="cy" values="15;45" dur="0.6s" begin="0.2s" repeatCount="indefinite"/>
+                                <animate attributeName="opacity" values="1;0" dur="0.6s" begin="0.2s" repeatCount="indefinite"/>
+                            </circle>
+                        </g>
+                        <ellipse cx="50" cy="105" rx="35" ry="5" fill="rgba(0,0,0,0.2)" filter="url(#steam-blur)"/>
+                        <g id="cup">
+                            <path d="M20 40 v60 h60 v-60 h-60"
+                                  fill="url(#cupGradient)"
+                                  stroke="#4E342E"
+                                  stroke-width="2"/>
+                            <g clip-path="url(#cup-mask)">
+                                <path class="coffee-liquid"
+                                      d="M15 65 Q35 60, 55 65 T95 65 V110 H15 Z"
+                                      fill="url(#liquidGradient)">
+                                    <animate attributeName="d"
+                                           values="M15 65 Q35 60, 55 65 T95 65 V110 H15 Z;
+                                                   M15 65 Q35 70, 55 65 T95 65 V110 H15 Z;
+                                                   M15 65 Q35 60, 55 65 T95 65 V110 H15 Z"
+                                           dur="2s"
+                                           repeatCount="indefinite"/>
+                                </path>
+                                <rect x="15" y="65" width="80" height="45" fill="url(#ripplePattern)" opacity="0.3"/>
+                            </g>
+                            <g class="handle">
+                                <path d="M80 50 q20 0 20 20 q0 20 -20 20"
+                                      fill="none"
+                                      stroke="url(#cupGradient)"
+                                      stroke-width="5"/>
+                                <path class="handle-shine"
+                                      d="M80 50 q20 0 20 20 q0 20 -20 20"
+                                      fill="none"
+                                      stroke="url(#shineGradient)"
+                                      stroke-width="2"/>
+                            </g>
+                            <path d="M20 40 h60"
+                                  class="cup-shine"
+                                  stroke-width="1"
+                                  fill="none"
+                                  stroke-dasharray="100"
+                                  stroke-dashoffset="100"/>
+                        </g>
+                        <g class="steam-group" filter="url(#steam-blur)">
+                            <path class="steam-line" d="M35 30 C35 20, 45 15, 45 25" stroke="rgba(255,255,255,0.9)" fill="none">
+                                <animate attributeName="d"
+                                         values="M35 30 C35 20, 45 15, 45 25;
+                                                 M35 30 C35 15, 45 10, 45 20;
+                                                 M35 30 C35 20, 45 15, 45 25"
+                                         dur="2.5s"
+                                         repeatCount="indefinite"/>
+                            </path>
+                            <path class="steam-line" d="M50 25 C50 15, 60 10, 60 20" stroke="rgba(255,255,255,0.9)" fill="none">
+                                <animate attributeName="d"
+                                         values="M50 25 C50 15, 60 10, 60 20;
+                                                 M50 25 C50 10, 60 5, 60 15;
+                                                 M50 25 C50 15, 60 10, 60 20"
+                                         dur="3s"
+                                         repeatCount="indefinite"/>
+                            </path>
+                            <path class="steam-line" d="M65 30 C65 20, 75 15, 75 25" stroke="rgba(255,255,255,0.9)" fill="none">
+                                <animate attributeName="d"
+                                         values="M65 30 C65 20, 75 15, 75 25;
+                                                 M65 30 C65 15, 75 10, 75 20;
+                                                 M65 30 C65 20, 75 15, 75 25"
+                                         dur="2.8s"
+                                         repeatCount="indefinite"/>
+                            </path>
+                        </g>
+                    </g>
+                </svg>
+            </div>
         </div>
         <div class="text-center mt-2">
             <a href="#coffee-waitlist-form" class="join-waitlist-btn">
@@ -703,6 +863,31 @@
                 <p class="text-xs text-center text-coffee-600 dark:text-coffee-400">By joining, you agree to receive emails about our launch, offers, and mission. Unsubscribe anytime.</p>
             </form>
             <p id="coffee-waitlist-message" class="mt-4 text-center text-coffee-800 dark:text-coffee-200 font-medium"></p>
+
+            <div class="mt-12 max-w-2xl mx-auto bg-coffee-100 dark:bg-coffee-700 p-8 rounded-xl shadow-lg transform hover:scale-[1.02] transition-all duration-300">
+                <div class="flex flex-col items-center space-y-4">
+                    <div class="w-24 h-24 rounded-full bg-coffee-200 dark:bg-coffee-600 overflow-hidden shadow-lg border-2 border-coffee-300 dark:border-coffee-500">
+                        <img src="/static/christopher_photo_headshot.png" alt="Christopher Tavolazzi - The Coffee Jesus" class="w-full h-full object-cover object-center">
+                    </div>
+                    <h3 class="text-2xl font-bold text-coffee-800 dark:text-coffee-100 text-center font-serif">Support @thecoffeejesus</h3>
+                    <p class="text-coffee-700 dark:text-coffee-200 text-center leading-relaxed">
+                        Hi! I'm Christopher Tavolazzi, known as @thecoffeejesus. As a former barista and passionate coffee enthusiast, I'm on a mission to create something meaningful that gives back to our community. Your support in spreading the word about Coffee Jesus Coffee means the world to me.
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-4 mt-4">
+                        <a href="https://instagram.com/thecoffeejesus" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 bg-coffee-600 hover:bg-coffee-700 dark:bg-coffee-500 dark:hover:bg-coffee-600 text-white rounded-lg transition-colors duration-300">
+                            <i class="fab fa-instagram mr-2"></i>
+                            Follow on Instagram
+                        </a>
+                        <button onclick="shareOnSocial()" class="inline-flex items-center px-4 py-2 bg-coffee-600 hover:bg-coffee-700 dark:bg-coffee-500 dark:hover:bg-coffee-600 text-white rounded-lg transition-colors duration-300">
+                            <i class="fas fa-share-alt mr-2"></i>
+                            Share
+                        </button>
+                    </div>
+                    <p class="text-sm text-coffee-600 dark:text-coffee-300 text-center mt-4">
+                        Every share, every signup, every bit of support helps bring this dream to life. Thank you for being part of this journey! 🙏☕
+                    </p>
+                </div>
+            </div>
         </section>
 
         <nav class="sticky-nav bg-coffee-200 dark:bg-coffee-800 p-3 rounded-lg shadow-md mb-6 transition-colors duration-200">
@@ -823,7 +1008,6 @@
         <section class="bg-white dark:bg-coffee-800 p-8 rounded-lg shadow-md section-transition">
             <h2 class="text-3xl font-bold mb-6 text-coffee-600 dark:text-coffee-300 font-serif">Frequently Asked Questions</h2>
             <div class="space-y-4">
-                <!-- FAQ Item 1 -->
                 <div class="border-b border-coffee-200 dark:border-coffee-700 pb-4">
                     <button class="faq-question flex justify-between items-center w-full text-left text-coffee-800 dark:text-coffee-100 focus:outline-none">
                         <span class="font-semibold">How does Coffee Jesus Coffee support communities?</span>
@@ -833,7 +1017,6 @@
                         <p>We donate 20% of our profits to fund community programs focused on literacy and socially conscious entrepreneurship.</p>
                     </div>
                 </div>
-                <!-- FAQ Item 2 -->
                 <div class="border-b border-coffee-200 dark:border-coffee-700 pb-4">
                     <button class="faq-question flex justify-between items-center w-full text-left text-coffee-800 dark:text-coffee-100 focus:outline-none">
                         <span class="font-semibold">Where does your coffee come from?</span>
@@ -843,7 +1026,6 @@
                         <p>We source our coffee beans from small, sustainable farms around the world. Each batch is carefully selected to ensure the highest quality and ethical production practices.</p>
                     </div>
                 </div>
-                <!-- FAQ Item 3 -->
                 <div class="border-b border-coffee-200 dark:border-coffee-700 pb-4">
                     <button class="faq-question flex justify-between items-center w-full text-left text-coffee-800 dark:text-coffee-100 focus:outline-none">
                         <span class="font-semibold">When will Coffee Jesus Coffee be available for purchase?</span>
@@ -853,7 +1035,6 @@
                         <p>We're currently in the development phase and working hard to bring Coffee Jesus Coffee to market. Sign up for our newsletter to be the first to know when we launch!</p>
                     </div>
                 </div>
-                <!-- FAQ Item 4 -->
                 <div class="border-b border-coffee-200 dark:border-coffee-700 pb-4">
                     <button class="faq-question flex justify-between items-center w-full text-left text-coffee-800 dark:text-coffee-100 focus:outline-none">
                         <span class="font-semibold">How can I support Coffee Jesus Coffee?</span>
@@ -863,7 +1044,6 @@
                         <p>You can support us by spreading the word, following us on social media, and reaching out if you have skills or resources that could help bring our vision to life. Once we launch, purchasing our coffee will directly support our mission.</p>
                     </div>
                 </div>
-                <!-- FAQ Item 5 -->
                 <div class="border-b border-coffee-200 dark:border-coffee-700 pb-4">
                     <button class="faq-question flex justify-between items-center w-full text-left text-coffee-800 dark:text-coffee-100 focus:outline-none">
                         <span class="font-semibold">What makes Coffee Jesus Coffee unique?</span>
@@ -877,233 +1057,182 @@
         </section>
     </main>
 
-    <script src="script.js"></script>
-    <script src="darkMode.js"></script>
+    <script src="/components/navbar/navbar.js" defer></script>
+    <script src="script.js" defer></script>
+    <script src="coffee.js" defer></script>
     <script type="module">
-        import supabaseClient from './supabase.js';
+        import supabaseClient from '/supabase.js';
 
-        function createFallingBeans() {
-            const container = document.getElementById('falling-beans-container');
-            const numberOfBeans = 30;
-
-            for (let i = 0; i < numberOfBeans; i++) {
-                const bean = document.createElement('div');
-                bean.classList.add('coffee-bean');
-                bean.style.left = `${Math.random() * 100}vw`;
-                bean.style.animationDuration = `${Math.random() * 15 + 20}s`;
-                const delay = Math.random() * 5;
-                bean.style.setProperty('--delay', delay);
-                container.appendChild(bean);
-            }
-        }
-
-        function animateProgressBar() {
-            const progressBar = document.getElementById('progress-bar');
-            const currentAmount = document.getElementById('current-amount');
-            const goalAmount = document.getElementById('goal-amount');
-
-            const goal = 10000;
-            const current = 2500; // Example: 25% funded
-            const percentage = (current / goal) * 100;
-
-            progressBar.style.width = '0%';
-            setTimeout(() => {
-                progressBar.style.width = percentage + '%';
-            }, 500);
-
-            currentAmount.textContent = '$' + current.toLocaleString();
-            goalAmount.textContent = '$' + goal.toLocaleString();
-        }
-
-        // Waitlist Form Elements
         const waitlistForm = document.getElementById('coffee-waitlist-form');
-        const waitlistName = document.getElementById('coffee-waitlist-name');
-        const waitlistEmail = document.getElementById('coffee-waitlist-email');
         const waitlistMessage = document.getElementById('coffee-waitlist-message');
         const waitlistCount = document.getElementById('waitlist-count');
 
-        // Function to fetch and display waitlist count
-        async function fetchWaitlistCount() {
+        async function updateWaitlistCount() {
             try {
-                const { count, error } = await supabaseClient
+                const { count } = await supabaseClient
                     .from('coffeejesuscoffee_waitlist')
-                    .select('*', { count: 'exact', head: true });
-
-                if (error) throw error;
-
-                waitlistCount.textContent = count !== null ? count : '0';
+                    .select('*', { count: 'exact' });
+                waitlistCount.textContent = count || 0;
             } catch (error) {
                 console.error('Error fetching waitlist count:', error);
-                waitlistCount.textContent = '0';
             }
         }
 
-        // Initial fetch of waitlist count when the page loads
-        document.addEventListener('DOMContentLoaded', fetchWaitlistCount);
+        waitlistForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-        // Handle form submission
-        waitlistForm.addEventListener('submit', async (event) => {
-            event.preventDefault();
-
-            const name = waitlistName.value.trim();
-            const email = waitlistEmail.value.trim();
-
-            // Basic Validation
-            if (!name || !email) {
-                showMessage('Please provide both name and email.', 'error');
-                return;
-            }
-
-            // Email Format Validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                showMessage('Please enter a valid email address.', 'error');
-                return;
-            }
+            const nameInput = document.getElementById('coffee-waitlist-name');
+            const emailInput = document.getElementById('coffee-waitlist-email');
 
             try {
+                waitlistMessage.textContent = 'Adding you to the waitlist...';
+
                 const { data, error } = await supabaseClient
                     .from('coffeejesuscoffee_waitlist')
-                    .insert([{ name, email }])
+                    .insert([
+                        {
+                            name: nameInput.value,
+                            email: emailInput.value,
+                            created_at: new Date().toISOString()
+                        }
+                    ])
                     .select();
 
                 if (error) throw error;
 
-                waitlistForm.reset();
-                showMessage('Thank you for joining the Coffee Jesus Coffee waitlist!', 'success');
+                waitlistMessage.textContent = 'Thank you for joining our waitlist! We\'ll keep you updated.';
+                waitlistMessage.style.color = '#4CAF50';
+                nameInput.value = '';
+                emailInput.value = '';
+                await updateWaitlistCount();
 
-                // Update the waitlist count
-                fetchWaitlistCount();
             } catch (error) {
-                console.error('Error inserting waitlist data:', error);
-                if (error.message.includes('duplicate key value')) {
-                    showMessage('This email is already registered in the waitlist.', 'error');
+                console.error('Error:', error);
+                if (error.code === '23505') {
+                    waitlistMessage.textContent = 'This email is already on our waitlist. Thank you for your enthusiasm!';
                 } else {
-                    showMessage('There was an error signing you up. Please try again.', 'error');
+                    waitlistMessage.textContent = 'There was an error joining the waitlist. Please try again.';
                 }
+                waitlistMessage.style.color = '#f44336';
             }
         });
 
-        function showMessage(message, type) {
-            waitlistMessage.textContent = message;
-            waitlistMessage.className = 'mt-4 text-center font-medium';
-            if (type === 'error') {
-                waitlistMessage.classList.add('text-red-600', 'dark:text-red-400');
-            } else {
-                waitlistMessage.classList.add('text-green-600', 'dark:text-green-400');
-            }
+        updateWaitlistCount();
 
-            // Clear message after 5 seconds
-            setTimeout(() => {
-                waitlistMessage.textContent = '';
-                waitlistMessage.className = 'mt-4 text-center text-coffee-800 dark:text-coffee-200 font-medium';
-            }, 5000);
-        }
+        const channels = supabaseClient.channel('custom-insert-channel')
+            .on(
+                'postgres_changes',
+                { event: 'INSERT', schema: 'public', table: 'coffeejesuscoffee_waitlist' },
+                (payload) => {
+                    updateWaitlistCount();
+                }
+            )
+            .subscribe();
 
-        /**
-         * Toggle the visibility of the FAQ answer and rotate the chevron icon.
-         * @param {Event} event - The click event.
-         */
-        function toggleFAQ(event) {
-            const button = event.currentTarget;
-            const answer = button.nextElementSibling;
+        function shareOnSocial() {
+            const shareData = {
+                title: 'Coffee Jesus Coffee',
+                text: 'Join me in supporting Coffee Jesus Coffee - Ethically sourced, divinely inspired coffee that changes lives! 🙏☕',
+                url: window.location.href
+            };
 
-            // Check if the clicked FAQ is already open
-            const isOpen = answer.classList.contains('open');
-
-            // Close all open FAQs
-            document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
-            document.querySelectorAll('.faq-question').forEach(b => b.classList.remove('open'));
-
-            // If the clicked FAQ was not open, open it
-            if (!isOpen) {
-                answer.classList.add('open');
-                button.classList.add('open');
-            }
-        }
-
-        // Assign event listeners to all FAQ question buttons
-        document.addEventListener('DOMContentLoaded', () => {
-            const faqButtons = document.querySelectorAll('.faq-question');
-            faqButtons.forEach(button => {
-                button.addEventListener('click', toggleFAQ);
-            });
-
-            createFallingBeans();
-            animateProgressBar();
-        });
-
-        // Sticky nav scroll effect
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('.sticky-nav');
-            if (window.scrollY > 100) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+            if (navigator.share) {
+                navigator.share(shareData)
+                    .then(() => console.log('Successfully shared'))
+                    .catch((error) => {
+                        console.log('Error sharing:', error);
+                        fallbackShare();
                     });
-                }
-            });
-        });
-
-        // Progress bar
-        window.addEventListener('scroll', () => {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.getElementById('progressBar').style.transform = `scaleX(${scrolled / 100})`;
-        });
-
-        // Animated section reveal
-        const revealSections = document.querySelectorAll('.reveal');
-        const revealOnScroll = () => {
-            revealSections.forEach(section => {
-                const sectionTop = section.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                if (sectionTop < windowHeight * 0.75) {
-                    section.classList.add('active');
-                }
-            });
-        };
-        window.addEventListener('scroll', revealOnScroll);
-        revealOnScroll(); // Initial check on page load
-
-        function highlightActiveSection() {
-            const sections = document.querySelectorAll('section[id]');
-            const navItems = document.querySelectorAll('.sticky-nav a');
-
-            let currentSectionId = '';
-
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 100;
-                const sectionHeight = section.clientHeight;
-                if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionTop + sectionHeight) {
-                    currentSectionId = section.getAttribute('id');
-                }
-            });
-
-            navItems.forEach(item => {
-                item.classList.remove('font-bold', 'bg-coffee-300', 'dark:bg-coffee-700');
-                if (item.getAttribute('href').slice(1) === currentSectionId) {
-                    item.classList.add('font-bold', 'bg-coffee-300', 'dark:bg-coffee-700');
-                }
-            });
+            } else {
+                fallbackShare();
+            }
         }
 
-        window.addEventListener('scroll', highlightActiveSection);
-        window.addEventListener('load', highlightActiveSection);
+        function fallbackShare() {
+            const text = encodeURIComponent('Join me in supporting Coffee Jesus Coffee - Ethically sourced, divinely inspired coffee that changes lives! 🙏☕');
+            const url = encodeURIComponent(window.location.href);
+
+            const shareOptions = [
+                {
+                    name: 'Twitter',
+                    url: `https://twitter.com/intent/tweet?text=${text}&url=${url}`
+                },
+                {
+                    name: 'Facebook',
+                    url: `https://www.facebook.com/sharer/sharer.php?u=${url}`
+                },
+                {
+                    name: 'LinkedIn',
+                    url: `https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${encodeURIComponent('Coffee Jesus Coffee')}&summary=${text}`
+                },
+                {
+                    name: 'Email',
+                    url: `mailto:?subject=${encodeURIComponent('Check out Coffee Jesus Coffee')}&body=${text}%0A%0A${url}`
+                }
+            ];
+
+            const firstOption = shareOptions[0];
+            window.open(firstOption.url, '_blank', 'width=550,height=450');
+        }
+
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const icon = question.querySelector('i');
+
+                answer.classList.toggle('open');
+                question.classList.toggle('open');
+
+                if (answer.classList.contains('open')) {
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                    answer.style.opacity = '1';
+                } else {
+                    answer.style.maxHeight = '0';
+                    answer.style.opacity = '0';
+                }
+            });
+        });
+
+        function createFallingBeans() {
+            const container = document.getElementById('falling-beans-container');
+            const containerWidth = container.offsetWidth;
+            const beanCount = Math.floor(containerWidth / 50);
+
+            for (let i = 0; i < beanCount; i++) {
+                const bean = document.createElement('div');
+                bean.className = 'coffee-bean';
+
+                const xPos = Math.random() * containerWidth;
+                bean.style.left = `${xPos}px`;
+
+                const duration = 6 + Math.random() * 4;
+                const delay = Math.random() * -10;
+
+                bean.style.animationDuration = `${duration}s`;
+                bean.style.animationDelay = `${delay}s`;
+
+                const rotation = Math.random() * 360;
+                bean.style.transform = `rotate(${rotation}deg)`;
+
+                container.appendChild(bean);
+            }
+        }
+
+        window.addEventListener('load', createFallingBeans);
+        window.addEventListener('resize', () => {
+            const container = document.getElementById('falling-beans-container');
+            container.innerHTML = '';
+            createFallingBeans();
+        });
+
+        setInterval(() => {
+            const container = document.getElementById('falling-beans-container');
+            const beans = container.getElementsByClassName('coffee-bean');
+            if (beans.length > 100) {
+                container.innerHTML = '';
+                createFallingBeans();
+            }
+        }, 30000);
     </script>
 </body>
 </html>

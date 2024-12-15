@@ -1,3 +1,21 @@
+// Function to load and inject the navbar
+async function loadNavbar() {
+    try {
+        const response = await fetch('/components/navbar/navbar.html');
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const html = await response.text();
+
+        // Inject the navbar HTML
+        const navbarPlaceholder = document.getElementById('navbar-placeholder');
+        if (navbarPlaceholder) {
+            navbarPlaceholder.innerHTML = html;
+            initNavbar(); // Initialize the mobile menu functionality after loading
+        }
+    } catch (error) {
+        console.error('Error loading navbar:', error);
+    }
+}
+
 /**
  * Initialize and manage the navigation bar functionality
  * @returns {void}
@@ -44,14 +62,14 @@ function initNavbar() {
     document.dispatchEvent(new CustomEvent('navbarLoaded'));
 }
 
-// Single initialization point
+// Load the navbar when the DOM is ready
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initNavbar);
+    document.addEventListener('DOMContentLoaded', loadNavbar);
 } else {
-    initNavbar();
+    loadNavbar();
 }
 
 // Export for module usage if needed
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { initNavbar };
+    module.exports = { initNavbar, loadNavbar };
 }

@@ -1,6 +1,9 @@
 class HeroElement extends HTMLElement {
     constructor() {
         super();
+        const today = new Date();
+        const formattedDate = today.toISOString().split('T')[0];
+
         this.innerHTML = `
             <style>
                 .social-text {
@@ -131,7 +134,7 @@ class HeroElement extends HTMLElement {
                 }
             </style>
             <div class="relative">
-                <img src="/static/hero_image.png" alt="TheCoffeeJesus in cherry blossoms" class="w-full h-auto rounded-lg shadow-2xl">
+                <img src="/static/hero_image.png?date=${formattedDate}" alt="TheCoffeeJesus in cherry blossoms" class="w-full h-auto rounded-lg shadow-2xl">
                 <div class="social-stats-container">
                     <div class="social-row">
                         <a href="https://www.tiktok.com/@thecoffeejesus" target="_blank" rel="noopener noreferrer" class="social-icon tiktok">
