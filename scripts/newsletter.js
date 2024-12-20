@@ -1,5 +1,5 @@
 // Import Supabase client
-import supabaseClient from '../supabase.js';
+import supabaseClient from './supabase.js';
 
 console.log('Newsletter.js loaded');
 
@@ -33,19 +33,19 @@ const NewsletterManager = (function() {
 
     // Public interface
     return {
-        init: function() {
+        init() {
             this.setupListeners();
-            this.updateSubscriberCount();
+            updateSubscriberCount();
         },
 
-        setupListeners: function() {
+        setupListeners() {
             const form = document.getElementById('newsletter-form');
             if (form) {
                 form.addEventListener('submit', this.handleSubmit.bind(this));
             }
         },
 
-        async handleSubmit: function(e) {
+        async handleSubmit(e) {
             e.preventDefault();
 
             // Rate limiting check
@@ -80,8 +80,8 @@ const NewsletterManager = (function() {
                 const { data, error } = await supabaseClient
                     .from('thecoffeejesus_newsletter_subscribers')
                     .insert([{
-                        name: name,
-                        email: email,
+                        name,
+                        email,
                         note: note || null
                     }]);
 
@@ -97,7 +97,7 @@ const NewsletterManager = (function() {
                 // Success
                 this.showMessage('Thank you for subscribing!');
                 e.target.reset();
-                await this.updateSubscriberCount();
+                await updateSubscriberCount();
 
             } catch (error) {
                 console.error('Error:', error);
@@ -105,7 +105,7 @@ const NewsletterManager = (function() {
             }
         },
 
-        showMessage: function(message, isError = false) {
+        showMessage(message, isError = false) {
             const messageElement = document.getElementById('newsletter-message');
             if (messageElement) {
                 messageElement.textContent = message;
@@ -121,6 +121,6 @@ const NewsletterManager = (function() {
 })();
 
 // Initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
     NewsletterManager.init();
 });

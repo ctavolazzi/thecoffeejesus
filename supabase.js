@@ -58,57 +58,7 @@ export async function testNewsletterConnection() {
     }
 }
 
-export async function handleNewsletterSubmission(event) {
-    event.preventDefault();
-
-    const nameInput = document.querySelector('.newsletter-name');
-    const emailInput = document.querySelector('.newsletter-email');
-    const messageInput = document.querySelector('textarea[name="message"]');
-
-    const name = nameInput?.value?.trim();
-    const email = emailInput?.value?.trim();
-    const note = messageInput?.value?.trim();
-
-    try {
-        const { error } = await supabaseClient
-            .from('thecoffeejesus_newsletter_subscribers')
-            .insert([{ name, email, note }]);
-
-        if (error) throw error;
-
-        // Clear form
-        event.target.reset();
-
-        // Update count
-        await testNewsletterConnection();
-
-        showMessage('Thank you for subscribing!');
-    } catch (error) {
-        console.error('Error:', error);
-        showMessage('An error occurred. Please try again.', true);
-    }
-}
-
-function showMessage(message, isError = false) {
-    const messageElement = document.getElementById('newsletter-message');
-    if (messageElement) {
-        messageElement.textContent = message;
-        messageElement.style.color = isError ? '#f87171' : '#4ade80';
-        setTimeout(() => {
-            messageElement.textContent = '';
-        }, 5000);
-    }
-}
-
-// Add form listener
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('newsletter-form');
-    if (form) {
-        form.addEventListener('submit', handleNewsletterSubmission);
-    }
-});
-
-// Test connection
+// Test connection on load
 initializeSupabase()
     .then(() => testNewsletterConnection())
     .then(count => console.log('Newsletter count:', count))
