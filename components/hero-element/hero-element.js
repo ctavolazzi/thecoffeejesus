@@ -102,7 +102,7 @@ class HeroElement extends HTMLElement {
                     transform: translateY(1.8rem);
                 }
                 .tagline-main {
-                    font-size: 2.75rem;
+                    font-size: clamp(1.75rem, 5vw, 2.75rem);
                     font-weight: 900;
                     margin-bottom: 0.75rem;
                     line-height: 1.1;
