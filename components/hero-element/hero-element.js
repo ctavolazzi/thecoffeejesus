@@ -93,44 +93,39 @@ class HeroElement extends HTMLElement {
                 }
                 .hero-tagline {
                     position: absolute;
-                    bottom: 0.75rem;
+                    top: 65%;
                     left: 0;
                     right: 0;
                     text-align: center;
                     color: white;
-                    padding: 1rem;
-                    transform: translateY(1.8rem);
+                    padding: 0.75rem;
                 }
                 .tagline-main {
-                    font-size: clamp(1.75rem, 5vw, 2.75rem);
-                    font-weight: 900;
-                    margin-bottom: 0.75rem;
+                    font-size: clamp(1.5rem, 4vw, 2.5rem);
+                    font-weight: 800;
+                    margin-bottom: 0.25rem;
                     line-height: 1.1;
-                    color: rgba(255, 255, 255, 0.95);
-                    text-shadow:
-                        2px 2px 0 #000,
-                        -2px -2px 0 #000,
-                        2px -2px 0 #000,
-                        -2px 2px 0 #000,
-                        4px 4px 8px rgba(0, 0, 0, 0.5),
-                        0 0 20px rgba(255, 255, 255, 0.2);
-                    transform: perspective(500px) rotateX(5deg);
-                    letter-spacing: -0.02em;
+                    color: white;
+                    background: rgba(0, 0, 0, 0.6);
+                    padding: 0.35rem 1rem;
+                    display: inline-block;
+                    border-radius: 4px;
+                    backdrop-filter: blur(8px);
+                    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
                 }
                 .tagline-sub {
-                    font-size: 1.15rem;
-                    font-weight: 600;
+                    font-size: clamp(0.9rem, 2vw, 1.25rem);
+                    font-weight: 500;
                     max-width: 500px;
                     margin: 0 auto;
-                    line-height: 1.3;
-                    letter-spacing: 0;
+                    line-height: 1.2;
+                    color: white;
                     background: rgba(0, 0, 0, 0.6);
-                    padding: 0.5rem 0.75rem;
+                    padding: 0.35rem 1rem;
                     border-radius: 4px;
                     display: inline-block;
-                    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-                    backdrop-filter: blur(10px);
-                    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+                    backdrop-filter: blur(8px);
+                    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
                 }
             </style>
             <div class="relative">

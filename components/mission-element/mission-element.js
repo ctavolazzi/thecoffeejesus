@@ -4,12 +4,12 @@ class MissionElement extends HTMLElement {
         this.innerHTML = `
             <style>
                 .mission-container {
-                    padding: 2rem 1rem;
+                    padding: 1rem;
                     position: relative;
                     overflow: hidden;
                     display: grid;
                     place-items: center;
-                    gap: 1.5rem;
+                    gap: 1rem;
                 }
 
                 .mission-text {
@@ -18,7 +18,7 @@ class MissionElement extends HTMLElement {
                     text-align: center;
                     color: white;
                     max-width: 800px;
-                    line-height: 1.4;
+                    line-height: 1.2;
                     opacity: 0;
                     transform: translateY(20px);
                     animation: fadeIn 1s ease forwards;
@@ -30,8 +30,8 @@ class MissionElement extends HTMLElement {
 
                 .mission-icons {
                     display: flex;
-                    gap: 3rem;
-                    margin-top: 1rem;
+                    gap: 2rem;
+                    margin-top: 0.5rem;
                     opacity: 0;
                     transform: translateY(20px);
                     animation: fadeIn 1s ease forwards 0.3s;
@@ -41,7 +41,7 @@ class MissionElement extends HTMLElement {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-                    gap: 0.5rem;
+                    gap: 0.25rem;
                 }
 
                 .icon {
