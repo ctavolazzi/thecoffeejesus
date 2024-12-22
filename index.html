@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TheCoffeeJesus - AI Education & Research</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☕️</text></svg>">
     <link href="/dist/output.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="/components/multiverse-portal/portal.js" type="module" defer></script>
@@ -11,13 +12,13 @@
     <script src="/components/hero-element/hero-element.js" type="module" defer></script>
     <script src="/components/mission-element/mission-element.js" type="module" defer></script>
     <script src="/components/johnny-autoseed/johnny-autoseed.js" type="module" defer></script>
-    <script src="/components/social-media-audit/social-media-audit.js" type="module" defer></script>
+    <script src="/components/buy-my-time/buy-my-time.js" type="module" defer></script>
     <script src="/components/navbar/navbar.js" defer></script>
     <script async src="https://js.stripe.com/v3/buy-button.js"></script>
     <style>
         .cosmic-text {
             font-size: 12vw;
-            background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff);
+            background: linear-gradient(45deg, #ff40ff, #40ffff, #ff40ff);
             background-size: 200% 200%;
             -webkit-background-clip: text;
             background-clip: text;
@@ -53,18 +54,33 @@
     <main class="w-full px-4 sm:px-6 lg:px-8 pt-16 pb-12 space-y-8 relative">
         <div class="w-full">
             <h1 class="text-[120vw] font-extrabold text-center leading-[1.2] overflow-visible mb-6">
-
                 <div class="cosmic-text">Unlock Your</div>
                 <div class="cosmic-text">Full Potential</div>
             </h1>
-            <hero-element></hero-element>
-            <johnny-autoseed></johnny-autoseed>
-            <social-media-audit></social-media-audit>
+            <hero-element class="mb-2"></hero-element>
+            <buy-my-time></buy-my-time>
             <mission-element></mission-element>
         </div>
 
+        <johnny-autoseed></johnny-autoseed>
+
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
-            <h2 class="text-2xl sm:text-3xl font-bold mb-4 text-indigo-600 dark:text-indigo-400 text-center">Master AI with The Multiverse School</h2>
+            <h2 class="text-4xl sm:text-5xl font-extrabold mb-6 text-center bg-gradient-to-r from-indigo-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">Master AI with The Multiverse School</h2>
+
+            <div class="flex justify-center gap-8 mb-6">
+                <div class="text-center">
+                    <div class="text-xl font-bold text-indigo-400">500+</div>
+                    <div class="text-sm text-gray-400">Program Participants</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-xl font-bold text-purple-400">42+</div>
+                    <div class="text-sm text-gray-400">AI-Powered Robots Built</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-xl font-bold text-indigo-400">∞</div>
+                    <div class="text-sm text-gray-400">Possibilities Unlocked</div>
+                </div>
+            </div>
 
             <div class="mb-6">
                 <a href="https://themultiverse.school">
@@ -73,7 +89,7 @@
             </div>
 
             <div class="space-y-3 mb-6">
-                <p class="text-lg sm:text-xl mb-6 text-gray-700 dark:text-gray-300 text-center font-semibold">
+                <p class="text-xl sm:text-2xl mb-6 text-gray-700 dark:text-gray-300 text-center font-semibold">
                     Master AI alongside industry experts at the Multiverse School.
                 </p>
 

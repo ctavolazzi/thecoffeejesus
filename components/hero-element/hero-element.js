@@ -28,7 +28,7 @@ class HeroElement extends HTMLElement {
                     max-height: 65vh;
                     object-fit: cover;
                     border-radius: 1rem;
-                    margin: 1rem 0;
+                    margin: 0.5rem 0;
                     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
                 }
             </style>
