@@ -1138,9 +1138,7 @@
 
             if (navigator.share) {
                 navigator.share(shareData)
-                    .then(() => console.log('Successfully shared'))
                     .catch((error) => {
-                        console.log('Error sharing:', error);
                         fallbackShare();
                     });
             } else {

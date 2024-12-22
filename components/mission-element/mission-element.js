@@ -4,7 +4,7 @@ class MissionElement extends HTMLElement {
         this.innerHTML = `
             <style>
                 .mission-container {
-                    padding: 1rem;
+                    padding: 0 1rem;
                     position: relative;
                     overflow: hidden;
                     display: grid;

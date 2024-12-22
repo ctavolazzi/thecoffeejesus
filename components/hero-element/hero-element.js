@@ -101,7 +101,7 @@ class HeroElement extends HTMLElement {
                     padding: 0.75rem;
                 }
                 .tagline-main {
-                    font-size: clamp(1.5rem, 4vw, 2.5rem);
+                    font-size: clamp(1.25rem, 3vw, 2rem);
                     font-weight: 800;
                     margin-bottom: 0.25rem;
                     line-height: 1.1;

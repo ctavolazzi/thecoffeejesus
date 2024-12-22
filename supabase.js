@@ -5,13 +5,10 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 
 const supabaseClient = createClient(supabaseUrl, supabaseKey);
 
-console.log('Supabase client initialized:', supabaseClient);
-
 export async function initializeSupabase() {
     try {
         const { data, error } = await supabaseClient.from('thecoffeejesus_blog').select('id').limit(1);
         if (error) throw error;
-        console.log('Supabase connection successful');
     } catch (error) {
         console.error('Error initializing Supabase:', error);
     }
@@ -50,7 +47,6 @@ export async function testNewsletterConnection() {
             countElement.textContent = count || '0';
         }
 
-        console.log('Newsletter table connection successful. Subscriber count:', count);
         return count;
     } catch (error) {
         console.error('Error connecting to newsletter table:', error);
@@ -61,7 +57,6 @@ export async function testNewsletterConnection() {
 // Test connection on load
 initializeSupabase()
     .then(() => testNewsletterConnection())
-    .then(count => console.log('Newsletter count:', count))
     .catch(err => console.error('Connection test failed:', err));
 
 export default supabaseClient;

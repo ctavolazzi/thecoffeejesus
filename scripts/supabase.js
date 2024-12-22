@@ -5,15 +5,12 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 
 const supabaseClient = createClient(supabaseUrl, supabaseKey);
 
-console.log('Supabase client initialized:', supabaseClient);
-
 export default supabaseClient;
 
 export async function initializeSupabase() {
     try {
         const { data, error } = await supabaseClient.from('thecoffeejesus_blog').select('id').limit(1);
         if (error) throw error;
-        console.log('Supabase connection successful');
     } catch (error) {
         console.error('Error initializing Supabase:', error);
     }

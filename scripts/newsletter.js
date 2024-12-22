@@ -1,8 +1,6 @@
 // Import Supabase client
 import supabaseClient from './supabase.js';
 
-console.log('Newsletter.js loaded');
-
 // Newsletter handling with closure to protect variables
 const NewsletterManager = (function() {
     // Rate limiting

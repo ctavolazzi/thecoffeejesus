@@ -76,11 +76,11 @@ function estimateReadingTime(content) {
 function generateTableOfContents() {
     const headings = document.querySelectorAll('.post-content h2, .post-content h3');
     const toc = document.getElementById('table-of-contents');
-    
+
     if (headings.length > 2) {
         const tocList = document.createElement('ul');
         tocList.className = 'toc-list';
-        
+
         headings.forEach((heading, index) => {
             const listItem = document.createElement('li');
             const link = document.createElement('a');
@@ -88,10 +88,10 @@ function generateTableOfContents() {
             link.href = `#heading-${index}`;
             listItem.appendChild(link);
             tocList.appendChild(listItem);
-            
+
             heading.id = `heading-${index}`;
         });
-        
+
         toc.innerHTML = '<h2>Table of Contents</h2>';
         toc.appendChild(tocList);
     } else {
@@ -106,7 +106,6 @@ window.sharePost = function() {
             title: document.querySelector('.post-title').textContent,
             url: window.location.href
         }).then(() => {
-            console.log('Thanks for sharing!');
         }).catch(console.error);
     } else {
         alert('Web Share API not supported in your browser. You can manually copy the URL to share this post.');
