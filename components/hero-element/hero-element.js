@@ -6,130 +6,100 @@ class HeroElement extends HTMLElement {
 
         this.innerHTML = `
             <style>
-                .social-text {
-                    color: white;
-                    text-shadow:
-                        -1px -1px 0 #000,
-                        1px -1px 0 #000,
-                        -1px 1px 0 #000,
-                        1px 1px 0 #000,
-                        0 2px 4px rgba(0,0,0,0.3);
-                    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                .hero-container {
+                    margin: 0 auto;
+                    max-width: 1100px;
+                    padding: 0 1rem;
+                    background: #1a1b26;
                 }
-                .social-icon {
-                    font-size: 0.7rem;
-                    width: 20px;
-                    height: 20px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    border-radius: 3px;
-                    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
-                    transition: all 0.3s ease;
-                    color: white;
-                    text-decoration: none;
-                    margin: 0 2px;
+                .hero-title {
+                    font-size: 4rem;
+                    font-weight: 800;
+                    text-align: center;
+                    margin-bottom: 2rem;
+                    background: linear-gradient(45deg, #00f2ea, #4facfe, #b465da);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    line-height: 1.1;
                 }
-                .social-icon:hover {
-                    transform: translateY(-3px) scale(1.05);
-                    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-                }
-                .social-icon i {
-                    color: white;
-                    -webkit-text-stroke: 0;
-                    text-stroke: 0;
-                }
-                .social-icon.tiktok {
-                    background: #000000;
-                    background: linear-gradient(45deg, #00f2ea, #ff0050);
-                }
-                .social-icon.instagram {
-                    background: #d6249f;
-                    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
-                }
-                .social-icon.youtube {
-                    background: #FF0000;
-                    background: linear-gradient(45deg, #FF0000, #CC0000);
+                .hero-image {
+                    width: 100%;
+                    height: auto;
+                    max-height: 65vh;
+                    object-fit: cover;
+                    border-radius: 1rem;
+                    margin: 1rem 0;
+                    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
                 }
                 .social-stats-container {
                     position: absolute;
-                    top: 0.5rem;
-                    left: 0;
-                    right: 0;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
                     display: flex;
                     justify-content: center;
-                    gap: 0.5rem;
-                    padding: 0 1rem;
-                    max-width: 300px;
-                    margin: 0 auto;
+                    gap: 1rem;
                 }
                 .social-row {
                     display: flex;
                     align-items: center;
-                    gap: 0.2rem;
-                    background: rgba(0, 0, 0, 0.6);
-                    padding: 0.15rem 0.3rem;
-                    border-radius: 4px;
-                    backdrop-filter: blur(8px);
+                    gap: 0.5rem;
+                    background: rgba(0, 0, 0, 0.5);
+                    padding: 0.5rem 1rem;
+                    border-radius: 8px;
+                }
+                .social-text {
+                    color: white;
+                    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                }
+                .social-icon {
+                    font-size: 1.2rem;
+                    color: white;
+                    text-decoration: none;
                 }
                 .stats {
                     display: flex;
                     align-items: baseline;
-                    min-width: 40px;
-                    gap: 0.15rem;
+                    gap: 0.2rem;
                 }
                 .follower-count {
-                    min-width: 25px;
-                    text-align: right;
-                    font-size: 0.9rem;
-                    font-weight: 800;
-                    letter-spacing: -0.02em;
+                    font-size: 1.2rem;
+                    font-weight: 700;
+                    color: white;
                 }
                 .k-text {
-                    font-size: 0.7rem;
-                    font-weight: 700;
-                    letter-spacing: -0.02em;
-                    opacity: 0.9;
+                    font-size: 1rem;
+                    font-weight: 500;
+                    color: white;
                 }
                 .hero-tagline {
                     position: absolute;
-                    top: 65%;
-                    left: 0;
-                    right: 0;
+                    bottom: 1.5rem;
+                    left: 50%;
+                    transform: translateX(-50%);
                     text-align: center;
-                    color: white;
-                    padding: 0.75rem;
+                    width: 100%;
                 }
                 .tagline-main {
-                    font-size: clamp(1.25rem, 3vw, 2rem);
+                    font-size: 3rem;
                     font-weight: 800;
-                    margin-bottom: 0.25rem;
-                    line-height: 1.1;
-                    color: white;
-                    background: rgba(0, 0, 0, 0.6);
-                    padding: 0.35rem 1rem;
-                    display: inline-block;
-                    border-radius: 4px;
-                    backdrop-filter: blur(8px);
-                    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+                    margin-bottom: 0.75rem;
+                    background: linear-gradient(45deg, #2193b0, #6dd5ed);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
                 }
                 .tagline-sub {
-                    font-size: clamp(0.9rem, 2vw, 1.25rem);
+                    font-size: 1.2rem;
                     font-weight: 500;
-                    max-width: 500px;
-                    margin: 0 auto;
-                    line-height: 1.2;
                     color: white;
-                    background: rgba(0, 0, 0, 0.6);
-                    padding: 0.35rem 1rem;
-                    border-radius: 4px;
+                    background: rgba(0, 0, 0, 0.5);
+                    padding: 1rem 2rem;
+                    border-radius: 8px;
                     display: inline-block;
-                    backdrop-filter: blur(8px);
-                    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
                 }
             </style>
-            <div class="relative">
-                <img src="/static/hero_image.png?date=${formattedDate}" alt="TheCoffeeJesus in cherry blossoms" class="w-full h-auto rounded-lg shadow-2xl">
+            <div class="hero-container">
+                <img src="/static/hero_image.png?date=${formattedDate}" alt="TheCoffeeJesus in cherry blossoms" class="hero-image">
                 <div class="social-stats-container">
                     <div class="social-row">
                         <a href="https://www.tiktok.com/@thecoffeejesus" target="_blank" rel="noopener noreferrer" class="social-icon tiktok">
