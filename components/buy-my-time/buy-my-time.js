@@ -101,6 +101,95 @@ class BuyMyTime extends HTMLElement {
                     text-align: center;
                     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
                     border: 1px solid rgba(255, 255, 255, 0.1);
+                    position: relative;
+                }
+                .value-star {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 12px;
+                    background: linear-gradient(135deg, #0066cc, #004499);
+                    padding: 8px 20px;
+                    border-radius: 25px;
+                    border: 2px solid #ffd700;
+                    box-shadow:
+                        0 0 20px rgba(0, 102, 204, 0.4),
+                        inset 0 0 10px rgba(255, 215, 0, 0.3);
+                    z-index: 1;
+                    width: fit-content;
+                    margin: 0 auto 1rem auto;
+                }
+                .value-star::before {
+                    content: "🏆";
+                    font-size: 1.4rem;
+                    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
+                }
+                .value-star::after {
+                    content: "Most Popular";
+                    font-size: 1.1rem;
+                    color: #ffd700;
+                    font-weight: 800;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    text-shadow:
+                        2px 2px 2px rgba(0, 0, 0, 0.3),
+                        0 0 10px rgba(255, 215, 0, 0.5);
+                }
+                .booking-option.premium {
+                    background: linear-gradient(135deg, rgba(255, 0, 255, 0.2), rgba(0, 255, 255, 0.2));
+                    border: 2px solid rgba(255, 255, 255, 0.3);
+                    position: relative;
+                    text-align: center;
+                }
+                .corner-ribbon {
+                    position: absolute;
+                    top: -8px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 170px;
+                    padding: 5px;
+                    background: linear-gradient(135deg, #0066cc, #004499);
+                    color: #ffd700;
+                    font-weight: 800;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    text-align: center;
+                    box-shadow:
+                        0 3px 10px rgba(0, 0, 0, 0.4),
+                        0 0 20px rgba(0, 102, 204, 0.4),
+                        inset 0 -2px 5px rgba(0, 0, 0, 0.2);
+                    border: 2px solid #ffd700;
+                    border-left: 4px solid #ffd700;
+                    border-right: 4px solid #ffd700;
+                    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+                    font-size: 0.85rem;
+                    line-height: 1.2;
+                    z-index: 10;
+                    transform-style: preserve-3d;
+                    border-radius: 25px;
+                }
+                .corner-ribbon::before,
+                .corner-ribbon::after {
+                    content: '';
+                    position: absolute;
+                    background: #004499;
+                    border: 1px solid #ffd700;
+                    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+                    z-index: -1;
+                }
+                .corner-ribbon::before {
+                    height: 15px;
+                    width: 15px;
+                    bottom: -8px;
+                    left: -8px;
+                    transform: skew(-45deg);
+                }
+                .corner-ribbon::after {
+                    height: 15px;
+                    width: 15px;
+                    bottom: -8px;
+                    right: -8px;
+                    transform: skew(45deg);
                 }
                 .option-title {
                     font-size: 1.75rem;
@@ -117,11 +206,30 @@ class BuyMyTime extends HTMLElement {
                     text-shadow: 0 0 10px rgba(255, 64, 255, 0.5);
                 }
                 .option-description {
-                    color: #ffffff;
-                    margin-bottom: 1rem;
-                    font-size: 1.1rem;
-                    line-height: 1.4;
-                    font-weight: 500;
+                    text-align: center;
+                    margin: 1rem auto;
+                    max-width: 100%;
+                    padding: 0 1.5rem;
+                }
+                .priority-text {
+                    background: linear-gradient(45deg, #ff00ff, #00ffff);
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    color: transparent;
+                    font-weight: bold;
+                    text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+                    animation: glowPulse 2s infinite;
+                }
+                @keyframes glowPulse {
+                    0% {
+                        filter: drop-shadow(0 0 5px rgba(255, 0, 255, 0.5));
+                    }
+                    50% {
+                        filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.7));
+                    }
+                    100% {
+                        filter: drop-shadow(0 0 5px rgba(255, 0, 255, 0.5));
+                    }
                 }
                 .payment-button {
                     display: block;
@@ -171,7 +279,7 @@ class BuyMyTime extends HTMLElement {
                     </div>
                     <div class="stat">
                         <div class="stat-number">Infinite</div>
-                        <div class="stat-label">Potential</div>
+                        <div class="stat-label">Potential   </div>
                     </div>
                 </div>
 
@@ -195,24 +303,32 @@ class BuyMyTime extends HTMLElement {
                         <div class="option-title">Quick Audit</div>
                         <div class="option-price">$10</div>
                         <div class="option-description">15-minute AI readiness assessment</div>
-                        <a href="https://buy.stripe.com/8wM16I5jb76f1yg147" class="payment-button">Book an Assessment</a>
+                        <a href="https://buy.stripe.com/8wM16I5jb76f1yg147" class="payment-button">Book Now</a>
                     </div>
                     <div class="booking-option">
-                        <div class="option-title">Deep Dive</div>
+                        <div class="value-star"></div>
+                        <div class="option-title">30-60(ish) Minute Consultation</div>
                         <div class="option-price">$30</div>
-                        <div class="option-description">30-minute AI strategy consultation</div>
-                        <a href="https://buy.stripe.com/28o4iUfXP2PZ6SA148" class="payment-button">Book a Strategy Session</a>
+                        <div class="option-description">One-time meeting to discuss your <span class="priority-text">Top Priority</span></div>
+                        <a href="https://buy.stripe.com/28o4iUfXP2PZ6SA148" class="payment-button">Book Now</a>
                     </div>
                     <div class="booking-option">
-                        <div class="option-title">Full Strategy</div>
-                        <div class="option-price">$60</div>
-                        <div class="option-description">60-minute comprehensive AI roadmap planning</div>
-                        <a href="https://buy.stripe.com/dR64iU3b32PZ3Go6ot" class="payment-button">Book a Roadmap Session</a>
+                        <div class="option-title">1-2 Hour Deep-Dive Session</div>
+                        <div class="option-price">$150</div>
+                        <div class="option-description">Focused problem-solving session to create future-proof solutions for your biggest challenges</div>
+                        <a href="https://buy.stripe.com/YOUR_GROWTH_LINK" class="payment-button">Book Deep-Dive</a>
+                    </div>
+                    <div class="booking-option premium">
+                        <div class="corner-ribbon">MOST VALUE</div>
+                        <div class="option-title">24/7 Retainer</div>
+                        <div class="option-price">$500/mo</div>
+                        <div class="option-description">Your on-demand Singularity Specialist. 24/7 access with guaranteed responses within 24 hours for all your AI, robotics, and future tech needs.</div>
+                        <a href="https://buy.stripe.com/YOUR_RETAINER_LINK" class="payment-button">Secure 24/7 Access</a>
                     </div>
                 </div>
 
                 <p class="footer-note">
-                    After payment, you'll be directed to schedule your session through my calendar.<br>
+                    After payment, you'll receive instructions for scheduling or accessing your chosen service.<br>
                     Questions? Message me on social media <a href="https://solo.to/thecoffeejesus" class="social-handle">@thecoffeejesus</a>
                 </p>
             </div>
