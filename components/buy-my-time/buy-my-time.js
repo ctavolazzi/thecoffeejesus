@@ -20,7 +20,7 @@ class BuyMyTime extends HTMLElement {
                     width: 100%;
                 }
                 .audit-container {
-                    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+                    background: linear-gradient(135deg, rgba(42, 42, 42, 0.7) 0%, rgba(26, 26, 26, 0.7) 100%);
                     border-radius: 1rem;
                     padding: 1rem;
                     color: white;
@@ -60,11 +60,12 @@ class BuyMyTime extends HTMLElement {
                     text-align: center;
                 }
                 .stat-number {
-                    font-size: 2rem;
+                    font-size: 1.5rem;
                     font-weight: bold;
                     color: #ff00ff;
                 }
                 .stat-label {
+                    font-size: 0.9rem;
                     color: #cccccc;
                 }
                 .features {
@@ -95,7 +96,7 @@ class BuyMyTime extends HTMLElement {
                     width: 100%;
                 }
                 .booking-option {
-                    background: rgba(255, 255, 255, 0.15);
+                    background: rgba(255, 255, 255, 0.02);
                     padding: 1.5rem;
                     border-radius: 0.8rem;
                     text-align: center;
@@ -136,7 +137,7 @@ class BuyMyTime extends HTMLElement {
                         0 0 10px rgba(255, 215, 0, 0.5);
                 }
                 .booking-option.premium {
-                    background: linear-gradient(135deg, rgba(255, 0, 255, 0.2), rgba(0, 255, 255, 0.2));
+                    background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(0, 255, 255, 0.1));
                     border: 2px solid rgba(255, 255, 255, 0.3);
                     position: relative;
                     text-align: center;
@@ -313,10 +314,10 @@ class BuyMyTime extends HTMLElement {
                         <a href="https://buy.stripe.com/28o4iUfXP2PZ6SA148" class="payment-button">Book Now</a>
                     </div>
                     <div class="booking-option">
-                        <div class="option-title">1-2 Hour Deep-Dive Session</div>
-                        <div class="option-price">$150</div>
+                        <div class="option-title">1-2 Hour Deep-Dive</div>
+                        <div class="option-price">$60</div>
                         <div class="option-description">Focused problem-solving session to create future-proof solutions for your biggest challenges</div>
-                        <a href="https://buy.stripe.com/YOUR_GROWTH_LINK" class="payment-button">Book Deep-Dive</a>
+                        <a href="https://buy.stripe.com/dR64iU3b32PZ3Go6ot" class="payment-button">Book Deep-Dive</a>
                     </div>
                     <div class="booking-option premium">
                         <div class="corner-ribbon">MOST VALUE</div>
