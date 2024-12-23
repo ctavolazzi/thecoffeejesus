@@ -323,7 +323,7 @@ class BuyMyTime extends HTMLElement {
                         <div class="option-title">24/7 Retainer</div>
                         <div class="option-price">$500/mo</div>
                         <div class="option-description">Your on-demand Singularity Specialist. 24/7 access with guaranteed responses within 24 hours for all your AI, robotics, and future tech needs.</div>
-                        <a href="https://buy.stripe.com/YOUR_RETAINER_LINK" class="payment-button">Secure 24/7 Access</a>
+                        <a href="https://buy.stripe.com/7sI6r2bHz2PZ1yg9AG" class="payment-button">Secure 24/7 Access</a>
                     </div>
                 </div>
 

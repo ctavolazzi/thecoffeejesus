@@ -218,8 +218,17 @@
     <div id="navbar-placeholder"></div>
 
     <!-- Main Content -->
-    <main class="w-full px-4 sm:px-6 lg:px-8 pt-16 pb-12 space-y-8 relative">
-        <div class="success-container">
+    <main class="w-full px-2 sm:px-3 lg:px-4 pt-16 pb-12 space-y-8 relative">
+        <div class="success-container" style="
+            max-width: 900px;
+            margin: 0.5rem auto;
+            padding: 1rem;
+            background: linear-gradient(135deg, rgba(45, 45, 60, 0.3), rgba(25, 25, 35, 0.3));
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            color: white;
+        ">
             <div style="
                 position: relative;
                 width: 200px;
@@ -325,7 +334,7 @@
                 <div class="step" style="
                     background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
                     border: 1px solid rgba(255, 255, 255, 0.2);
-                    padding: 2rem;
+                    padding: 1.25rem;
                 ">
                     <div class="step-number" style="
                         font-size: 1.8rem;
@@ -341,6 +350,7 @@
                         margin: 1.5rem 0;
                         color: rgba(255, 255, 255, 0.95);
                         line-height: 1.6;
+                        text-align: center;
                     ">Fill out the form below and set up Signal for priority access:</p>
 
                     <div style="
@@ -521,24 +531,27 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="signal_link">Signal Link<br><span style="color: #ff00ff; font-size: 0.9rem;">(Preferred for security & stability)</span></label>
+                        <input type="text" id="signal_link" name="signal_link" placeholder="Your Signal link (if you choose to use Signal)">
+                        <p style="font-size: 0.8rem; margin-top: 0.3rem; color: rgba(255, 255, 255, 0.7);">
+                            To get your Signal link (if you'd like to use Signal):
+                            1. <a href="https://signal.org/download/" target="_blank" class="highlight">Download Signal</a>
+                            2. Open Settings > Profile
+                            3. Tap on your profile to share your Signal link
+                        </p>
+                    </div>
+
+                    <div class="form-group">
                         <label for="preferred_contact">Preferred Contact Method</label>
-                        <input type="text" id="preferred_contact" name="preferred_contact" placeholder="WhatsApp, Text, Email, or Discord" required>
+                        <input type="text" id="preferred_contact" name="preferred_contact" placeholder="Signal, WhatsApp, Text, Email, or Discord - your choice!" required>
+                        <p style="font-size: 0.8rem; margin-top: 0.3rem; color: rgba(255, 255, 255, 0.7);">
+                            I'll use your preferred method - Signal is recommended for security but not required
+                        </p>
                     </div>
 
                     <div class="form-group">
                         <label for="priorities">Initial Priorities/Challenges</label>
                         <textarea id="priorities" name="priorities" rows="4" placeholder="What are the main challenges you'd like help with?" required></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="signal_link">Signal Link <span style="color: #ff00ff; font-size: 0.9rem;">(Preferred)</span></label>
-                        <input type="text" id="signal_link" name="signal_link" placeholder="Your Signal link (preferred for fastest response times)">
-                        <p style="font-size: 0.8rem; margin-top: 0.3rem; color: rgba(255, 255, 255, 0.7);">
-                            To get your Signal link:
-                            1. <a href="https://signal.org/download/" target="_blank" class="highlight">Download Signal</a>
-                            2. Open Settings > Profile
-                            3. Tap on your profile to share your Signal link
-                        </p>
                     </div>
 
                     <div class="disclaimer-container" style="
@@ -681,7 +694,7 @@
                 if (error) throw error;
 
                 formMessage.className = 'form-message success';
-                formMessage.textContent = 'Perfect! Your account is being set up. You\'ll receive a welcome email shortly with next steps!';
+                formMessage.textContent = 'Perfect! Your account is being set up. You\'ll receive a welcome message shortly with next steps!';
                 formMessage.style.display = 'block';
                 e.target.reset();
 
