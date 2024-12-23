@@ -301,9 +301,9 @@ class BuyMyTime extends HTMLElement {
 
                 <div class="booking-options">
                     <div class="booking-option">
-                        <div class="option-title">Quick Audit</div>
+                        <div class="option-title">15-Minute Clarity Call</div>
                         <div class="option-price">$10</div>
-                        <div class="option-description">15-minute AI readiness assessment</div>
+                        <div class="option-description">Turn "I'm overwhelmed" into "I can do this"</div>
                         <a href="https://buy.stripe.com/8wM16I5jb76f1yg147" class="payment-button">Book Now</a>
                     </div>
                     <div class="booking-option">
