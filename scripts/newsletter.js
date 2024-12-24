@@ -1,5 +1,5 @@
 // Import Supabase client
-import supabaseClient from './supabase.js';
+import supabaseClient from '../supabase.js';
 
 // Newsletter handling with closure to protect variables
 const NewsletterManager = (function() {

@@ -261,6 +261,62 @@ class BuyMyTime extends HTMLElement {
                     color: #ff00ff;
                     font-weight: bold;
                 }
+                .disclaimer-link {
+                    color: #00ffff;
+                    text-decoration: none;
+                    padding: 4px 12px;
+                    border: 1px solid #00ffff;
+                    border-radius: 4px;
+                    transition: all 0.2s ease;
+                    display: inline-block;
+                    margin: 8px 0;
+                }
+                .disclaimer-link:hover {
+                    background: rgba(0, 255, 255, 0.1);
+                    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+                    transform: translateY(-1px);
+                }
+                .value-benefits {
+                    display: grid;
+                    gap: 0.5rem;
+                    margin: 1rem 0;
+                    padding: 0.5rem;
+                    background: rgba(255, 255, 255, 0.05);
+                    border-radius: 0.5rem;
+                    text-align: center;
+                }
+                .benefit-item {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 0.75rem;
+                    padding: 0.6rem;
+                    background: rgba(0, 255, 255, 0.05);
+                    border-radius: 0.5rem;
+                    transition: all 0.3s ease;
+                    text-align: center;
+                }
+                .benefit-item span {
+                    text-align: center;
+                    font-weight: 700;
+                }
+                .benefit-item:hover {
+                    background: rgba(255, 0, 255, 0.1);
+                    transform: translateX(5px);
+                }
+                .benefit-icon {
+                    color: #00ffff;
+                    font-size: 1.2rem;
+                    filter: drop-shadow(0 0 5px rgba(0, 255, 255, 0.5));
+                }
+                .premium .option-description {
+                    font-size: 1.2rem;
+                    line-height: 1.6;
+                    margin: 1rem 0;
+                    color: rgba(255, 255, 255, 0.9);
+                    text-align: center;
+                    padding: 0 1rem;
+                }
             </style>
 
             <div class="audit-container">
@@ -286,8 +342,8 @@ class BuyMyTime extends HTMLElement {
 
                 <div class="features">
                     <div class="feature">
-                        <div class="feature-title">AI Strategy</div>
-                        <div class="feature-text">Get personalized guidance on integrating AI into your workflow and business</div>
+                        <div class="feature-title">Quick Audit</div>
+                        <div class="feature-text">Get personalized insights on your social media, content, and business strategy</div>
                     </div>
                     <div class="feature">
                         <div class="feature-title">Risk Assessment</div>
@@ -296,6 +352,10 @@ class BuyMyTime extends HTMLElement {
                     <div class="feature">
                         <div class="feature-title">Future Planning</div>
                         <div class="feature-text">Develop a roadmap for thriving in an AI-driven world</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-title">Problem Solving</div>
+                        <div class="feature-text">Get expert guidance on any challenge you're facing</div>
                     </div>
                 </div>
 
@@ -310,26 +370,47 @@ class BuyMyTime extends HTMLElement {
                         <div class="value-star"></div>
                         <div class="option-title">30-60(ish) Minute Consultation</div>
                         <div class="option-price">$30</div>
-                        <div class="option-description">One-time meeting to discuss your <span class="priority-text">Top Priority</span></div>
+                        <div class="option-description">Turn "What do I do?" into solving your <span class="priority-text">Top Priority</span></div>
                         <a href="https://buy.stripe.com/28o4iUfXP2PZ6SA148" class="payment-button">Book Now</a>
                     </div>
                     <div class="booking-option">
                         <div class="option-title">1-2 Hour Deep-Dive</div>
                         <div class="option-price">$60</div>
-                        <div class="option-description">Focused problem-solving session to create future-proof solutions for your biggest challenges</div>
+                        <div class="option-description">Turn your biggest challenges into breakthrough victories</div>
                         <a href="https://buy.stripe.com/dR64iU3b32PZ3Go6ot" class="payment-button">Book Deep-Dive</a>
                     </div>
                     <div class="booking-option premium">
                         <div class="corner-ribbon">MOST VALUE</div>
                         <div class="option-title">24/7 Retainer</div>
                         <div class="option-price">$500/mo</div>
-                        <div class="option-description">Your on-demand Singularity Specialist. 24/7 access with guaranteed responses within 24 hours for all your AI, robotics, and future tech needs.</div>
+                        <div class="option-description">
+                            While others figure out prompts, you'll have direct access to an AI expert living in the future.
+                        </div>
+                        <div class="value-benefits">
+                            <div class="benefit-item">
+                                <i class="fas fa-bolt benefit-icon"></i>
+                                <span>24/7 Priority Support</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-phone-alt benefit-icon"></i>
+                                <span>Direct Strategy Calls</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-clock benefit-icon"></i>
+                                <span>24hr Response Guarantee</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-rocket benefit-icon"></i>
+                                <span>Instant Tech Advantage</span>
+                            </div>
+                        </div>
                         <a href="https://buy.stripe.com/7sI6r2bHz2PZ1yg9AG" class="payment-button">Secure 24/7 Access</a>
                     </div>
                 </div>
 
                 <p class="footer-note">
-                    After payment, you'll receive instructions for scheduling or accessing your chosen service.<br>
+                    After purchase you will be taken to a calendar page where you will be able to book a time slot. We will use Google Meets to connect. I'm looking forward to meeting with you!<br>
+                    <a href="/legal" class="disclaimer-link">Read the Disclaimer</a><br>
                     Questions? Message me on social media <a href="https://solo.to/thecoffeejesus" class="social-handle">@thecoffeejesus</a>
                 </p>
             </div>
