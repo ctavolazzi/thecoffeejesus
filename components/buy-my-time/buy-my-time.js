@@ -317,11 +317,32 @@ class BuyMyTime extends HTMLElement {
                     text-align: center;
                     padding: 0 1rem;
                 }
+                .unstick-prop {
+                    font-size: 1.4rem;
+                    margin: 1rem 0;
+                    background: linear-gradient(45deg, #00ffff, #ff00ff);
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    color: transparent;
+                    text-align: center;
+                    font-weight: 600;
+                    animation: glow 2s ease-in-out infinite alternate;
+                }
+
+                @keyframes glow {
+                    from {
+                        text-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+                    }
+                    to {
+                        text-shadow: 0 0 20px rgba(255, 0, 255, 0.4);
+                    }
+                }
             </style>
 
             <div class="audit-container">
                 <div class="header">
                     <h2 class="title">Buy My Time</h2>
+                    <p class="unstick-prop">Let me help get you unstuck</p>
                     <p class="subtitle">Learn how to thrive in the AI era and stay competitive in a rapidly evolving digital landscape</p>
                 </div>
 
@@ -363,7 +384,7 @@ class BuyMyTime extends HTMLElement {
                     <div class="booking-option">
                         <div class="option-title">Quick Clarity Call</div>
                         <div class="option-price">$10</div>
-                        <div class="option-description">Turn "I'm overwhelmed" into "I can do this"</div>
+                        <div class="option-description">Turn "I'm stuck" into "I can do this"</div>
                         <a href="https://buy.stripe.com/8wM16I5jb76f1yg147" class="payment-button">Book Now</a>
                     </div>
                     <div class="booking-option">
