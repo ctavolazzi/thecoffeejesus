@@ -16,48 +16,55 @@ class BuyMyTime extends HTMLElement {
                 }
                 :host {
                     display: block;
-                    margin: 0.5rem 0;
+                    margin: 0 auto;
                     width: 100%;
+                    max-width: 1400px;
                 }
                 .audit-container {
                     background: linear-gradient(135deg, rgba(42, 42, 42, 0.7) 0%, rgba(26, 26, 26, 0.7) 100%);
                     border-radius: 1rem;
-                    padding: 1rem;
+                    padding: 0.5rem 1rem 2rem;
                     color: white;
                     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                    max-width: 800px;
+                    width: 95%;
                     margin: 0 auto;
-                    width: 100%;
                 }
                 .header {
                     text-align: center;
-                    margin-bottom: 0.5rem;
-                    margin-top: 0;
-                    padding-top: 0;
+                    margin-bottom: 1.5rem;
+                    max-width: 800px;
+                    margin-left: auto;
+                    margin-right: auto;
                 }
                 .title {
-                    font-size: 2.5rem;
+                    font-size: clamp(2rem, 5vw, 2.5rem);
                     font-weight: bold;
-                    margin: 0 0 0.25rem 0;
+                    margin: 0;
                     background: linear-gradient(45deg, #ff00ff, #00ffff);
                     -webkit-background-clip: text;
                     background-clip: text;
                     color: transparent;
                 }
                 .subtitle {
-                    font-size: 1.1rem;
+                    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
                     color: #cccccc;
-                    margin-bottom: 0.75rem;
+                    margin: 0 auto 1rem;
+                    max-width: 600px;
+                    padding: 0 1rem;
+                    line-height: 1.5;
                 }
                 .stats {
                     display: flex;
                     justify-content: center;
-                    gap: 1.5rem;
-                    margin-bottom: 1rem;
+                    gap: clamp(2rem, 4vw, 3rem);
+                    margin: 2rem 0;
                     flex-wrap: wrap;
+                    padding: 0 1rem;
                 }
                 .stat {
                     text-align: center;
+                    min-width: 120px;
+                    flex: 0 1 auto;
                 }
                 .stat-number {
                     font-size: 1.5rem;
@@ -70,14 +77,51 @@ class BuyMyTime extends HTMLElement {
                 }
                 .features {
                     display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                    gap: 1rem;
-                    margin-bottom: 1.5rem;
+                    grid-template-columns: repeat(3, 1fr);
+                    grid-template-areas:
+                        "audit risk future"
+                        "problem problem problem";
+                    gap: 1.5rem;
+                    margin: 2.5rem auto;
+                    max-width: 1200px;
+                    padding: 0 1rem;
                 }
                 .feature {
                     background: rgba(255, 255, 255, 0.1);
-                    padding: 1rem;
+                    padding: 1.5rem;
                     border-radius: 0.5rem;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.5rem;
+                    width: 100%;
+                }
+                .feature:nth-child(1) { grid-area: audit; }
+                .feature:nth-child(2) { grid-area: risk; }
+                .feature:nth-child(3) { grid-area: future; }
+                .feature:nth-child(4) {
+                    grid-area: problem;
+                    max-width: 800px;
+                    margin: 0 auto;
+                    text-align: center;
+                    padding: 2rem;
+                    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                }
+                .feature:nth-child(4) .feature-title {
+                    font-size: 2rem;
+                    margin-bottom: 1rem;
+                    background: linear-gradient(45deg, #00ffff, #ff00ff);
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    color: transparent;
+                    text-shadow: none;
+                }
+                .feature:nth-child(4) .feature-text {
+                    font-size: 1.2rem;
+                    line-height: 1.6;
+                    color: #ffffff;
+                    max-width: 600px;
+                    margin: 0 auto;
                 }
                 .feature-title {
                     font-size: 1.2rem;
@@ -88,129 +132,191 @@ class BuyMyTime extends HTMLElement {
                 .feature-text {
                     color: #cccccc;
                 }
-                .booking-options {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                    gap: 1rem;
-                    margin: 1.5rem 0;
+                .top-options {
+                    display: flex;
+                    justify-content: space-between;
+                    gap: 1.5rem;
+                    margin: 2rem auto;
+                    max-width: 1200px;
+                    padding: 0 1rem;
+                }
+                .top-options > div {
+                    flex: 1;
                     width: 100%;
+                }
+                .bottom-option {
+                    max-width: 800px;
+                    margin: 2rem auto;
+                    padding: 0 1rem;
                 }
                 .booking-option {
                     background: rgba(255, 255, 255, 0.02);
-                    padding: 1.5rem;
-                    border-radius: 0.8rem;
+                    padding: 1.5rem 1.25rem;
+                    border-radius: 1.25rem;
                     text-align: center;
-                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+                    box-shadow:
+                        0 8px 32px rgba(0, 0, 0, 0.2),
+                        0 2px 8px rgba(0, 0, 0, 0.1);
                     border: 1px solid rgba(255, 255, 255, 0.1);
                     position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1rem;
+                    justify-content: space-between;
+                    height: 100%;
+                    backdrop-filter: blur(10px);
                 }
-                .value-star {
+                .option-content {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.75rem;
+                    flex-grow: 1;
+                }
+                .option-header {
+                    margin: 0;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.75rem;
+                }
+                .option-title {
+                    font-size: clamp(1.5rem, 4vw, 1.75rem);
+                    font-weight: 800;
+                    color: #40ffff;
+                    margin: 0;
+                    text-shadow:
+                        0 0 20px rgba(64, 255, 255, 0.4),
+                        0 0 40px rgba(64, 255, 255, 0.2);
+                    line-height: 1.1;
+                    letter-spacing: -0.02em;
+                }
+                .booking-option .option-price {
+                    font-size: clamp(2.25rem, 5vw, 2.75rem);
+                    font-weight: 800;
+                    color: #ff40ff;
+                    margin: 0.75rem 0 0;
+                    text-shadow:
+                        0 0 30px rgba(255, 64, 255, 0.5),
+                        0 0 60px rgba(255, 64, 255, 0.3);
+                    line-height: 1;
+                    letter-spacing: -0.03em;
+                }
+                .option-description {
+                    text-align: center;
+                    margin: 0;
+                    padding: 0;
+                    font-size: 1.15rem;
+                    line-height: 1.4;
+                    color: rgba(255, 255, 255, 0.95);
+                    flex-grow: 1;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    gap: 12px;
+                }
+                .option-description p {
+                    margin: 0;
+                    padding: 0;
+                }
+                .option-footer {
+                    margin: 0;
+                }
+                .value-star {
                     background: linear-gradient(135deg, #0066cc, #004499);
-                    padding: 8px 20px;
-                    border-radius: 25px;
+                    color: #ffd700;
+                    padding: 6px 16px;
+                    border-radius: 20px;
                     border: 2px solid #ffd700;
                     box-shadow:
-                        0 0 20px rgba(0, 102, 204, 0.4),
-                        inset 0 0 10px rgba(255, 215, 0, 0.3);
+                        0 4px 15px rgba(0, 102, 204, 0.3),
+                        0 0 20px rgba(255, 215, 0, 0.1);
+                    font-weight: bold;
+                    font-size: 0.75rem;
+                    letter-spacing: 1px;
+                    position: absolute;
+                    top: -12px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    white-space: nowrap;
                     z-index: 1;
-                    width: fit-content;
-                    margin: 0 auto 1rem auto;
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
                 }
-                .value-star::before {
-                    content: "🏆";
-                    font-size: 1.4rem;
-                    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
-                }
-                .value-star::after {
-                    content: "Most Popular";
-                    font-size: 1.1rem;
-                    color: #ffd700;
-                    font-weight: 800;
-                    text-transform: uppercase;
-                    letter-spacing: 0.5px;
-                    text-shadow:
-                        2px 2px 2px rgba(0, 0, 0, 0.3),
-                        0 0 10px rgba(255, 215, 0, 0.5);
+                .value-star:after {
+                    content: "";
+                    position: absolute;
+                    inset: -2px;
+                    border-radius: 30px;
+                    padding: 2px;
+                    background: linear-gradient(135deg, rgba(255, 215, 0, 0.5), rgba(255, 215, 0, 0.2));
+                    -webkit-mask:
+                        linear-gradient(#fff 0 0) content-box,
+                        linear-gradient(#fff 0 0);
+                    mask:
+                        linear-gradient(#fff 0 0) content-box,
+                        linear-gradient(#fff 0 0);
+                    -webkit-mask-composite: xor;
+                    mask-composite: exclude;
+                    pointer-events: none;
                 }
                 .booking-option.premium {
-                    background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(0, 255, 255, 0.1));
-                    border: 2px solid rgba(255, 255, 255, 0.3);
-                    position: relative;
+                    background: linear-gradient(
+                        135deg,
+                        rgba(255, 0, 255, 0.15),
+                        rgba(0, 255, 255, 0.15)
+                    );
+                    border: 2px solid rgba(255, 255, 255, 0.2);
+                    padding: 2rem 2rem 2rem;
+                    box-shadow:
+                        0 12px 40px rgba(0, 0, 0, 0.3),
+                        0 4px 12px rgba(0, 0, 0, 0.1);
+                }
+                .premium .option-title {
+                    margin-bottom: 0.5rem;
+                }
+                .premium .option-price {
+                    margin-bottom: 1rem;
+                }
+                .premium .option-description {
+                    font-size: 1.25rem;
+                    line-height: 1.4;
+                    margin: 0 0 1rem 0;
+                    color: rgba(255, 255, 255, 0.95);
                     text-align: center;
+                    padding: 0;
                 }
                 .corner-ribbon {
                     position: absolute;
-                    top: -8px;
+                    top: -10px;
                     left: 50%;
                     transform: translateX(-50%);
-                    width: 170px;
-                    padding: 5px;
-                    background: linear-gradient(135deg, #0066cc, #004499);
+                    width: auto;
+                    padding: 0.35rem 1rem;
+                    background: linear-gradient(135deg, #0077ff, #0044cc);
                     color: #ffd700;
                     font-weight: 800;
                     text-transform: uppercase;
                     letter-spacing: 0.5px;
                     text-align: center;
                     box-shadow:
-                        0 3px 10px rgba(0, 0, 0, 0.4),
-                        0 0 20px rgba(0, 102, 204, 0.4),
-                        inset 0 -2px 5px rgba(0, 0, 0, 0.2);
-                    border: 2px solid #ffd700;
-                    border-left: 4px solid #ffd700;
-                    border-right: 4px solid #ffd700;
-                    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
-                    font-size: 0.85rem;
-                    line-height: 1.2;
+                        0 2px 8px rgba(0, 0, 0, 0.2),
+                        0 0 15px rgba(0, 119, 255, 0.3);
+                    border: 1px solid #ffd700;
+                    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+                    font-size: 0.65rem;
+                    line-height: 1;
                     z-index: 10;
-                    transform-style: preserve-3d;
-                    border-radius: 25px;
+                    border-radius: 1rem;
                 }
                 .corner-ribbon::before,
                 .corner-ribbon::after {
-                    content: '';
-                    position: absolute;
-                    background: #004499;
-                    border: 1px solid #ffd700;
-                    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-                    z-index: -1;
-                }
-                .corner-ribbon::before {
-                    height: 15px;
-                    width: 15px;
-                    bottom: -8px;
-                    left: -8px;
-                    transform: skew(-45deg);
-                }
-                .corner-ribbon::after {
-                    height: 15px;
-                    width: 15px;
-                    bottom: -8px;
-                    right: -8px;
-                    transform: skew(45deg);
-                }
-                .option-title {
-                    font-size: 1.75rem;
-                    font-weight: 800;
-                    color: #40ffff;
-                    margin-bottom: 0.5rem;
-                    text-shadow: 0 0 10px rgba(64, 255, 255, 0.5);
-                }
-                .option-price {
-                    font-size: 2.25rem;
-                    font-weight: bold;
-                    color: #ff40ff;
-                    margin-bottom: 1rem;
-                    text-shadow: 0 0 10px rgba(255, 64, 255, 0.5);
+                    display: none;
                 }
                 .option-description {
                     text-align: center;
                     margin: 1rem auto;
-                    max-width: 100%;
-                    padding: 0 1.5rem;
+                    padding: 0 0.5rem;
+                    font-size: clamp(0.9rem, 2.5vw, 1rem);
+                    word-break: break-word;
                 }
                 .priority-text {
                     background: linear-gradient(45deg, #ff00ff, #00ffff);
@@ -254,8 +360,11 @@ class BuyMyTime extends HTMLElement {
                 .footer-note {
                     text-align: center;
                     color: #cccccc;
-                    margin-top: 1.5rem;
+                    margin: 2rem auto 0;
                     font-size: 0.9rem;
+                    max-width: 600px;
+                    padding: 0 1rem;
+                    line-height: 1.6;
                 }
                 .social-handle {
                     color: #ff00ff;
@@ -310,16 +419,16 @@ class BuyMyTime extends HTMLElement {
                     filter: drop-shadow(0 0 5px rgba(0, 255, 255, 0.5));
                 }
                 .premium .option-description {
-                    font-size: 1.2rem;
+                    font-size: 1.35rem;
                     line-height: 1.6;
-                    margin: 1rem 0;
-                    color: rgba(255, 255, 255, 0.9);
+                    margin: 0;
+                    color: rgba(255, 255, 255, 0.95);
                     text-align: center;
-                    padding: 0 1rem;
+                    padding: 0;
                 }
                 .unstick-prop {
                     font-size: 1.4rem;
-                    margin: 1rem 0;
+                    margin: 0.5rem 0;
                     background: linear-gradient(45deg, #00ffff, #ff00ff);
                     -webkit-background-clip: text;
                     background-clip: text;
@@ -336,6 +445,242 @@ class BuyMyTime extends HTMLElement {
                     to {
                         text-shadow: 0 0 20px rgba(255, 0, 255, 0.4);
                     }
+                }
+
+                @media (max-width: 768px) {
+                    .audit-container {
+                        padding: 1.5rem 1rem;
+                    }
+
+                    .booking-option {
+                        padding: 1.5rem 1rem;
+                    }
+
+                    .features {
+                        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                    }
+
+                    .stats {
+                        gap: 1.5rem;
+                    }
+
+                    .top-options {
+                        flex-direction: column;
+                        align-items: center;
+                        gap: 1.5rem;
+                    }
+                    .top-options > div {
+                        max-width: 400px;
+                        width: 100%;
+                    }
+                    /* Set specific order for mobile */
+                    .top-options > div:nth-child(1) { order: 1; } /* $10 first */
+                    .top-options > div:nth-child(2) { order: 2; } /* $30 second */
+                    .top-options > div:nth-child(3) { order: 3; } /* $60 third */
+                    .bottom-option { order: 4; } /* Retainer last */
+                }
+
+                @media (max-width: 480px) {
+                    .audit-container {
+                        width: 98%;
+                        padding: 1rem;
+                    }
+
+                    .stats {
+                        gap: 1rem;
+                    }
+
+                    .stat {
+                        min-width: 100px;
+                    }
+
+                    .features {
+                        gap: 1rem;
+                    }
+
+                    .booking-options {
+                        gap: 1.5rem;
+                    }
+                }
+
+                @media (min-width: 1200px) {
+                    .booking-options {
+                        grid-template-columns: repeat(4, minmax(240px, 1fr));
+                    }
+                }
+
+                @media (min-width: 768px) and (max-width: 1199px) {
+                    .booking-options {
+                        grid-template-columns: repeat(2, minmax(240px, 1fr));
+                    }
+                }
+
+                @media (max-width: 767px) {
+                    .booking-options {
+                        grid-template-columns: minmax(240px, 1fr);
+                    }
+                    .booking-option {
+                        max-width: 350px;
+                    }
+                }
+
+                @media (max-width: 1024px) {
+                    .features {
+                        grid-template-columns: repeat(2, 1fr);
+                        grid-template-areas:
+                            "audit risk"
+                            "future future"
+                            "problem problem";
+                        gap: 1.5rem;
+                    }
+                    .feature:nth-child(3) {
+                        max-width: 600px;
+                        margin: 0 auto;
+                    }
+                }
+
+                @media (max-width: 768px) {
+                    .features {
+                        grid-template-columns: 1fr;
+                        grid-template-areas:
+                            "audit"
+                            "risk"
+                            "future"
+                            "problem";
+                        gap: 1rem;
+                    }
+                    .feature,
+                    .feature:nth-child(3),
+                    .feature:nth-child(4) {
+                        max-width: 400px;
+                        margin: 0 auto;
+                    }
+                }
+
+                @media (max-width: 1024px) {
+                    .booking-options {
+                        flex-direction: column;
+                        align-items: center;
+                        gap: 1.5rem;
+                    }
+                    .booking-option,
+                    .booking-option:nth-child(-n+3) {
+                        max-width: 500px;
+                        flex-basis: 100%;
+                    }
+                    /* On mobile, show Most Popular first */
+                    .booking-option:nth-child(2) {
+                        order: -1;
+                    }
+                }
+
+                @media (max-width: 768px) {
+                    .booking-options {
+                        gap: 1.25rem;
+                    }
+                    .booking-option,
+                    .booking-option:nth-child(4) {
+                        max-width: 400px;
+                    }
+                }
+
+                @media (max-width: 480px) {
+                    .booking-options {
+                        gap: 1rem;
+                        padding: 0 0.5rem;
+                    }
+                    .booking-option {
+                        max-width: 100%;
+                    }
+                }
+
+                .book-button {
+                    width: 100%;
+                    display: inline-block;
+                    padding: 0.9rem 2rem;
+                    background: linear-gradient(135deg, #0088ff, #0055cc);
+                    color: white;
+                    text-decoration: none;
+                    border-radius: 0.75rem;
+                    font-size: 1.15rem;
+                    font-weight: 700;
+                    border: none;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+                    box-shadow:
+                        0 4px 12px rgba(0, 0, 0, 0.15),
+                        0 2px 4px rgba(0, 0, 0, 0.1),
+                        inset 0 1px rgba(255, 255, 255, 0.1);
+                    letter-spacing: 0.02em;
+                    margin-top: 0.5rem;
+                }
+
+                .book-button:hover {
+                    transform: translateY(-2px);
+                    background: linear-gradient(135deg, #0099ff, #0066dd);
+                    box-shadow:
+                        0 6px 16px rgba(0, 136, 255, 0.25),
+                        0 4px 8px rgba(0, 0, 0, 0.1),
+                        inset 0 1px rgba(255, 255, 255, 0.2);
+                }
+
+                .book-button:active {
+                    transform: translateY(0);
+                    box-shadow:
+                        0 2px 8px rgba(0, 0, 0, 0.1),
+                        inset 0 1px 2px rgba(0, 0, 0, 0.1);
+                }
+
+                .booking-option p {
+                    flex-grow: 1;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 0;
+                    font-size: 1.1rem;
+                    line-height: 1.4;
+                    padding: 0 0.5rem;
+                }
+
+                .premium .book-button {
+                    margin-top: 1rem;
+                    background: linear-gradient(135deg, #0099ff, #0066dd);
+                    box-shadow:
+                        0 6px 20px rgba(0, 136, 255, 0.3),
+                        0 3px 8px rgba(0, 0, 0, 0.2),
+                        inset 0 1px rgba(255, 255, 255, 0.2);
+                    font-size: 1.25rem;
+                    padding: 1.25rem 2rem;
+                }
+
+                .limited-time {
+                    margin: 1rem 0;
+                    padding: 1rem;
+                    background: rgba(0, 0, 0, 0.2);
+                    border-radius: 0.75rem;
+                    border: 1px solid rgba(255, 215, 0, 0.3);
+                }
+
+                .limited-time p {
+                    color: #ffd700;
+                    font-size: 0.9rem;
+                    margin: 0;
+                    font-weight: bold;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.75rem;
+                    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                }
+
+                .limited-time p span:first-child {
+                    font-size: 1rem;
+                    letter-spacing: 0.5px;
+                }
+
+                .limited-time p span:nth-child(2) {
+                    font-size: 0.8rem;
+                    opacity: 0.9;
                 }
             </style>
 
@@ -375,57 +720,72 @@ class BuyMyTime extends HTMLElement {
                         <div class="feature-text">Develop a roadmap for thriving in an AI-driven world</div>
                     </div>
                     <div class="feature">
-                        <div class="feature-title">Problem Solving</div>
-                        <div class="feature-text">Get expert guidance on any challenge you're facing</div>
+                        <div class="feature-title">Transform Your Challenges</div>
+                        <div class="feature-text">
+                            Turn confusion into clarity and obstacles into opportunities with expert guidance that gets results.
+                        </div>
                     </div>
                 </div>
 
-                <div class="booking-options">
+                <div class="top-options">
                     <div class="booking-option">
-                        <div class="option-title">Quick Clarity Call</div>
-                        <div class="option-price">$10</div>
-                        <div class="option-description">Turn "I'm stuck" into "I can do this"</div>
-                        <a href="https://buy.stripe.com/8wM16I5jb76f1yg147" class="payment-button">Book Now</a>
+                        <div class="option-content">
+                            <div class="option-header">
+                                <h3 class="option-title">Quick Clarity Call</h3>
+                                <p class="option-price">$10</p>
+                            </div>
+                            <div class="option-description">
+                                <p>Turn "I'm stuck" into "I can do this"</p>
+                            </div>
+                            <div class="option-footer">
+                                <a href="https://buy.stripe.com/8wM16I5jb76f1yg147" class="book-button">Book Now</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="booking-option">
-                        <div class="value-star"></div>
-                        <div class="option-title">30-60(ish) Minute Consultation</div>
-                        <div class="option-price">$30</div>
-                        <div class="option-description">Turn "What do I do?" into solving your <span class="priority-text">Top Priority</span></div>
-                        <a href="https://buy.stripe.com/28o4iUfXP2PZ6SA148" class="payment-button">Book Now</a>
+                        <div class="option-content">
+                            <div class="option-header">
+                                <h3 class="option-title">30-60(ish) Minute Consultation</h3>
+                                <p class="option-price">$30</p>
+                            </div>
+                            <div class="option-description">
+                                <p>Turn "What do I do?" into solving your Top Priority</p>
+                            </div>
+                            <div class="option-footer">
+                                <a href="https://buy.stripe.com/28o4iUfXP2PZ6SA148" class="book-button">Book Now</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="booking-option">
-                        <div class="option-title">1-2 Hour Deep-Dive</div>
-                        <div class="option-price">$60</div>
-                        <div class="option-description">Turn your biggest challenges into breakthrough victories</div>
-                        <a href="https://buy.stripe.com/dR64iU3b32PZ3Go6ot" class="payment-button">Book Deep-Dive</a>
+                        <div class="option-content">
+                            <div class="option-header">
+                                <h3 class="option-title">1-2 Hour Deep-Dive</h3>
+                                <p class="option-price">$60</p>
+                            </div>
+                            <div class="option-description">
+                                <p>Turn your biggest challenges into breakthrough victories</p>
+                            </div>
+                            <div class="option-footer">
+                                <a href="https://buy.stripe.com/dR64iU3b32PZ3Go6ot" class="book-button">Book Deep-Dive</a>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                <div class="bottom-option">
                     <div class="booking-option premium">
-                        <div class="corner-ribbon">MOST VALUE</div>
-                        <div class="option-title">24/7 Retainer</div>
-                        <div class="option-price">$500/mo</div>
-                        <div class="option-description">
-                            While others figure out prompts, you'll have direct access to an AI expert living in the future.
+                        <div class="corner-ribbon">BEST VALUE</div>
+                        <h3 class="option-title">24/7 Retainer</h3>
+                        <p class="option-price">$500</p>
+                        <p>Turn confusion into clarity and obstacles into opportunities with expert guidance that gets results</p>
+                        <div class="limited-time">
+                            <p style="color: #ffd700; font-size: 0.9rem; margin: 0.5rem 0; font-weight: bold; display: flex; flex-direction: column; gap: 0.5rem;">
+                                <span>🔥 Limited Time & Spots 🔥</span>
+                                <span style="font-size: 0.6rem;">Price increases with each new signup</span>
+                                <span>Once spots are filled, waitlist only</span>
+                            </p>
                         </div>
-                        <div class="value-benefits">
-                            <div class="benefit-item">
-                                <i class="fas fa-bolt benefit-icon"></i>
-                                <span>24/7 Priority Support</span>
-                            </div>
-                            <div class="benefit-item">
-                                <i class="fas fa-phone-alt benefit-icon"></i>
-                                <span>Direct Strategy Calls</span>
-                            </div>
-                            <div class="benefit-item">
-                                <i class="fas fa-clock benefit-icon"></i>
-                                <span>24hr Response Guarantee</span>
-                            </div>
-                            <div class="benefit-item">
-                                <i class="fas fa-rocket benefit-icon"></i>
-                                <span>Instant Tech Advantage</span>
-                            </div>
-                        </div>
-                        <a href="https://buy.stripe.com/7sI6r2bHz2PZ1yg9AG" class="payment-button">Secure 24/7 Access</a>
+                        <a href="https://buy.stripe.com/7sI6r2bHz2PZ1yg9AG" class="book-button">Purchase 24/7 Access</a>
+                        <p style="font-size: 0.8rem; margin-top: 1rem; color: rgba(255, 255, 255, 0.8);">After purchase, you'll be directed to an intake form to set up your account and access.</p>
                     </div>
                 </div>
 
